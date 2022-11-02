@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63108EAC2912A03100808888 /* ArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EAB2912A03100808888 /* ArticleView.swift */; };
+		63108EAE2912A04000808888 /* WardrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EAD2912A04000808888 /* WardrobeView.swift */; };
+		63108EB02912A04F00808888 /* OutfitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EAF2912A04F00808888 /* OutfitsView.swift */; };
+		63108EB22912A06100808888 /* OutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB12912A06100808888 /* OutfitView.swift */; };
+		63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB32912A07400808888 /* ImageCaptureView.swift */; };
+		63108EB62912A21B00808888 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB52912A21B00808888 /* Article.swift */; };
+		63108EB82912A22400808888 /* Outfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB72912A22400808888 /* Outfit.swift */; };
+		63108EBB2912A7CB00808888 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 63108EBA2912A7CB00808888 /* Alamofire */; };
+		63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBC2912A82500808888 /* ImaggaRouter.swift */; };
+		63108EBF2912A90900808888 /* PhotoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBE2912A90900808888 /* PhotoColor.swift */; };
+		63108EC72912B69100808888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC62912B69100808888 /* ViewController.swift */; };
 		63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87128F25954009D30B1 /* closet_color_idApp.swift */; };
 		63C8C87428F25954009D30B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87328F25954009D30B1 /* ContentView.swift */; };
 		63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C8C87528F25958009D30B1 /* Assets.xcassets */; };
@@ -14,6 +25,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63108EAB2912A03100808888 /* ArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleView.swift; sourceTree = "<group>"; };
+		63108EAD2912A04000808888 /* WardrobeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeView.swift; sourceTree = "<group>"; };
+		63108EAF2912A04F00808888 /* OutfitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitsView.swift; sourceTree = "<group>"; };
+		63108EB12912A06100808888 /* OutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitView.swift; sourceTree = "<group>"; };
+		63108EB32912A07400808888 /* ImageCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureView.swift; sourceTree = "<group>"; };
+		63108EB52912A21B00808888 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		63108EB72912A22400808888 /* Outfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outfit.swift; sourceTree = "<group>"; };
+		63108EBC2912A82500808888 /* ImaggaRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
+		63108EBE2912A90900808888 /* PhotoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoColor.swift; sourceTree = "<group>"; };
+		63108EC62912B69100808888 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63C8C86E28F25954009D30B1 /* closet-color-id.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "closet-color-id.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C8C87128F25954009D30B1 /* closet_color_idApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closet_color_idApp.swift; sourceTree = "<group>"; };
 		63C8C87328F25954009D30B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,12 +47,44 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63108EBB2912A7CB00808888 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63108EA829129FAD00808888 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				63108EB52912A21B00808888 /* Article.swift */,
+				63108EB72912A22400808888 /* Outfit.swift */,
+				63108EBE2912A90900808888 /* PhotoColor.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		63108EA929129FB800808888 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				63C8C87328F25954009D30B1 /* ContentView.swift */,
+				63108EAB2912A03100808888 /* ArticleView.swift */,
+				63108EAD2912A04000808888 /* WardrobeView.swift */,
+				63108EAF2912A04F00808888 /* OutfitsView.swift */,
+				63108EB12912A06100808888 /* OutfitView.swift */,
+				63108EB32912A07400808888 /* ImageCaptureView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		63108EAA29129FBF00808888 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				63108EC62912B69100808888 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		63C8C86528F25954009D30B1 = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +104,13 @@
 		63C8C87028F25954009D30B1 /* closet-color-id */ = {
 			isa = PBXGroup;
 			children = (
+				63108EAA29129FBF00808888 /* ViewControllers */,
+				63108EA929129FB800808888 /* Views */,
+				63108EA829129FAD00808888 /* Models */,
 				63C8C87128F25954009D30B1 /* closet_color_idApp.swift */,
-				63C8C87328F25954009D30B1 /* ContentView.swift */,
 				63C8C87528F25958009D30B1 /* Assets.xcassets */,
 				63C8C87728F25958009D30B1 /* Preview Content */,
+				63108EBC2912A82500808888 /* ImaggaRouter.swift */,
 			);
 			path = "closet-color-id";
 			sourceTree = "<group>";
@@ -83,6 +139,9 @@
 			dependencies = (
 			);
 			name = "closet-color-id";
+			packageProductDependencies = (
+				63108EBA2912A7CB00808888 /* Alamofire */,
+			);
 			productName = "closet-color-id";
 			productReference = 63C8C86E28F25954009D30B1 /* closet-color-id.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +170,9 @@
 				Base,
 			);
 			mainGroup = 63C8C86528F25954009D30B1;
+			packageReferences = (
+				63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 63C8C86F28F25954009D30B1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,7 +200,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C8C87428F25954009D30B1 /* ContentView.swift in Sources */,
+				63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */,
+				63108EAC2912A03100808888 /* ArticleView.swift in Sources */,
+				63108EAE2912A04000808888 /* WardrobeView.swift in Sources */,
+				63108EB62912A21B00808888 /* Article.swift in Sources */,
+				63108EBF2912A90900808888 /* PhotoColor.swift in Sources */,
+				63108EB82912A22400808888 /* Outfit.swift in Sources */,
+				63108EC72912B69100808888 /* ViewController.swift in Sources */,
+				63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */,
 				63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */,
+				63108EB02912A04F00808888 /* OutfitsView.swift in Sources */,
+				63108EB22912A06100808888 /* OutfitView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		63108EBA2912A7CB00808888 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 63C8C86628F25954009D30B1 /* Project object */;
 }
