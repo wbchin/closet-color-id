@@ -18,6 +18,16 @@
 		63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBC2912A82500808888 /* ImaggaRouter.swift */; };
 		63108EBF2912A90900808888 /* PhotoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBE2912A90900808888 /* PhotoColor.swift */; };
 		63108EC72912B69100808888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC62912B69100808888 /* ViewController.swift */; };
+		63108EC92912D19300808888 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC82912D19300808888 /* Category.swift */; };
+		63108ECB2912D2D000808888 /* CategoryArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108ECA2912D2D000808888 /* CategoryArticle.swift */; };
+		638038372912DFCA008F2157 /* CategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038362912DFCA008F2157 /* CategoryName.swift */; };
+		638038392912E26C008F2157 /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038382912E26C008F2157 /* Subcategory.swift */; };
+		6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380383A2912FD58008F2157 /* SubcategoryName.swift */; };
+		6380383D2913093A008F2157 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380383C2913093A008F2157 /* Style.swift */; };
+		6380383F29130982008F2157 /* ArticleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380383E29130982008F2157 /* ArticleStyle.swift */; };
+		6380384129130A10008F2157 /* SubcategoryArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384029130A0F008F2157 /* SubcategoryArticle.swift */; };
+		6380384329130AC6008F2157 /* ArticleOutfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384229130AC6008F2157 /* ArticleOutfit.swift */; };
+		6380384529130BA4008F2157 /* StyleOutfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384429130BA4008F2157 /* StyleOutfit.swift */; };
 		63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87128F25954009D30B1 /* closet_color_idApp.swift */; };
 		63C8C87428F25954009D30B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87328F25954009D30B1 /* ContentView.swift */; };
 		63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C8C87528F25958009D30B1 /* Assets.xcassets */; };
@@ -35,6 +45,16 @@
 		63108EBC2912A82500808888 /* ImaggaRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
 		63108EBE2912A90900808888 /* PhotoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoColor.swift; sourceTree = "<group>"; };
 		63108EC62912B69100808888 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		63108EC82912D19300808888 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		63108ECA2912D2D000808888 /* CategoryArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticle.swift; sourceTree = "<group>"; };
+		638038362912DFCA008F2157 /* CategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryName.swift; sourceTree = "<group>"; };
+		638038382912E26C008F2157 /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
+		6380383A2912FD58008F2157 /* SubcategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryName.swift; sourceTree = "<group>"; };
+		6380383C2913093A008F2157 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		6380383E29130982008F2157 /* ArticleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleStyle.swift; sourceTree = "<group>"; };
+		6380384029130A0F008F2157 /* SubcategoryArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryArticle.swift; sourceTree = "<group>"; };
+		6380384229130AC6008F2157 /* ArticleOutfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleOutfit.swift; sourceTree = "<group>"; };
+		6380384429130BA4008F2157 /* StyleOutfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleOutfit.swift; sourceTree = "<group>"; };
 		63C8C86E28F25954009D30B1 /* closet-color-id.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "closet-color-id.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C8C87128F25954009D30B1 /* closet_color_idApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closet_color_idApp.swift; sourceTree = "<group>"; };
 		63C8C87328F25954009D30B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +80,16 @@
 				63108EB52912A21B00808888 /* Article.swift */,
 				63108EB72912A22400808888 /* Outfit.swift */,
 				63108EBE2912A90900808888 /* PhotoColor.swift */,
+				63108EC82912D19300808888 /* Category.swift */,
+				63108ECA2912D2D000808888 /* CategoryArticle.swift */,
+				638038362912DFCA008F2157 /* CategoryName.swift */,
+				638038382912E26C008F2157 /* Subcategory.swift */,
+				6380383A2912FD58008F2157 /* SubcategoryName.swift */,
+				6380383C2913093A008F2157 /* Style.swift */,
+				6380383E29130982008F2157 /* ArticleStyle.swift */,
+				6380384029130A0F008F2157 /* SubcategoryArticle.swift */,
+				6380384229130AC6008F2157 /* ArticleOutfit.swift */,
+				6380384429130BA4008F2157 /* StyleOutfit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,14 +230,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C8C87428F25954009D30B1 /* ContentView.swift in Sources */,
+				6380383F29130982008F2157 /* ArticleStyle.swift in Sources */,
 				63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */,
+				6380384129130A10008F2157 /* SubcategoryArticle.swift in Sources */,
 				63108EAC2912A03100808888 /* ArticleView.swift in Sources */,
 				63108EAE2912A04000808888 /* WardrobeView.swift in Sources */,
+				638038392912E26C008F2157 /* Subcategory.swift in Sources */,
 				63108EB62912A21B00808888 /* Article.swift in Sources */,
+				6380384529130BA4008F2157 /* StyleOutfit.swift in Sources */,
+				638038372912DFCA008F2157 /* CategoryName.swift in Sources */,
+				6380383D2913093A008F2157 /* Style.swift in Sources */,
 				63108EBF2912A90900808888 /* PhotoColor.swift in Sources */,
 				63108EB82912A22400808888 /* Outfit.swift in Sources */,
 				63108EC72912B69100808888 /* ViewController.swift in Sources */,
+				63108ECB2912D2D000808888 /* CategoryArticle.swift in Sources */,
 				63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */,
+				6380384329130AC6008F2157 /* ArticleOutfit.swift in Sources */,
+				63108EC92912D19300808888 /* Category.swift in Sources */,
+				6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */,
 				63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */,
 				63108EB02912A04F00808888 /* OutfitsView.swift in Sources */,
 				63108EB22912A06100808888 /* OutfitView.swift in Sources */,
