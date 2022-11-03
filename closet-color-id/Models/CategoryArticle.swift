@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CategoryArticle: Identifiable, Comparable {
+class CategoryArticle: Identifiable {
     var article_id: String
     var category_id: String
     var id = UUID()
