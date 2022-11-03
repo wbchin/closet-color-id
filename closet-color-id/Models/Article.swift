@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Article: Identifiable, Comparable {
+class Article: Identifiable {
     var imageData: String
     var primary_color_name: String
     var primary_color_hex: String
@@ -33,21 +33,21 @@ struct Article: Identifiable, Comparable {
         self.complimentary_color_family = complimentary_color_family
     }
     
-    static func ==(lhs:Article, rhs:Article) -> Bool {
-        return lhs.imageData == rhs.imageData &&
-        lhs.primary_color_name == rhs.primary_color_name &&
-        lhs.primary_color_hex == rhs.primary_color_hex &&
-        lhs.primary_color_family == rhs.primary_color_family &&
-        lhs.secondary_color_name == rhs.secondary_color_name &&
-        lhs.secondary_color_hex == rhs.secondary_color_hex &&
-        lhs.secondary_color_family == rhs.secondary_color_family &&
-        lhs.complimentary_color_name == rhs.complimentary_color_name &&
-        lhs.complimentary_color_hex == rhs.complimentary_color_hex &&
-        lhs.complimentary_color_family == rhs.complimentary_color_family
-    }
-    
-    static func <(lhs:Article, rhs:Article) -> Bool {
-        return lhs.id.uuidString < rhs.id.uuidString
-    }
+//    static func ==(lhs:Article, rhs:Article) -> Bool {
+//        return lhs.imageData == rhs.imageData &&
+//        lhs.primary_color_name == rhs.primary_color_name &&
+//        lhs.primary_color_hex == rhs.primary_color_hex &&
+//        lhs.primary_color_family == rhs.primary_color_family &&
+//        lhs.secondary_color_name == rhs.secondary_color_name &&
+//        lhs.secondary_color_hex == rhs.secondary_color_hex &&
+//        lhs.secondary_color_family == rhs.secondary_color_family &&
+//        lhs.complimentary_color_name == rhs.complimentary_color_name &&
+//        lhs.complimentary_color_hex == rhs.complimentary_color_hex &&
+//        lhs.complimentary_color_family == rhs.complimentary_color_family
+//    }
+//
+//    static func <(lhs:Article, rhs:Article) -> Bool {
+//        return lhs.id.uuidString < rhs.id.uuidString
+//    }
     
 }

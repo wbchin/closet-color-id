@@ -1,5 +1,5 @@
 //
-//  Outfit.swift
+//  Category.swift
 //  closet-color-id
 //
 //  Created by Waverly Chin on 11/2/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Outfit: Identifiable {
+class Category: Identifiable {
     var name: String
     var id = UUID()
     
@@ -15,11 +15,10 @@ class Outfit: Identifiable {
         self.name = name
     }
     
-//    static func == (lhs:Outfit, rhs:Outfit) -> Bool {
+//    static func ==(lhs:Category, rhs:Category) -> Bool{
 //        return lhs.name == rhs.name
 //    }
-//    static func < (lhs:Outfit, rhs: Outfit) -> Bool {
-//        return lhs.name < rhs.name
+//    static func < (lhs: Category, rhs: Category) -> Bool{
+//        return lhs.id.uuidString < rhs.id.uuidString
 //    }
-    
 }

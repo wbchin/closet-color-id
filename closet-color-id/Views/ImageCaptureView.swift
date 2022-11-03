@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ImageCaptureView: View {
 //    let viewController: ViewController
+//    private let session = AVCaptureSession()
     var body: some View {
         VStack{
             Text("Camera")

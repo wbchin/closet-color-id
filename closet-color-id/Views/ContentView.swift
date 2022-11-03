@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    //Create tops, bottoms, footwear, and outerwear here>
     var body: some View {
         VStack {
             TabView{
-                WardrobeView()
+                WardrobeView(tops: [], bottoms: [], footwear: [], outerwear: [])
                     .tabItem{
-                        Label("Wardrobe", systemImage: "tshirt")
+                        Label("Clothing", systemImage: "tshirt")
                     }
                 ImageCaptureView()
                     .tabItem{
