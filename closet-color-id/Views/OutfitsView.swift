@@ -9,11 +9,24 @@ import SwiftUI
 
 struct OutfitsView: View {
 //    let viewController: ViewController
+    @State private var clothes = ["pink tee", "green tee", "black tee"]
     var body: some View {
-        VStack{
-            Text("Outfits")
-//            BottomNavigation().frame(alignment: .bottom)
+            NavigationView {
+                List {
+                    ForEach(clothes, id: \.self) { item in
+                        Text(item)
+                    }
+                }
+                .navigationBarTitle("CLOTHES")
+                .navigationBarItems(trailing: Button(action: {
+                    self.addRow()
+                }) {
+                    Image(systemName: "plus")
+                })
+            }
         }
+    private func addRow() {
+        self.clothes.append("New Clothes")
     }
 }
 

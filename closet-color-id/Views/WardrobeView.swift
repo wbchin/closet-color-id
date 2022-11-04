@@ -33,9 +33,7 @@ struct WardrobeView: View {
                 ForEach(outerwear) { jacket in
                     WardrobeCardView(article: jacket)
                 }
-
-
-            }
+            } .navigationBarTitle("WARDROBE")
         }
     }
 }
