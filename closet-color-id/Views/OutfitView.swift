@@ -14,8 +14,8 @@ struct OutfitView: View {
     }
 }
 
-struct OutfitView_Previews: PreviewProvider {
-    static var previews: some View {
-        OutfitView()
-    }
-}
+//struct OutfitView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OutfitView()
+//    }
+//}
