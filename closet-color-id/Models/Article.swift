@@ -8,7 +8,7 @@
 import Foundation
 
 class Article: Identifiable {
-    var imageData: String
+    var imageData: Data
     var primary_color_name: String
     var primary_color_hex: String
     var primary_color_family: String
@@ -20,7 +20,7 @@ class Article: Identifiable {
     var complimentary_color_family: String
     var id = UUID()
     
-    init(imageData: String, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_hex: String, secondary_color_family: String, complimentary_color_name: String, complimentary_color_hex: String, complimentary_color_family: String){
+    init(imageData: Data, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_hex: String, secondary_color_family: String, complimentary_color_name: String, complimentary_color_hex: String, complimentary_color_family: String){
         self.imageData = imageData
         self.primary_color_name = primary_color_name
         self.primary_color_hex = primary_color_hex

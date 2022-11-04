@@ -10,10 +10,9 @@ import CoreData
 
 import Photos
 import SwiftUI
-import UIKit
+//import UIKit
 
 class ViewModel: ObservableObject {
-
   //@Published var contacts = [Contact]()
 
   func saveContact(name: String, phone: String?, email: String?, picture: UIImage?) {
