@@ -9,11 +9,27 @@ import SwiftUI
 
 struct ImageCaptureView: View {
 //    let viewController: ViewController
+  let viewModel: ViewModel
     var body: some View {
+      NavigationView {
         VStack{
-            Text("Camera")
-//            BottomNavigation().frame(alignment: .bottom)
+          Text("Camera")
+          //            BottomNavigation().frame(alignment: .bottom)
+          Button(action: {
+            self.viewModel.saveArticle()
+          }) {
+            Text("Done")
+          }
         }
+      }
+      .navigationBarTitle("New Article")
+      .navigationBarItems(trailing:
+        Button(action: {
+          self.viewModel.saveArticle()
+        }) {
+          Text("Done")
+        }
+      )
     }
 }
 

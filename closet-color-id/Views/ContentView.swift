@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+  @ObservedObject var viewModel = ViewModel()
     var body: some View {
         VStack {
             TabView{
@@ -15,7 +16,7 @@ struct ContentView: View {
                     .tabItem{
                         Label("Wardrobe", systemImage: "tshirt")
                     }
-                ImageCaptureView()
+                ImageCaptureView(viewModel: viewModel)
                     .tabItem{
                         Label("Camera", systemImage: "camera")
                     }
