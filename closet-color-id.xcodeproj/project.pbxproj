@@ -117,12 +117,9 @@
 				63108EAF2912A04F00808888 /* OutfitsView.swift */,
 				63108EB12912A06100808888 /* OutfitView.swift */,
 				63108EB32912A07400808888 /* ImageCaptureView.swift */,
-<<<<<<< HEAD
 				E6B5ECF52918147A00AB7C39 /* ViewModel.swift */,
-=======
 				6380384A29133831008F2157 /* WardrobeCardView.swift */,
 				6380384C2913436D008F2157 /* OutfitCardView.swift */,
->>>>>>> 083ec00 (more models)
 			);
 			path = Views;
 			sourceTree = "<group>";

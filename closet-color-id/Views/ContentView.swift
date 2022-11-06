@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-<<<<<<< HEAD
   @ObservedObject var viewModel = ViewModel()
-=======
     //Create tops, bottoms, footwear, and outerwear here>
->>>>>>> 083ec00 (more models)
     var body: some View {
         VStack {
             TabView{
@@ -30,6 +27,7 @@ struct ContentView: View {
                     }
         }
         }
+        .padding()
     }
 }
 

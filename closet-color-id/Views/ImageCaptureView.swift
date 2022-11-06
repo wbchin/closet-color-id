@@ -9,11 +9,8 @@ import SwiftUI
 
 struct ImageCaptureView: View {
 //    let viewController: ViewController
-<<<<<<< HEAD
   let viewModel: ViewModel
-=======
 //    private let session = AVCaptureSession()
->>>>>>> 083ec00 (more models)
     var body: some View {
       NavigationView {
         VStack{
