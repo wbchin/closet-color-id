@@ -29,9 +29,13 @@ class ViewModel: ObservableObject {
     // create a new Article object
     let newArticle = Article(imageData: "", primary_color_name: "", primary_color_hex: "", primary_color_family: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
    // use api to retrieve these values
+    
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
+      NSLog("created entity")
+      NSLog(entity.debugDescription)
       let newVal = NSManagedObject(entity: entity, insertInto: context)
+      NSLog("created newVal")
       newVal.setValue("test", forKey: "image_data")
       newVal.setValue("test", forKey: "primary_color_name")
       newVal.setValue("test", forKey: "primary_color_family")
@@ -42,6 +46,7 @@ class ViewModel: ObservableObject {
       newVal.setValue("test", forKey: "complimentary_color_name")
       newVal.setValue("test", forKey: "complimentary_family")
       newVal.setValue("test", forKey: "complimentaryprimary_color_hex")
+      NSLog("Set all values for newVal")
       do {
         try context.save()
       } catch {
