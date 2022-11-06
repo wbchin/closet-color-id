@@ -24,7 +24,7 @@ struct ContentView: View {
                     .tabItem{
                         Label("Outfits", systemImage: "door.french.closed")
                     }
-        }
+            }
         }
     }
 }

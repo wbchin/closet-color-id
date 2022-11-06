@@ -7,7 +7,8 @@
 
 import Foundation
 
-class Article: Identifiable {
+class Article: Identifiable, Hashable {
+    
     var imageData: Data
     var primary_color_name: String
     var primary_color_hex: String
@@ -33,19 +34,31 @@ class Article: Identifiable {
         self.complimentary_color_family = complimentary_color_family
     }
     
-//    static func ==(lhs:Article, rhs:Article) -> Bool {
-//        return lhs.imageData == rhs.imageData &&
-//        lhs.primary_color_name == rhs.primary_color_name &&
-//        lhs.primary_color_hex == rhs.primary_color_hex &&
-//        lhs.primary_color_family == rhs.primary_color_family &&
-//        lhs.secondary_color_name == rhs.secondary_color_name &&
-//        lhs.secondary_color_hex == rhs.secondary_color_hex &&
-//        lhs.secondary_color_family == rhs.secondary_color_family &&
-//        lhs.complimentary_color_name == rhs.complimentary_color_name &&
-//        lhs.complimentary_color_hex == rhs.complimentary_color_hex &&
-//        lhs.complimentary_color_family == rhs.complimentary_color_family
-//    }
-//
+    static func ==(lhs:Article, rhs:Article) -> Bool {
+        return lhs.imageData == rhs.imageData &&
+        lhs.primary_color_name == rhs.primary_color_name &&
+        lhs.primary_color_hex == rhs.primary_color_hex &&
+        lhs.primary_color_family == rhs.primary_color_family &&
+        lhs.secondary_color_name == rhs.secondary_color_name &&
+        lhs.secondary_color_hex == rhs.secondary_color_hex &&
+        lhs.secondary_color_family == rhs.secondary_color_family &&
+        lhs.complimentary_color_name == rhs.complimentary_color_name &&
+        lhs.complimentary_color_hex == rhs.complimentary_color_hex &&
+        lhs.complimentary_color_family == rhs.complimentary_color_family
+    }
+    
+    func hash(into hasher: inout Hasher){
+        hasher.combine(imageData)
+        hasher.combine(primary_color_name)
+        hasher.combine(primary_color_hex)
+        hasher.combine(primary_color_family)
+        hasher.combine(secondary_color_name)
+        hasher.combine(secondary_color_hex)
+        hasher.combine(secondary_color_family)
+        hasher.combine(complimentary_color_name)
+        hasher.combine(complimentary_color_hex)
+        hasher.combine(complimentary_color_family)
+    }
 //    static func <(lhs:Article, rhs:Article) -> Bool {
 //        return lhs.id.uuidString < rhs.id.uuidString
 //    }

@@ -10,15 +10,15 @@ import SwiftUI
 struct WardrobeCardView: View {
     var article: Article
     var body: some View {
-        NavigationLink (
-            destination: ArticleView(article: article),
-            label:{
-                Text(article.id.uuidString)
-                Image(uiImage:  UIImage(data: article.imageData)!) //This is unsafe and needs to be revised.
-            })
-        
-
+        NavigationLink (destination: ArticleView(article: article)){
+            openImage(article: article)
+        }
     }
+}
+
+func openImage(article: Article) -> Image?{
+    guard let dataToImage = UIImage(data:article.imageData) ?? nil else { return nil }
+    return Image(uiImage: dataToImage)
 }
 
 //struct WardrobeCardView_Previews: PreviewProvider {
