@@ -45,7 +45,7 @@ class Article: Identifiable {
 //        lhs.complimentary_color_hex == rhs.complimentary_color_hex &&
 //        lhs.complimentary_color_family == rhs.complimentary_color_family
 //    }
-//    
+//
 //    static func <(lhs:Article, rhs:Article) -> Bool {
 //        return lhs.id.uuidString < rhs.id.uuidString
 //    }

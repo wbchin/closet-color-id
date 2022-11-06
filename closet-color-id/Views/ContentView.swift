@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+<<<<<<< HEAD
   @ObservedObject var viewModel = ViewModel()
+=======
+    //Create tops, bottoms, footwear, and outerwear here>
+>>>>>>> 083ec00 (more models)
     var body: some View {
         VStack {
             TabView{
-                WardrobeView()
+                WardrobeView(tops: [], bottoms: [], footwear: [], outerwear: [])
                     .tabItem{
-                        Label("Wardrobe", systemImage: "tshirt")
+                        Label("Clothing", systemImage: "tshirt")
                     }
                 ImageCaptureView(viewModel: viewModel)
                     .tabItem{
