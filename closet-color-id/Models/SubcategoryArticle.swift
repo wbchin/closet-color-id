@@ -8,7 +8,7 @@
 import Foundation
 
 
-public class SubcategoryArticle: NSObject, Identifiable{
+class SubcategoryArticle: Identifiable{
     var article_id: String
     var subcategory_id: String
     public var id = UUID()

@@ -8,7 +8,7 @@
 import Foundation
 
 
-public class ArticleStyle: NSObject, Identifiable{
+class ArticleStyle: Identifiable{
     var article_id: String
     var style_id: String
     public var id = UUID()

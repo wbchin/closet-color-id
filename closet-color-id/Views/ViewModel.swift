@@ -13,29 +13,21 @@ import SwiftUI
 import UIKit
 
 class ViewModel: ObservableObject {
-
-  //@Published var contacts = [Contact]()
-  
-//  @Published var articles = [Article]()
-  
+  //  @Published var articles = [Article]()
+//  @FetchRequest(entity: Article.entity(), sortDescriptors: [])
+//  var articles: FetchedResults<Article>
+  @Published var articles = [Article]()
   let appDelegate: AppDelegate = AppDelegate()
   let image: UIImage = UIImage(named: "pusheen.png")!
   var image_data : Data {
-          get {
-            return image.pngData()!
-          }
-      }
-
+    get {
+      return image.pngData()!
+    }
+  }
+  
   func saveArticle() {
-    // create a new Article object
-//    NSLog(type(of:self.image_data))
-//    let newArticle = Article(image_data: image.pngData()!, primary_color_name: "", primary_color_hex: "", primary_color_family: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
 //    let newArticle = Article()
-//    newArticle.primary_color_family = Optional("blue")
-   // use api to retrieve these values
-    
-//    print(NSStringFromClass(article.class))
-    
+//    newArticle.primary_color_family = ""
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")
@@ -55,35 +47,29 @@ class ViewModel: ObservableObject {
       NSLog("Set all values for newVal")
       do {
         try context.save()
+        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
       }
-//      self.articles.append(newVal)
-      
-      
-      
-      // make sure you convert the UIImage to an Image
-      // add it to the `contacts` array
     }
   }
   
-//  func fetchArticles() {
+//  func fetchArticles() -> FetchedResults<Article> {
+//    @FetchRequest(entity: Article.entity(), sortDescriptors: [])
+//    //var articles: FetchedResults<Article>
+//    return articles
+//  }
+  
+//  func deleteArticle(index: Int) {
 //    let context = appDelegate.persistentContainer.viewContext
-//    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
-//    request.returnsObjectsAsFaults = false
+//    context.delete(articles[index])
+//    
+//    articles.remove(at: index)
+//    
 //    do {
-//      let result = try context.fetch(request)
-//      for data in result as! [NSManagedObject] {
-//        let newArticle = Article()
-//        newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String ?? ""
-//        if let uiImageNSData: NSData = data.value(forKey: "image_data") as? NSData {
-//          newArticle.image_data = Image(uiImage: UIImage(data: uiImageNSData as Data, scale: 1.0)!)
-//        }
-//        articles.append(newArticle)
-//        NSLog("[Contacts] loaded article from CoreData")
-//      }
+//      try context.save()
 //    } catch {
-//      NSLog("[Contacts] ERROR: was unable to load Articles from CoreData")
+//      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
 //    }
 //  }
 }

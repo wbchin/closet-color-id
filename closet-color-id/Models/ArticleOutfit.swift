@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ArticleOutfit:NSObject, Identifiable{
+class ArticleOutfit: Identifiable{
     var article_id: String
     var outfit_id: String
     public var id = UUID()
