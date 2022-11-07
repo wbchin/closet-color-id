@@ -14,7 +14,7 @@ struct WardrobeCardView: View {
             destination: ArticleView(article: article),
             label:{
                 Text(article.id.uuidString)
-                Image(uiImage:  UIImage(data: article.imageData)!) //This is unsafe and needs to be revised.
+//                Image(uiImage:  UIImage(data: article.imageData)!) //This is unsafe and needs to be revised.
             })
         
 

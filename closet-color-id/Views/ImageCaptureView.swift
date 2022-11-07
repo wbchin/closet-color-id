@@ -35,7 +35,7 @@ struct ImageCaptureView: View {
 //        }
     @State private var capturedImage: UIImage? = nil
         @State private var isCustomCameraViewPresented = false
-        
+        let viewModel: ViewModel
         var body: some View {
             ZStack {
                 if capturedImage != nil {
@@ -76,7 +76,6 @@ struct ImageCaptureView: View {
 
 private enum Localization {
     static let addPhotoTitle = NSLocalizedString("Add Photo", comment: "Button title for Add Photo")
->>>>>>> main
 }
 
 //struct ImageCaptureView_Previews: PreviewProvider {
