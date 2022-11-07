@@ -7,10 +7,10 @@
 
 import Foundation
 
-class ArticleOutfit:Identifiable{
+public class ArticleOutfit:NSObject, Identifiable{
     var article_id: String
     var outfit_id: String
-    var id = UUID()
+    public var id = UUID()
     
     init(article_id: String, outfit_id: String){
         self.article_id = article_id

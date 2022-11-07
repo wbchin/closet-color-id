@@ -8,10 +8,10 @@
 import Foundation
 
 
-class ArticleStyle: Identifiable{
+public class ArticleStyle: NSObject, Identifiable{
     var article_id: String
     var style_id: String
-    var id = UUID()
+    public var id = UUID()
     
     init(article_id: String, style_id: String){
         self.article_id = article_id

@@ -35,7 +35,7 @@ struct ImageCaptureView: View {
 //        }
     @State private var capturedImage: UIImage? = nil
         @State private var isCustomCameraViewPresented = false
-        
+        let viewModel: ViewModel
         var body: some View {
             ZStack {
                 if capturedImage != nil {
@@ -48,6 +48,11 @@ struct ImageCaptureView: View {
                 }
                 
                 VStack {
+                  Button(action: {
+                    self.viewModel.saveArticle()
+                  }) {
+                    Text("Done")
+                  }
                     Spacer()
                     Button(action: {
                         isCustomCameraViewPresented.toggle()

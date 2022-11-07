@@ -7,10 +7,10 @@
 
 import Foundation
 
-class CategoryArticle: Identifiable {
+public class CategoryArticle: NSObject, Identifiable {
     var article_id: String
     var category_id: String
-    var id = UUID()
+  public var id = UUID()
     
     init(article_id: String, category_id: String){
         self.article_id = article_id

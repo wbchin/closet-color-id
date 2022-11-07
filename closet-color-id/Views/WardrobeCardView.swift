@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct WardrobeCardView: View {
+  
     var article: Article
     var body: some View {
         NavigationLink (
             destination: ArticleView(article: article),
             label:{
-                Text(article.id.uuidString)
-                Image(uiImage:  UIImage(data: article.imageData)!) //This is unsafe and needs to be revised.
+              Text(article.primary_color_family!)
+//                Image(uiImage:  UIImage(data: article.imageData)!) //This is unsafe and needs to be revised.
             })
         
 

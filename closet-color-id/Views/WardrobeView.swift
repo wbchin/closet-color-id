@@ -7,15 +7,22 @@
 
 import SwiftUI
 
-struct WardrobeView: View {
-//    var articles: [Article]
-//    let viewController: ViewController
+struct WardrobeView: View {  
+  @Environment(\.managedObjectContext) private var viewContext
+  
+  @FetchRequest(entity: Article.entity(), sortDescriptors: [])
+      private var articles: FetchedResults<Article>
     var tops: [Article]
     var bottoms: [Article]
     var footwear: [Article]
     var outerwear: [Article]
     var body: some View {
         NavigationView{
+            List{
+              ForEach(articles) { article in
+                WardrobeCardView(article: article)
+              }
+            }
             List{
                 Text("Tops")
                 ForEach(tops) { top in
