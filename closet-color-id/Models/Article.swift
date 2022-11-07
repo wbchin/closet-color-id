@@ -6,33 +6,36 @@
 //
 
 import Foundation
+import CoreData
 
-class Article: Identifiable {
-    var imageData: String
-    var primary_color_name: String
-    var primary_color_hex: String
-    var primary_color_family: String
-    var secondary_color_name: String
-    var secondary_color_hex: String
-    var secondary_color_family: String
-    var complimentary_color_name: String
-    var complimentary_color_hex: String
-    var complimentary_color_family: String
-    var id = UUID()
-    
-    init(imageData: String, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_hex: String, secondary_color_family: String, complimentary_color_name: String, complimentary_color_hex: String, complimentary_color_family: String){
-        self.imageData = imageData
-        self.primary_color_name = primary_color_name
-        self.primary_color_hex = primary_color_hex
-        self.primary_color_family = primary_color_family
-        self.secondary_color_name = secondary_color_name
-        self.secondary_color_hex = secondary_color_hex
-        self.secondary_color_family = secondary_color_family
-        self.complimentary_color_name = complimentary_color_name
-        self.complimentary_color_hex = complimentary_color_hex
-        self.complimentary_color_family = complimentary_color_family
-    }
-    
+@objc(Article)
+public class Article: NSManagedObject {
+//    @NSManaged var image_data: Data
+//    @NSManaged var primary_color_name: String
+//    @NSManaged var primary_color_hex: String
+//    @NSManaged var primary_color_family: String
+//    @NSManaged var secondary_color_name: String
+//    @NSManaged var secondary_color_hex: String
+//    @NSManaged var secondary_color_family: String
+//    @NSManaged var complimentary_color_name: String
+//    @NSManaged var complimentary_color_hex: String
+//    @NSManaged var complimentary_color_family: String
+//    @NSManaged var id: UUID
+
+//    init(image_data: Data, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_hex: String, secondary_color_family: String, complimentary_color_name: String, complimentary_color_hex: String, complimentary_color_family: String){
+//        self.image_data = image_data
+//        self.primary_color_name = primary_color_name
+//        self.primary_color_hex = primary_color_hex
+//        self.primary_color_family = primary_color_family
+//        self.secondary_color_name = secondary_color_name
+//        self.secondary_color_hex = secondary_color_hex
+//        self.secondary_color_family = secondary_color_family
+//        self.complimentary_color_name = complimentary_color_name
+//        self.complimentary_color_hex = complimentary_color_hex
+//        self.complimentary_color_family = complimentary_color_family
+////        self.id = UUID()
+//    }
+
 //    static func ==(lhs:Article, rhs:Article) -> Bool {
 //        return lhs.imageData == rhs.imageData &&
 //        lhs.primary_color_name == rhs.primary_color_name &&
@@ -49,5 +52,5 @@ class Article: Identifiable {
 //    static func <(lhs:Article, rhs:Article) -> Bool {
 //        return lhs.id.uuidString < rhs.id.uuidString
 //    }
-    
+
 }
