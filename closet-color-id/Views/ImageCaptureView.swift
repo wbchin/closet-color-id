@@ -8,30 +8,75 @@
 import SwiftUI
 
 struct ImageCaptureView: View {
-//    let viewController: ViewController
-  let viewModel: ViewModel
-//    private let session = AVCaptureSession()
-    var body: some View {
-      NavigationView {
-        VStack{
-          Text("Camera")
-          //            BottomNavigation().frame(alignment: .bottom)
-          Button(action: {
-            self.viewModel.saveArticle()
-          }) {
-            Text("Done")
-          }
+//    @State private var showImagePickerOptions: Bool = false
+//       @State private var showImagePicker: Bool = false
+//       @State private var sourceType = UIImagePickerController.SourceType.photoLibrary
+//       @State private var photo:UIImage?
+//    var body: some View {
+//            VStack {
+//
+//
+//                Button(Localization.addPhotoTitle, action: {
+//                    showImagePickerOptions = true
+//                })
+//                    .font(.system(size: 17))
+//                    .frame(width: 200, height: 50, alignment: .center)
+//                    .background(Color.blue)
+//                    .foregroundColor(Color.white)
+//                    .cornerRadius(10)
+//                    .padding(.top, 40)
+//                    .ActionSheet(showImagePickerOptions: $showImagePickerOptions, showImagePicker: $showImagePicker, sourceType: $sourceType)
+//
+//                Spacer()
+//            }
+//            .sheet(isPresented: $showImagePicker) {
+//                ImagePicker(image: self.$photo, isShown: self.$showImagePicker, sourceType: self.sourceType)
+//            }
+//        }
+    @State private var capturedImage: UIImage? = nil
+        @State private var isCustomCameraViewPresented = false
+        
+        var body: some View {
+            ZStack {
+                if capturedImage != nil {
+                    Image(uiImage: capturedImage!)
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                } else {
+                    Color(UIColor.systemBackground)
+                }
+                
+                VStack {
+                  Button(action: {
+                    self.viewModel.saveArticle()
+                  }) {
+                    Text("Done")
+                  }
+                    Spacer()
+                    Button(action: {
+                        isCustomCameraViewPresented.toggle()
+                    }, label: {
+                        Image(systemName: "camera.fill")
+                            .font(.largeTitle)
+                            .padding()
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .clipShape(Circle())
+                    })
+                    .padding(.bottom)
+                    .sheet(isPresented: $isCustomCameraViewPresented, content: {
+                        CustomCameraView(capturedImage: $capturedImage)
+                    })
+                }
+            }
         }
-      }
-      .navigationBarTitle("New Article")
-      .navigationBarItems(trailing:
-        Button(action: {
-          self.viewModel.saveArticle()
-        }) {
-          Text("Done")
-        }
-      )
-    }
+    
+}
+
+private enum Localization {
+    static let addPhotoTitle = NSLocalizedString("Add Photo", comment: "Button title for Add Photo")
+>>>>>>> main
 }
 
 //struct ImageCaptureView_Previews: PreviewProvider {

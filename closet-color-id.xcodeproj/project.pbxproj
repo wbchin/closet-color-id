@@ -30,6 +30,11 @@
 		6380384529130BA4008F2157 /* StyleOutfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384429130BA4008F2157 /* StyleOutfit.swift */; };
 		6380384B29133831008F2157 /* WardrobeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384A29133831008F2157 /* WardrobeCardView.swift */; };
 		6380384D2913436D008F2157 /* OutfitCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380384C2913436D008F2157 /* OutfitCardView.swift */; };
+		638AF4F429158060007EC47D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638AF4F329158060007EC47D /* ImagePicker.swift */; };
+		638AF4F729158762007EC47D /* ActionSheet+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638AF4F629158762007EC47D /* ActionSheet+Modifier.swift */; };
+		63A2700029141C8B0023F366 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A26FFF29141C8B0023F366 /* CameraService.swift */; };
+		63A2700229141D540023F366 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2700129141D540023F366 /* CameraView.swift */; };
+		63A2700429141DC40023F366 /* CustomCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2700329141DC40023F366 /* CustomCameraView.swift */; };
 		63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87128F25954009D30B1 /* closet_color_idApp.swift */; };
 		63C8C87428F25954009D30B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87328F25954009D30B1 /* ContentView.swift */; };
 		63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C8C87528F25958009D30B1 /* Assets.xcassets */; };
@@ -64,6 +69,12 @@
 		6380384429130BA4008F2157 /* StyleOutfit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleOutfit.swift; sourceTree = "<group>"; };
 		6380384A29133831008F2157 /* WardrobeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeCardView.swift; sourceTree = "<group>"; };
 		6380384C2913436D008F2157 /* OutfitCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitCardView.swift; sourceTree = "<group>"; };
+		638AF4F329158060007EC47D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		638AF4F529158450007EC47D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		638AF4F629158762007EC47D /* ActionSheet+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionSheet+Modifier.swift"; sourceTree = "<group>"; };
+		63A26FFF29141C8B0023F366 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		63A2700129141D540023F366 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		63A2700329141DC40023F366 /* CustomCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCameraView.swift; sourceTree = "<group>"; };
 		63C8C86E28F25954009D30B1 /* closet-color-id.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "closet-color-id.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C8C87128F25954009D30B1 /* closet_color_idApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closet_color_idApp.swift; sourceTree = "<group>"; };
 		63C8C87328F25954009D30B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +131,8 @@
 				E6B5ECF52918147A00AB7C39 /* ViewModel.swift */,
 				6380384A29133831008F2157 /* WardrobeCardView.swift */,
 				6380384C2913436D008F2157 /* OutfitCardView.swift */,
+				63A2700129141D540023F366 /* CameraView.swift */,
+				63A2700329141DC40023F366 /* CustomCameraView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +143,16 @@
 				63108EC62912B69100808888 /* ViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		63A26FFC291419B20023F366 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				63A26FFF29141C8B0023F366 /* CameraService.swift */,
+				638AF4F329158060007EC47D /* ImagePicker.swift */,
+				638AF4F629158762007EC47D /* ActionSheet+Modifier.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		63C8C86528F25954009D30B1 = {
@@ -151,6 +174,8 @@
 		63C8C87028F25954009D30B1 /* closet-color-id */ = {
 			isa = PBXGroup;
 			children = (
+				638AF4F529158450007EC47D /* Info.plist */,
+				63A26FFC291419B20023F366 /* Camera */,
 				E6D7FFDB291322ED00BF24CA /* closet-color-id.xcdatamodeld */,
 				E6D7FFE52914116A00BF24CA /* Delegates */,
 				E6D7FFE22914111800BF24CA /* ViewModel */,
@@ -273,6 +298,7 @@
 				6380384129130A10008F2157 /* SubcategoryArticle.swift in Sources */,
 				63108EAC2912A03100808888 /* ArticleView.swift in Sources */,
 				E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */,
+				63A2700429141DC40023F366 /* CustomCameraView.swift in Sources */,
 				63108EAE2912A04000808888 /* WardrobeView.swift in Sources */,
 				638038392912E26C008F2157 /* Subcategory.swift in Sources */,
 				6380384D2913436D008F2157 /* OutfitCardView.swift in Sources */,
@@ -280,16 +306,20 @@
 				6380384529130BA4008F2157 /* StyleOutfit.swift in Sources */,
 				638038372912DFCA008F2157 /* CategoryName.swift in Sources */,
 				6380383D2913093A008F2157 /* Style.swift in Sources */,
+				63A2700229141D540023F366 /* CameraView.swift in Sources */,
 				63108EBF2912A90900808888 /* PhotoColor.swift in Sources */,
 				63108EB82912A22400808888 /* Outfit.swift in Sources */,
+				638AF4F429158060007EC47D /* ImagePicker.swift in Sources */,
 				6380384B29133831008F2157 /* WardrobeCardView.swift in Sources */,
 				63108EC72912B69100808888 /* ViewController.swift in Sources */,
 				63108ECB2912D2D000808888 /* CategoryArticle.swift in Sources */,
 				63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */,
+				63A2700029141C8B0023F366 /* CameraService.swift in Sources */,
 				E6D7FFDD291322ED00BF24CA /* closet-color-id.xcdatamodeld in Sources */,
 				E6D7FFE7291411D000BF24CA /* AnyGestureRecognizer.swift in Sources */,
 				6380384329130AC6008F2157 /* ArticleOutfit.swift in Sources */,
 				63108EC92912D19300808888 /* Category.swift in Sources */,
+				638AF4F729158762007EC47D /* ActionSheet+Modifier.swift in Sources */,
 				E6D7FFE12913304300BF24CA /* SceneDelegate.swift in Sources */,
 				6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */,
 				63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */,
@@ -420,16 +450,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"closet-color-id/Preview Content\"";
+				DEVELOPMENT_TEAM = MJYH26FHKK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "closet-color-id/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Let Closet acces Camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let Closet access photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,6 +473,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "wbchin.closet-color-id";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -448,16 +485,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"closet-color-id/Preview Content\"";
+				DEVELOPMENT_TEAM = MJYH26FHKK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "closet-color-id/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Let Closet acces Camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let Closet access photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -465,6 +508,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "wbchin.closet-color-id";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
