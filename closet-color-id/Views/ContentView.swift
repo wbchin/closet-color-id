@@ -32,7 +32,7 @@ struct ContentView: View {
             .tabItem{
               Label("Camera", systemImage: "camera")
             }
-          OutfitsView()
+        OutfitsView(viewModel: viewModel)
             .tabItem{
               Label("Outfits", systemImage: "door.french.closed")
             }
