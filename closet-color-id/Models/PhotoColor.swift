@@ -11,7 +11,4 @@ struct PhotoColor{
     let primaryHex: String
     let primaryName: String
     let primaryFamily: String
-    let secondaryHex: String
-    let secondaryName: String
-    let secondaryFamily: String
 }
