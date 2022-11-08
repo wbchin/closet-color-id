@@ -36,14 +36,14 @@ struct ArticleView: View {
     
     Button(action: {
       let top_category = viewModel.fetchCategory(name: "top")
-      self.viewModel.tagArticleCategory(category: top_category!, article_id: article.objectID)
+      self.viewModel.tagArticleCategory(category_id: top_category!.objectID, article_id: article.objectID)
     }) {
       Text("Mark as top")
     }
     
     Button(action: {
       let blouse_subcat = viewModel.fetchSubcategory(name: "blouse")
-      self.viewModel.tagArticleSubcategory(subcategory: blouse_subcat!, article_id: article.objectID)
+      self.viewModel.tagArticleSubcategory(subcategory_id: blouse_subcat!.objectID, article_id: article.objectID)
     }) {
       Text("Mark as blouse")
     }

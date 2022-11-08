@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct OutfitsView: View {
-//    let viewController: ViewController
-    @State private var clothes = ["pink tee", "green tee", "black tee"]
-    var body: some View {
-            NavigationView {
-                List {
-                    ForEach(clothes, id: \.self) { item in
-                        Text(item)
-                    }
-                }
-                .navigationBarTitle("CLOTHES")
-                .navigationBarItems(trailing: Button(action: {
-                    self.addRow()
-                }) {
-                    Image(systemName: "plus")
-                })
-            }
-        }
-    private func addRow() {
-        self.clothes.append("New Clothes")
+  let viewModel: ViewModel
+  var outfits : [Outfit]? {
+      get {
+       return viewModel.fetchOutfits()
+      }
+  }
+  
+  //@State private var clothes = ["pink tee", "green tee", "black tee"]
+  var body: some View {
+      NavigationView {
+          List {
+              ForEach(outfits!, id: \.self) { outfit in
+                Text(outfit.name!)
+              }
+          }
+          .navigationBarTitle("OUTFITS")
+          .navigationBarItems(trailing: Button(action: {
+            // this needs it's own view
+          }) {
+              Image(systemName: "plus")
+          })
+      }
     }
 }
 

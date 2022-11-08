@@ -1,2 +1,9 @@
 .DS_Store
+<<<<<<< HEAD
 closet-color-id.xcodeproj/xcuserdata/allisoncao.xcuserdatad/xcdebugger/
+=======
+closet-color-id.xcodeproj/xcuserdata/allisoncao.xcuserdatad/
+closet-color-id/.DS_Store
+closet-color-id/Assets.xcassets/.DS_Store
+closet-color-id/CoreData/.DS_Store
+>>>>>>> main
