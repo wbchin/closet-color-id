@@ -23,35 +23,10 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func fetchCategory(name: String) -> Category? {
-    let fetchRequest: NSFetchRequest<Category>
-    fetchRequest = Category.fetchRequest()
-
-    fetchRequest.predicate = NSPredicate(
-        format: "name == %@", name
-    )
-
-    // Get a reference to a NSManagedObjectContext
-    let context = appDelegate.persistentContainer.viewContext
-
-    // Perform the fetch request to get the objects
-    // matching the predicate
-    
-    NSLog("Fetch Request:")
-    NSLog(fetchRequest.description)
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
-    }
-  }
-  
   func fetchArticles() -> [Article]? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
-
+    
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
     do {
@@ -66,7 +41,7 @@ class ViewModel: ObservableObject {
   func fetchOutfits() -> [Outfit]? {
     let fetchRequest: NSFetchRequest<Outfit>
     fetchRequest = Outfit.fetchRequest()
-
+    
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
     do {
@@ -81,7 +56,7 @@ class ViewModel: ObservableObject {
   func fetchStyles() -> [Style]? {
     let fetchRequest: NSFetchRequest<Style>
     fetchRequest = Style.fetchRequest()
-
+    
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
     do {
@@ -93,27 +68,6 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func fetchSubcategory(name: String) -> Subcategory? {
-    let fetchRequest: NSFetchRequest<Subcategory>
-    fetchRequest = Subcategory.fetchRequest()
-
-    fetchRequest.predicate = NSPredicate(
-        format: "name == %@", name
-    )
-
-    let context = appDelegate.persistentContainer.viewContext
-    
-    NSLog("Fetch Request:")
-    NSLog(fetchRequest.description)
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
-    }
-    
-  }
   
   func tagArticleCategory(category_id: NSManagedObjectID, article_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
@@ -121,7 +75,7 @@ class ViewModel: ObservableObject {
     do {
       try context.save()
       NSLog("saved article as category")
-
+      
     } catch {
       NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
@@ -160,6 +114,8 @@ class ViewModel: ObservableObject {
       newVal.setValue("test", forKey: "complimentary_color_name")
       newVal.setValue("test", forKey: "complimentary_color_family")
       newVal.setValue("test", forKey: "complimentary_color_hex")
+      newVal.setValue("top", forKey: "category")
+      newVal.setValue("blouse", forKey: "subcategory")
       NSLog("Set all values for newVal")
       do {
         try context.save()
@@ -232,7 +188,7 @@ class ViewModel: ObservableObject {
       }
     }
   }
-    
+  
   func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
@@ -249,4 +205,3 @@ class ViewModel: ObservableObject {
     }
   }
 }
-

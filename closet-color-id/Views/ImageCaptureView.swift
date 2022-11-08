@@ -8,42 +8,24 @@
 import SwiftUI
 
 struct ImageCaptureView: View {
-//    @State private var showImagePickerOptions: Bool = false
-//       @State private var showImagePicker: Bool = false
-//       @State private var sourceType = UIImagePickerController.SourceType.photoLibrary
-//       @State private var photo:UIImage?
-//    var body: some View {
-//            VStack {
-//
-//
-//                Button(Localization.addPhotoTitle, action: {
-//                    showImagePickerOptions = true
-//                })
-//                    .font(.system(size: 17))
-//                    .frame(width: 200, height: 50, alignment: .center)
-//                    .background(Color.blue)
-//                    .foregroundColor(Color.white)
-//                    .cornerRadius(10)
-//                    .padding(.top, 40)
-//                    .ActionSheet(showImagePickerOptions: $showImagePickerOptions, showImagePicker: $showImagePicker, sourceType: $sourceType)
-//
-//                Spacer()
-//            }
-//            .sheet(isPresented: $showImagePicker) {
-//                ImagePicker(image: self.$photo, isShown: self.$showImagePicker, sourceType: self.sourceType)
-//            }
-//        }
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State private var capturedImage: UIImage? = nil
+    @State private var capturedImage: UIImage? = UIImage(named: "pusheen.png")
+    @State var showUnsavedArticleView: Bool = false
         @State private var isCustomCameraViewPresented = false
         let viewModel: ViewModel
         var body: some View {
+            if showUnsavedArticleView {
+              UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
+                    .animation(.spring())
+                    .transition(.slide)
+            }
             ZStack {
                 if capturedImage != nil {
                     Image(uiImage: capturedImage!)
                         .resizable()
                         .scaledToFill()
                         .ignoresSafeArea()
+                  UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
                 } else {
                     Color(UIColor.systemBackground)
                 }
@@ -51,6 +33,7 @@ struct ImageCaptureView: View {
                 VStack {
                   Button(action: {
                     self.viewModel.saveArticle()
+                    UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
                   }) {
                     Text("Done")
                   }
