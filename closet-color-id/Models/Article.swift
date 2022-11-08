@@ -8,8 +8,8 @@
 import Foundation
 import CoreData
 
-@objc(Article)
-public class Article: NSManagedObject {
+//@objc(Article)
+//class Article: Identifiable {
 //    @NSManaged var image_data: Data
 //    @NSManaged var primary_color_name: String
 //    @NSManaged var primary_color_hex: String
@@ -20,8 +20,8 @@ public class Article: NSManagedObject {
 //    @NSManaged var complimentary_color_name: String
 //    @NSManaged var complimentary_color_hex: String
 //    @NSManaged var complimentary_color_family: String
-//    @NSManaged var id: UUID
-
+//    @NSManaged public var id: UUID
+//
 //    init(image_data: Data, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_hex: String, secondary_color_family: String, complimentary_color_name: String, complimentary_color_hex: String, complimentary_color_family: String){
 //        self.image_data = image_data
 //        self.primary_color_name = primary_color_name
@@ -33,7 +33,7 @@ public class Article: NSManagedObject {
 //        self.complimentary_color_name = complimentary_color_name
 //        self.complimentary_color_hex = complimentary_color_hex
 //        self.complimentary_color_family = complimentary_color_family
-////        self.id = UUID()
+//        self.id = UUID()
 //    }
 
 //    static func ==(lhs:Article, rhs:Article) -> Bool {
@@ -53,4 +53,4 @@ public class Article: NSManagedObject {
 //        return lhs.id.uuidString < rhs.id.uuidString
 //    }
 
-}
+//}

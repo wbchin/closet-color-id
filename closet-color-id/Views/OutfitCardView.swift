@@ -13,7 +13,7 @@ struct OutfitCardView: View {
         NavigationLink (
             destination: OutfitView(outfit: outfit),
             label:{
-                Text(outfit.name)
+                //Text(outfit.name!)
             })
     }
 }

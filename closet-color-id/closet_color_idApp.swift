@@ -11,11 +11,12 @@ import SwiftUI
 struct closet_color_idApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     let persistenceController = PersistenceController.shared
+    let dataPopulation = DataPopulation()
     var body: some Scene {
-        WindowGroup {
-            ContentView()
-            .environment(\.managedObjectContext,
-                                       persistenceController.container.viewContext)
-        }
+      WindowGroup {
+          ContentView()
+          .environment(\.managedObjectContext,
+                                     persistenceController.container.viewContext)
+      }
     }
 }

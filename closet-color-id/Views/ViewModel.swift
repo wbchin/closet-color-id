@@ -13,29 +13,117 @@ import SwiftUI
 import UIKit
 
 class ViewModel: ObservableObject {
-
-  //@Published var contacts = [Contact]()
-  
-//  @Published var articles = [Article]()
-  
+  @FetchRequest(entity: Article.entity(), sortDescriptors: [])
+  var articles: FetchedResults<Article>
   let appDelegate: AppDelegate = AppDelegate()
   let image: UIImage = UIImage(named: "pusheen.png")!
   var image_data : Data {
-          get {
-            return image.pngData()!
-          }
-      }
+    get {
+      return image.pngData()!
+    }
+  }
+  
+  func fetchCategory(name: String) -> Category? {
+    let fetchRequest: NSFetchRequest<Category>
+    fetchRequest = Category.fetchRequest()
 
+    fetchRequest.predicate = NSPredicate(
+        format: "name == %@", name
+    )
+
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+
+    // Perform the fetch request to get the objects
+    // matching the predicate
+    
+    NSLog("Fetch Request:")
+    NSLog(fetchRequest.description)
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
+  func fetchArticles() -> [Article]? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+
+    // Perform the fetch request to get the objects
+    // matching the predicate
+    
+    NSLog("Fetch Request:")
+    NSLog(fetchRequest.description)
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
+  func fetchSubcategory(name: String) -> Subcategory? {
+    let fetchRequest: NSFetchRequest<Subcategory>
+    fetchRequest = Subcategory.fetchRequest()
+
+    fetchRequest.predicate = NSPredicate(
+        format: "name == %@", name
+    )
+
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    
+    NSLog("Fetch Request:")
+    NSLog(fetchRequest.description)
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
+    
+  }
+  
+  func tagArticleCategory(category: Category, article_id: NSManagedObjectID) {
+//    newArticle.primary_color_family = ""
+    let context = appDelegate.persistentContainer.viewContext
+    context.object(with: article_id).setValue(category, forKey: "category")
+    do {
+      try context.save()
+      NSLog("saved article as category")
+
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
+    }
+  }
+  
+  func tagArticleSubcategory(subcategory: Subcategory, article_id: NSManagedObjectID) {
+//    newArticle.primary_color_family = ""
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "SubcategoryArticle", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(context.object(with: article_id), forKey: "article")
+      newVal.setValue(subcategory, forKey: "subcategory")
+      NSLog("Set all values for newVal")
+      do {
+        try context.save()
+        NSLog("Saved article subcategory")
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
+      }
+    }
+  }
+  
   func saveArticle() {
-    // create a new Article object
-//    NSLog(type(of:self.image_data))
-//    let newArticle = Article(image_data: image.pngData()!, primary_color_name: "", primary_color_hex: "", primary_color_family: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
-//    let newArticle = Article()
-//    newArticle.primary_color_family = Optional("blue")
-   // use api to retrieve these values
-    
-//    print(NSStringFromClass(article.class))
-    
+//    newArticle.primary_color_family = ""
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")
@@ -44,7 +132,7 @@ class ViewModel: ObservableObject {
       NSLog("created newVal")
       newVal.setValue(self.image_data, forKey: "image_data")
       newVal.setValue("blue test", forKey: "primary_color_name")
-      newVal.setValue("test", forKey: "primary_color_family")
+      newVal.setValue("diff refresh", forKey: "primary_color_family")
       newVal.setValue("test", forKey: "primary_color_hex")
       newVal.setValue("test", forKey: "secondary_color_name")
       newVal.setValue("test", forKey: "secondary_color_family")
@@ -55,35 +143,42 @@ class ViewModel: ObservableObject {
       NSLog("Set all values for newVal")
       do {
         try context.save()
+        context.refreshAllObjects()
+        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
       }
-//      self.articles.append(newVal)
-      
-      
-      
-      // make sure you convert the UIImage to an Image
-      // add it to the `contacts` array
     }
   }
   
-//  func fetchArticles() {
+  func fetchArticles() -> [Article?] {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+
+    // Perform the fetch request to get the objects
+    // matching the predicate
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
+    }
+    return [nil]
+  }
+  
+//  func deleteArticle(index: Int) {
 //    let context = appDelegate.persistentContainer.viewContext
-//    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
-//    request.returnsObjectsAsFaults = false
+//    context.delete(articles[index])
+//
+//    articles.remove(at: index)
+//
 //    do {
-//      let result = try context.fetch(request)
-//      for data in result as! [NSManagedObject] {
-//        let newArticle = Article()
-//        newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String ?? ""
-//        if let uiImageNSData: NSData = data.value(forKey: "image_data") as? NSData {
-//          newArticle.image_data = Image(uiImage: UIImage(data: uiImageNSData as Data, scale: 1.0)!)
-//        }
-//        articles.append(newArticle)
-//        NSLog("[Contacts] loaded article from CoreData")
-//      }
+//      try context.save()
 //    } catch {
-//      NSLog("[Contacts] ERROR: was unable to load Articles from CoreData")
+//      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
 //    }
 //  }
 }
