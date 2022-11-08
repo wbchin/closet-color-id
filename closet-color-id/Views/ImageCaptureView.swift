@@ -33,6 +33,7 @@ struct ImageCaptureView: View {
 //                ImagePicker(image: self.$photo, isShown: self.$showImagePicker, sourceType: self.sourceType)
 //            }
 //        }
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var capturedImage: UIImage? = nil
         @State private var isCustomCameraViewPresented = false
         let viewModel: ViewModel

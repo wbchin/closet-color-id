@@ -12,7 +12,7 @@ struct WardrobeCardView: View {
     var article: Article
     var body: some View {
         NavigationLink (
-            destination: ArticleView(article: article),
+          destination: ArticleView(article: article, viewModel: viewModel),
             label:{
               Text(article.primary_color_family!)
               //Image(uiImage:  UIImage(data: article.image_data!)!) //This is unsafe and needs to be revised.
