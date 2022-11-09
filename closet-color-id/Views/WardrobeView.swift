@@ -11,9 +11,9 @@ struct WardrobeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let viewModel: ViewModel
     let appDelegate: AppDelegate = AppDelegate()
-    var articles : [Article]? {
+    var articles : [Article] {
         get {
-         return viewModel.fetchArticles()
+         return viewModel.fetchArticles()!
         }
     }
     var tops: [Article]
@@ -22,17 +22,17 @@ struct WardrobeView: View {
     var outerwear: [Article]
   
     var body: some View {
-        NavigationView{
-            List{
-                Text("Articles")
-                ForEach(articles!) { article in
-                      WardrobeCardView(viewModel: viewModel, article: article)
-                    }
-              
-                Text("Tops")
-                ForEach(tops) { top in
-                  WardrobeCardView(viewModel: viewModel, article: top)
-                }
+      NavigationView{
+        List{
+          Text("Articles")
+          ForEach(articles) { article in
+                WardrobeCardView(viewModel: viewModel, article: article)
+              }
+        
+          Text("Tops")
+          ForEach(tops) { top in
+            WardrobeCardView(viewModel: viewModel, article: top)
+          }
               
 //                Text("Bottoms")
 //                ForEach(bottoms) { bottom in
