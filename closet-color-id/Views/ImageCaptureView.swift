@@ -31,6 +31,7 @@ struct ImageCaptureView: View {
         return nil
     }
         let viewModel: ViewModel
+  
         var body: some View {
             ZStack {
                 if colors == nil{

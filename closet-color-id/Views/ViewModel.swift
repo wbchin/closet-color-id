@@ -23,6 +23,23 @@ class ViewModel: ObservableObject {
     }
   }
   
+  func fetchLatestArticle() -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+    fetchRequest.fetchLimit = 1
+    
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
   func fetchArticles() -> [Article]? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
@@ -202,6 +219,18 @@ class ViewModel: ObservableObject {
       } catch {
         NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
       }
+    }
+  }
+  
+  func deleteArticle(article_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    context.delete(context.object(with: article_id))
+    do {
+      try context.save()
+      NSLog("Article deleted")
+      
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to delete article from CoreData")
     }
   }
 }
