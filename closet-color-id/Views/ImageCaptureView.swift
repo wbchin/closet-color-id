@@ -11,29 +11,51 @@ struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var capturedImage: UIImage? = UIImage(named: "pusheen.png")
     @State var showUnsavedArticleView: Bool = false
-        @State private var isCustomCameraViewPresented = false
+    @State private var isCustomCameraViewPresented = false
+    @ObservedObject var imaggaCall: ImaggaCalls
+    @State var colors: [PhotoColor]?
+    func runImagga(capturedImage: UIImage){
+        imaggaCall.uploadImage(image: capturedImage)
+    }
+    func callImagga(){
+        if let picture = capturedImage{
+            ImaggaCalls().uploadImage(image: picture)
+            print("run uplaod image")
+        }
+    }
+    func getColors()-> [PhotoColor]?{
+        if ImaggaCalls().colors != nil{
+            return ImaggaCalls().colors
+        }
+        print("nil")
+        return nil
+    }
         let viewModel: ViewModel
         var body: some View {
-            if showUnsavedArticleView {
-              UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
-                    .animation(.spring())
-                    .transition(.slide)
-            }
             ZStack {
-                if capturedImage != nil {
-                    Image(uiImage: capturedImage!)
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                  UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
-                } else {
-                    Color(UIColor.systemBackground)
+                if colors == nil{
+                    Text("").onAppear{
+                        colors = getColors()
+                        sleep(1)
+                    }
+                    if capturedImage != nil {
+                        Text("").onAppear{
+                            callImagga()
+                        }
+                        
+                        if colors != nil{
+                            UnsavedArticleView(viewModel: viewModel, image: capturedImage!, colors: colors!)
+                        }
+                    } else {
+                        Color(UIColor.systemBackground)
+                    }
                 }
+                
                 
                 VStack {
                   Button(action: {
                     self.viewModel.saveArticle()
-                    UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
+//                    UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
                   }) {
                     Text("Done")
                   }

@@ -14,12 +14,13 @@
 		63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB32912A07400808888 /* ImageCaptureView.swift */; };
 		63108EB62912A21B00808888 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB52912A21B00808888 /* Article.swift */; };
 		63108EB82912A22400808888 /* Outfit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB72912A22400808888 /* Outfit.swift */; };
-		63108EBB2912A7CB00808888 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 63108EBA2912A7CB00808888 /* Alamofire */; };
 		63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBC2912A82500808888 /* ImaggaRouter.swift */; };
 		63108EBF2912A90900808888 /* PhotoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBE2912A90900808888 /* PhotoColor.swift */; };
 		63108EC72912B69100808888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC62912B69100808888 /* ViewController.swift */; };
 		63108EC92912D19300808888 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC82912D19300808888 /* Category.swift */; };
 		63108ECB2912D2D000808888 /* CategoryArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108ECA2912D2D000808888 /* CategoryArticle.swift */; };
+		6344FF05291B572300C75BE5 /* ImaggaCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6344FF04291B572300C75BE5 /* ImaggaCalls.swift */; };
+		637C859B291B5E10001075B9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 637C859A291B5E10001075B9 /* Alamofire */; };
 		638038372912DFCA008F2157 /* CategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038362912DFCA008F2157 /* CategoryName.swift */; };
 		638038392912E26C008F2157 /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038382912E26C008F2157 /* Subcategory.swift */; };
 		6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380383A2912FD58008F2157 /* SubcategoryName.swift */; };
@@ -64,6 +65,7 @@
 		63108EC62912B69100808888 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63108EC82912D19300808888 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		63108ECA2912D2D000808888 /* CategoryArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArticle.swift; sourceTree = "<group>"; };
+		6344FF04291B572300C75BE5 /* ImaggaCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaCalls.swift; sourceTree = "<group>"; };
 		638038362912DFCA008F2157 /* CategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryName.swift; sourceTree = "<group>"; };
 		638038382912E26C008F2157 /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
 		6380383A2912FD58008F2157 /* SubcategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryName.swift; sourceTree = "<group>"; };
@@ -102,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63108EBB2912A7CB00808888 /* Alamofire in Frameworks */,
+				637C859B291B5E10001075B9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +203,7 @@
 				63C8C87728F25958009D30B1 /* Preview Content */,
 				63108EBC2912A82500808888 /* ImaggaRouter.swift */,
 				E6E854462919D6DD000A4805 /* Persistence.swift */,
+				6344FF04291B572300C75BE5 /* ImaggaCalls.swift */,
 			);
 			path = "closet-color-id";
 			sourceTree = "<group>";
@@ -255,7 +258,7 @@
 			);
 			name = "closet-color-id";
 			packageProductDependencies = (
-				63108EBA2912A7CB00808888 /* Alamofire */,
+				637C859A291B5E10001075B9 /* Alamofire */,
 			);
 			productName = "closet-color-id";
 			productReference = 63C8C86E28F25954009D30B1 /* closet-color-id.app */;
@@ -286,7 +289,7 @@
 			);
 			mainGroup = 63C8C86528F25954009D30B1;
 			packageReferences = (
-				63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				637C8599291B5E10001075B9 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 63C8C86F28F25954009D30B1 /* Products */;
 			projectDirPath = "";
@@ -321,6 +324,7 @@
 				6380383F29130982008F2157 /* ArticleStyle.swift in Sources */,
 				63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */,
 				6380384129130A10008F2157 /* SubcategoryArticle.swift in Sources */,
+				6344FF05291B572300C75BE5 /* ImaggaCalls.swift in Sources */,
 				63108EAC2912A03100808888 /* ArticleView.swift in Sources */,
 				E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */,
 				63A2700429141DC40023F366 /* CustomCameraView.swift in Sources */,
@@ -567,7 +571,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		637C8599291B5E10001075B9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -578,9 +582,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		63108EBA2912A7CB00808888 /* Alamofire */ = {
+		637C859A291B5E10001075B9 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 63108EB92912A7CB00808888 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 637C8599291B5E10001075B9 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

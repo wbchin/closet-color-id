@@ -15,28 +15,44 @@ struct UnsavedArticleView: View {
   @State private var isShowingSubcats = false
   @State private var isShowingCats = false
   @State private var isShowingStyles = false
+//    @State private var i = ImaggaCalls()
+    @State var colors: [PhotoColor]
   var body: some View {
-    HStack {
-      // insert image here
-      Image(uiImage: image).resizable().scaledToFit().padding()
+      ScrollView{
+          HStack {
+            // insert image here
+            Image(uiImage: image).resizable().scaledToFit().padding()
 
-      Spacer()
-      
-      Button(action: {
-        isShowingSave = false
-      }) {
-        Text("Save to wardrobe")
+            Spacer()
+            
+            Button(action: {
+              isShowingSave = false
+            }) {
+              Text("Save to wardrobe")
+            }
+            
+            Button(action: {
+              isShowingSave = false
+                ImageCaptureView(imaggaCall: ImaggaCalls(), viewModel: viewModel)
+                .animation(.spring())
+                .transition(.slide)
+            }) {
+              Text("Retake photo")
+            }
+              Spacer()
+              
+              List{
+                  ForEach(colors, id: \.self) { color in
+                      /*@START_MENU_TOKEN@*/Text(color.primaryHex)/*@END_MENU_TOKEN@*/
+                  }
+              }
+          }
       }
-      
-      Button(action: {
-        isShowingSave = false
-        ImageCaptureView(viewModel: viewModel)
-          .animation(.spring())
-          .transition(.slide)
-      }) {
-        Text("Retake photo")
-      }
-    }
+    
+//    .onAppear{
+//        i.uploadImage(image: image)
+//        colors = i.colors! //UNSAFE
+//    }
   }
   
 }

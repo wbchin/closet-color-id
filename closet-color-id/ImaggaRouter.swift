@@ -44,10 +44,12 @@ public enum ImaggaRouter: URLRequestConvertible {
     }()
     
     let url = try ImaggaRouter.baseURLPath.asURL()
+      print("1")
     print(url)
     var request = URLRequest(url: url.appendingPathComponent(path))
     request.httpMethod = method.rawValue
     request.setValue(ImaggaRouter.authenticationToken, forHTTPHeaderField: "Authorization")
+      print("2")
     print(request)
     request.timeoutInterval = TimeInterval(10 * 1000)
     

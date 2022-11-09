@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PhotoColor{
+struct PhotoColor: Hashable{
     let primaryHex: String
     let primaryName: String
     let primaryFamily: String
