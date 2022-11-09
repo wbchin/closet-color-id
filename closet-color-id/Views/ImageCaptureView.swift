@@ -40,10 +40,11 @@ struct ImageCaptureView: View {
         var body: some View {
             ZStack {
                 if capturedImage != nil {
-                    Image(uiImage: capturedImage!)
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
+//                    Image(uiImage: capturedImage!)
+//                        .resizable()
+//                        .scaledToFill()
+//                        .ignoresSafeArea()
+                    ArticleUnsavedView(articleImage: capturedImage!)//UNSAFE
                 } else {
                     Color(UIColor.systemBackground)
                 }
