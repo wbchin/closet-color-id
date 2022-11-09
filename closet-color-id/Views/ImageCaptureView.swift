@@ -13,19 +13,15 @@ struct ImageCaptureView: View {
     @State var showUnsavedArticleView: Bool = false
         @State private var isCustomCameraViewPresented = false
         let viewModel: ViewModel
+  
         var body: some View {
-            if showUnsavedArticleView {
-              UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
-                    .animation(.spring())
-                    .transition(.slide)
-            }
             ZStack {
                 if capturedImage != nil {
-                    Image(uiImage: capturedImage!)
-                        .resizable()
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                  UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
+//                    Image(uiImage: capturedImage!)
+//                        .resizable()
+//                        .scaledToFill()
+//                        .ignoresSafeArea()
+                  UnsavedArticleView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
                 } else {
                     Color(UIColor.systemBackground)
                 }
@@ -33,7 +29,7 @@ struct ImageCaptureView: View {
                 VStack {
                   Button(action: {
                     self.viewModel.saveArticle()
-                    UnsavedArticleView(viewModel: viewModel, image: capturedImage!)
+                    UnsavedArticleView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
                   }) {
                     Text("Done")
                   }
