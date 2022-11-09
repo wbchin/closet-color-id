@@ -12,15 +12,7 @@ struct TagCategoryView: View {
   @State private var capturedImage: UIImage? = nil
   let viewModel: ViewModel
   var image: UIImage
-  let primary_color_name: String
-  let primary_color_family: String
-  let primary_color_hex: String
-  let secondary_color_name: String
-  let secondary_color_hex: String
-  let secondary_color_family: String
-  let complimentary_color_name: String
-  let complimentary_color_hex: String
-  let complimentary_color_family: String
+  let article: Article
   let cat = ""
   @State var isShowingCat = false
   
