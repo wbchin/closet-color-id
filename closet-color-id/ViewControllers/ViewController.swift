@@ -1,14 +1,14 @@
+////
+////  ViewController.swift
+////  closet-color-id
+////
+////  Created by Waverly Chin on 11/2/22.
+////
 //
-//  ViewController.swift
-//  closet-color-id
+//import Foundation
+//import Alamofire
 //
-//  Created by Waverly Chin on 11/2/22.
-//
-
-import Foundation
-import Alamofire
-
-class ViewController: ObservableObject{
+//class ViewController: ObservableObject{
 //    extension ViewController {
 //        func upload(image: UIImage,
 //                    progressCompletion: @escaping (_ percent: Float) -> Void,
@@ -39,7 +39,7 @@ class ViewController: ObservableObject{
 //                                completion([String](), [PhotoColor]())
 //                                return
 //                            }
-//
+
 //                            // 2.
 //                            guard let responseJSON = response.result.value as? [String: Any],
 //                                  let uploadedFiles = responseJSON["result"] as? [String: Any],
@@ -48,9 +48,9 @@ class ViewController: ObservableObject{
 //                                completion([String](), [PhotoColor]())
 //                                return
 //                            }
-//
+//                            
 //                            print("Content uploaded with ID: \(firstFileID)")
-//
+//                            
 //                            // 3.
 //                            self.downloadTags(uploadId: firstFileID) { tags in
 //                                self.downloadColors(uploadId: firstFileID) { colors in
@@ -64,7 +64,6 @@ class ViewController: ObservableObject{
 //                }
 //            )
 //        }
-//
 //        func downloadColors(uploadId: String, completion: @escaping ([PhotoColor]) -> Void) {
 //            Alamofire.request(ImaggaRouter.colors(uploadId))
 //                .responseJSON { response in
@@ -74,7 +73,6 @@ class ViewController: ObservableObject{
 //                        completion([PhotoColor]())
 //                        return
 //                    }
-//
 //                    // 3.
 //                    guard let responseJSON = response.result.value as? [String: Any],
 //                          let result = responseJSON["result"] as? [String: Any],
@@ -84,7 +82,6 @@ class ViewController: ObservableObject{
 //                        completion([PhotoColor]())
 //                        return
 //                    }
-//
 //                    // 4.
 //                    let photoColors = imageColors.flatMap({ (dict) -> PhotoColor? in
 //                        guard
@@ -94,7 +91,6 @@ class ViewController: ObservableObject{
 //                        else {
 //                            return nil
 //                        }
-//
 //                        return PhotoColor(
 //                            //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
 //                            primaryHex: hex,
@@ -105,4 +101,4 @@ class ViewController: ObservableObject{
 //                }
 //        }
 //    }
-}
+

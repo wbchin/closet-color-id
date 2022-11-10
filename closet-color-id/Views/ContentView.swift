@@ -17,9 +17,6 @@ struct ContentView: View {
     @State var capturedImage: UIImage? = nil
   @ObservedObject var dataPopulation = DataPopulation()
   @ObservedObject var viewModel = ViewModel()
-
-  @FetchRequest(entity: Category.entity(), sortDescriptors: [])
-  var categories: FetchedResults<Category>
   //Create tops, bottoms, footwear, and outerwear here>
   var articles : [Article]? {
       get {
@@ -37,27 +34,17 @@ struct ContentView: View {
         .tabItem{
           Label("Clothing", systemImage: "tshirt")
         }
-
-          ImageCaptureView(viewModel: viewModel)
+          
+        ImageCaptureView(imaggaCall: ImaggaCalls(),  viewModel: viewModel)
             .tabItem{
               Label("Camera", systemImage: "camera")
             }
-          OutfitsView()
+        OutfitsView(viewModel: viewModel)
             .tabItem{
               Label("Outfits", systemImage: "door.french.closed")
             }
         }
-    }.onAppear {
-      dataPopulation.populateCategories()
-      let top_cat_id = viewModel.fetchCategory(name: "top")
-      let bottom_cat_id = viewModel.fetchCategory(name: "bottom")
-      let footwear_cat_id = viewModel.fetchCategory(name: "footwear")
-      dataPopulation.populateTopSubcategories(category_id: top_cat_id!.objectID)
-      dataPopulation.populateBottomSubcategories(category_id: bottom_cat_id!.objectID)
-      dataPopulation.populateFootwearSubcategories(category_id: footwear_cat_id!.objectID)
-        dataPopulation.createArticle()
     }
-
     }
     func customTab() {
         CustomTabBar(capturedImage: $capturedImage)

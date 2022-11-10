@@ -9,16 +9,14 @@ import SwiftUI
 
 @main
 struct closet_color_idApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-//    @State private var capturedImage: UIImage?
-
-    let persistenceController = PersistenceController.shared
-    let dataPopulation = DataPopulation()
-    var body: some Scene {
-      WindowGroup {
-          ContentView()
-          .environment(\.managedObjectContext,
-                                     persistenceController.container.viewContext)
-      }
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  let persistenceController = PersistenceController.shared
+  let dataPopulation = DataPopulation()
+  var body: some Scene {
+    WindowGroup {
+        ContentView()
+        .environment(\.managedObjectContext,
+                                   persistenceController.container.viewContext)
     }
+  }
 }

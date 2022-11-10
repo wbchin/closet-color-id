@@ -13,8 +13,6 @@ import SwiftUI
 import UIKit
 
 class ViewModel: ObservableObject {
-  @FetchRequest(entity: Article.entity(), sortDescriptors: [])
-  var articles: FetchedResults<Article>
   let appDelegate: AppDelegate = AppDelegate()
   let image: UIImage = UIImage(named: "pusheen.png")!
   var image_data : Data {
@@ -22,23 +20,16 @@ class ViewModel: ObservableObject {
       return image.pngData()!
     }
   }
+  @Published var arts = [Article]()
   
-  func fetchCategory(name: String) -> Category? {
-    let fetchRequest: NSFetchRequest<Category>
-    fetchRequest = Category.fetchRequest()
-
-    fetchRequest.predicate = NSPredicate(
-        format: "name == %@", name
-    )
-
-    // Get a reference to a NSManagedObjectContext
-    let context = appDelegate.persistentContainer.viewContext
-
-    // Perform the fetch request to get the objects
-    // matching the predicate
+  func fetchLatestArticle() -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
     
-    NSLog("Fetch Request:")
-    NSLog(fetchRequest.description)
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+    fetchRequest.fetchLimit = 1
+    
+    let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
       return objects.first
@@ -51,15 +42,9 @@ class ViewModel: ObservableObject {
   func fetchArticles() -> [Article]? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
-
+    
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
-
-    // Perform the fetch request to get the objects
-    // matching the predicate
-    
-    NSLog("Fetch Request:")
-    NSLog(fetchRequest.description)
     do {
       let objects = try context.fetch(fetchRequest)
       return objects
@@ -69,61 +54,78 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func fetchSubcategory(name: String) -> Subcategory? {
-    let fetchRequest: NSFetchRequest<Subcategory>
-    fetchRequest = Subcategory.fetchRequest()
-
-    fetchRequest.predicate = NSPredicate(
-        format: "name == %@", name
-    )
-
+  func fetchOutfits() -> [Outfit]? {
+    let fetchRequest: NSFetchRequest<Outfit>
+    fetchRequest = Outfit.fetchRequest()
+    
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
-    
-    NSLog("Fetch Request:")
-    NSLog(fetchRequest.description)
     do {
       let objects = try context.fetch(fetchRequest)
-      return objects.first
+      return objects
     } catch {
       print("Error")
       return nil
     }
-    
   }
   
-  func tagArticleCategory(category: Category, article_id: NSManagedObjectID) {
-//    newArticle.primary_color_family = ""
+  func fetchStyles() -> [Style]? {
+    let fetchRequest: NSFetchRequest<Style>
+    fetchRequest = Style.fetchRequest()
+    
+    // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
-    context.object(with: article_id).setValue(category, forKey: "category")
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
+  func loadArticle(data: NSManagedObject) {
+    let newArticle = Article()
+      newArticle.image_data = data.value(forKey: "image_data") as? Data
+      newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String
+      newArticle.primary_color_family = data.value(forKey: "primary_color_family") as? String
+      newArticle.primary_color_hex = data.value(forKey: "primary_color_hex") as? String
+      newArticle.secondary_color_name = data.value(forKey: "secondary_color_name") as? String
+      newArticle.secondary_color_family = data.value(forKey: "secondary_color_family") as? String
+      newArticle.secondary_color_hex = data.value(forKey: "secondary_color_hex") as? String
+      newArticle.complimentary_color_name = data.value(forKey: "complimentary_color_name") as? String
+      newArticle.complimentary_color_family = data.value(forKey: "complimentary_color_family") as? String
+      newArticle.complimentary_color_hex = data.value(forKey: "complimentary_color_hex") as? String
+      newArticle.category = data.value(forKey: "category") as? String
+      newArticle.subcategory = data.value(forKey: "subcategory") as? String
+    arts.append(newArticle)
+  }
+  
+  func tagArticleCategory(category: String, article: Article) {
+    let context = appDelegate.persistentContainer.viewContext
+    context.object(with: article.objectID).setValue(category, forKey: "category")
     do {
       try context.save()
       NSLog("saved article as category")
-
+      
     } catch {
       NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
   }
   
-  func tagArticleSubcategory(subcategory: Subcategory, article_id: NSManagedObjectID) {
-//    newArticle.primary_color_family = ""
+  func tagArticleSubcategory(subcategory: String, article: Article) {
     let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "SubcategoryArticle", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(context.object(with: article_id), forKey: "article")
-      newVal.setValue(subcategory, forKey: "subcategory")
-      NSLog("Set all values for newVal")
-      do {
-        try context.save()
-        NSLog("Saved article subcategory")
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
-      }
+    context.object(with: article.objectID).setValue(subcategory, forKey: "subcategory")
+    do {
+      try context.save()
+      NSLog("saved article as subcategory")
+      
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
   }
   
-    func saveArticle(image_data: Data, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_family: String, secondary_color_hex: String, complimentary_color_name: String, complimentary_color_family: String, complimentary_color_hex: String) {
-//    newArticle.primary_color_family = ""
+  func saveArticle(image_data: Data, primary_color_name:String, primary_color_family: String, primary_color_hex: String, secondary_color_name: String = "", secondary_color_family: String = "",  secondary_color_hex: String = "") -> Article?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")
@@ -137,49 +139,111 @@ class ViewModel: ObservableObject {
       newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
       newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
       newVal.setValue(secondary_color_hex, forKey: "secondary_color_hex")
-      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
-      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
-      newVal.setValue(complimentary_color_hex, forKey: "complimentary_color_hex")
+//      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
+//      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
+//      newVal.setValue(complimentary_color_hex, forKey: "complimentary_color_hex")
+//      newVal.setValue(category, forKey: "category")
+//      newVal.setValue(subcategory, forKey: "subcategory")
       NSLog("Set all values for newVal")
       do {
         try context.save()
-        context.refreshAllObjects()
+        arts.append((context.object(with:newVal.objectID) as? Article)!)//UNSAFE
+        return context.object(with:newVal.objectID) as? Article
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
       }
     }
+    return nil
   }
   
-  func fetchArticles() -> [Article?] {
-    let fetchRequest: NSFetchRequest<Article>
-    fetchRequest = Article.fetchRequest()
-
-    // Get a reference to a NSManagedObjectContext
+  func saveOutfit(name: String) {
     let context = appDelegate.persistentContainer.viewContext
-
-    // Perform the fetch request to get the objects
-    // matching the predicate
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects
-    } catch {
-      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
+    if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(name, forKey: "name")
+      do {
+        try context.save()
+        NSLog("Outfit saved")
+        
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save Outfit to CoreData")
+      }
     }
-    return [nil]
   }
   
-//  func deleteArticle(index: Int) {
-//    let context = appDelegate.persistentContainer.viewContext
-//    context.delete(articles[index])
-//
-//    articles.remove(at: index)
-//
-//    do {
-//      try context.save()
-//    } catch {
-//      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
-//    }
-//  }
+  func saveStyle(name: String) {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(name, forKey: "name")
+      do {
+        try context.save()
+        NSLog("Outfit saved")
+        
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save Style to CoreData")
+      }
+    }
+  }
+  
+  func saveArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "ArticleStyle", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(context.object(with: article_id), forKey: "article")
+      newVal.setValue(context.object(with: style_id), forKey: "style")
+      do {
+        try context.save()
+        NSLog("Outfit saved")
+        
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
+      }
+    }
+  }
+  
+  func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "StyleOutfit", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
+      newVal.setValue(context.object(with: style_id), forKey: "style")
+      do {
+        try context.save()
+        NSLog("StyleOutfit saved")
+        
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
+      }
+    }
+  }
+  
+  func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(context.object(with: article_id), forKey: "article")
+      newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
+      do {
+        try context.save()
+        NSLog("Outfit saved")
+        
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
+      }
+    }
+  }
+  
+  func deleteArticle(article_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    context.delete(context.object(with: article_id))
+    do {
+      try context.save()
+      NSLog("Article deleted")
+      
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to delete article from CoreData")
+    }
+  }
 }
-

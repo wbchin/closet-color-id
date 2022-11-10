@@ -13,43 +13,22 @@ struct ArticleView: View {
   let viewModel: ViewModel
   
   var body: some View {
-    Text(article.primary_color_name!)
-    Text(article.primary_color_family!)
-    Text(article.primary_color_hex!)
     
-    if (article.category != nil) {
-      Text("Category:")
-      Text(article.category!.name!)
-    }
+//    Text(article.primary_color_name!)
+//    Text(article.primary_color_family!)
+//    Text(article.primary_color_hex!)
+    
+    Text(article.primary_color_name!)
+    
+//    if (article.category != nil) {
+//      Text(article.category!)
+//    }
+//    
+//    if (article.subcategory != nil) {
+//      Text(article.subcategory!)
+//    }
     
     Spacer()
-    
-    if (article.subcategoryArticles != nil) {
-      Text("Subcategory:")
-      
-      // need this line to unpack subcategoryArticle type
-      let array = article.subcategoryArticles?.allObjects as! [SubcategoryArticle]
-      ForEach(array) { subcategoryArticle in
-        Text(subcategoryArticle.subcategory!.name!)
-        }
-    }
-    
-    Button(action: {
-      let top_category = viewModel.fetchCategory(name: "top")
-      self.viewModel.tagArticleCategory(category: top_category!, article_id: article.objectID)
-    }) {
-      Text("Mark as top")
-    }
-    
-    Button(action: {
-      let blouse_subcat = viewModel.fetchSubcategory(name: "blouse")
-      self.viewModel.tagArticleSubcategory(subcategory: blouse_subcat!, article_id: article.objectID)
-    }) {
-      Text("Mark as blouse")
-    }
-    
-    
-    
     }
 }
 

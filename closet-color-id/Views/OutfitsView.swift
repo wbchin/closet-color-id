@@ -48,6 +48,29 @@ struct OutfitsView: View {
     }
     func addRow() {
         self.outfits.append("New Outfit")
+=======
+  let viewModel: ViewModel
+  var outfits : [Outfit]? {
+      get {
+       return viewModel.fetchOutfits()
+      }
+  }
+  
+  //@State private var clothes = ["pink tee", "green tee", "black tee"]
+  var body: some View {
+      NavigationView {
+          List {
+              ForEach(outfits!, id: \.self) { outfit in
+                Text(outfit.name!)
+              }
+          }
+          .navigationBarTitle("OUTFITS")
+          .navigationBarItems(trailing: Button(action: {
+            // this needs it's own view
+          }) {
+              Image(systemName: "plus")
+          })
+      }
     }
 }
 

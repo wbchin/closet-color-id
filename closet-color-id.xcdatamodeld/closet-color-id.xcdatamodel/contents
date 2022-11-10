@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Article" representedClassName=".Article" syncable="YES" codeGenerationType="class">
         <attribute name="article_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="complimentary_color_family" optional="YES" attributeType="String"/>
         <attribute name="complimentary_color_hex" optional="YES" attributeType="String"/>
         <attribute name="complimentary_color_name" optional="YES" attributeType="String"/>
@@ -12,10 +13,9 @@
         <attribute name="secondary_color_family" optional="YES" attributeType="String"/>
         <attribute name="secondary_color_hex" optional="YES" attributeType="String"/>
         <attribute name="secondary_color_name" optional="YES" attributeType="String"/>
+        <attribute name="subcategory" optional="YES" attributeType="String"/>
         <relationship name="articleOufits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleOutfit" inverseName="article" inverseEntity="ArticleOutfit"/>
         <relationship name="articleStyles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ArticleStyle" inverseName="article" inverseEntity="ArticleStyle"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="articles" inverseEntity="Category"/>
-        <relationship name="subcategoryArticles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubcategoryArticle" inverseName="article" inverseEntity="SubcategoryArticle"/>
     </entity>
     <entity name="ArticleOutfit" representedClassName=".ArticleOutfit" syncable="YES" codeGenerationType="class">
         <attribute name="article_outfit_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -26,12 +26,6 @@
         <attribute name="article_style_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="articleStyles" inverseEntity="Article"/>
         <relationship name="style" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Style" inverseName="articleStyles" inverseEntity="Style"/>
-    </entity>
-    <entity name="Category" representedClassName=".Category" syncable="YES" codeGenerationType="class">
-        <attribute name="category_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Article" inverseName="category" inverseEntity="Article"/>
-        <relationship name="subcategories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subcategory" inverseName="category" inverseEntity="Subcategory"/>
     </entity>
     <entity name="Outfit" representedClassName=".Outfit" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -49,16 +43,5 @@
         <attribute name="style_outfit_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="outfit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Outfit" inverseName="styleOutfits" inverseEntity="Outfit"/>
         <relationship name="style" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Style" inverseName="styleOutfits" inverseEntity="Style"/>
-    </entity>
-    <entity name="Subcategory" representedClassName=".Subcategory" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="subcategory_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="subcategories" inverseEntity="Category"/>
-        <relationship name="subcategoryArticles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubcategoryArticle" inverseName="subcategory" inverseEntity="SubcategoryArticle"/>
-    </entity>
-    <entity name="SubcategoryArticle" representedClassName=".SubcategoryArticle" syncable="YES" codeGenerationType="class">
-        <attribute name="subcategory_article_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Article" inverseName="subcategoryArticles" inverseEntity="Article"/>
-        <relationship name="subcategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subcategory" inverseName="subcategoryArticles" inverseEntity="Subcategory"/>
     </entity>
 </model>
