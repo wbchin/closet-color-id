@@ -25,14 +25,19 @@ struct WardrobeView: View {
       NavigationView{
         List{
           Text("Articles")
-          ForEach(articles) { article in
-                WardrobeCardView(viewModel: viewModel, article: article)
+          ForEach(viewModel.arts, id: \.self) { article in
+                Text(article.primary_color_name!) //UMSAFE
+                
               }
+
+//          ForEach(articles) { article in
+//                WardrobeCardView(viewModel: viewModel, article: article)
+//              }
         
-          Text("Tops")
-          ForEach(tops) { top in
-            WardrobeCardView(viewModel: viewModel, article: top)
-          }
+//          Text("Tops")
+//          ForEach(tops) { top in
+//            WardrobeCardView(viewModel: viewModel, article: top)
+//          }
               
 //                Text("Bottoms")
 //                ForEach(bottoms) { bottom in

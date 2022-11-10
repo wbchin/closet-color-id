@@ -20,6 +20,7 @@ class ViewModel: ObservableObject {
       return image.pngData()!
     }
   }
+  @Published var arts = [Article]()
   
   func fetchLatestArticle() -> Article? {
     let fetchRequest: NSFetchRequest<Article>
@@ -83,10 +84,26 @@ class ViewModel: ObservableObject {
     }
   }
   
+  func loadArticle(data: NSManagedObject) {
+    let newArticle = Article()
+      newArticle.image_data = data.value(forKey: "image_data") as? Data
+      newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String
+      newArticle.primary_color_family = data.value(forKey: "primary_color_family") as? String
+      newArticle.primary_color_hex = data.value(forKey: "primary_color_hex") as? String
+      newArticle.secondary_color_name = data.value(forKey: "secondary_color_name") as? String
+      newArticle.secondary_color_family = data.value(forKey: "secondary_color_family") as? String
+      newArticle.secondary_color_hex = data.value(forKey: "secondary_color_hex") as? String
+      newArticle.complimentary_color_name = data.value(forKey: "complimentary_color_name") as? String
+      newArticle.complimentary_color_family = data.value(forKey: "complimentary_color_family") as? String
+      newArticle.complimentary_color_hex = data.value(forKey: "complimentary_color_hex") as? String
+      newArticle.category = data.value(forKey: "category") as? String
+      newArticle.subcategory = data.value(forKey: "subcategory") as? String
+    arts.append(newArticle)
+  }
   
-  func tagArticleCategory(category_id: NSManagedObjectID, article_id: NSManagedObjectID) {
+  func tagArticleCategory(category: String, article: Article) {
     let context = appDelegate.persistentContainer.viewContext
-    context.object(with: article_id).setValue(context.object(with: category_id), forKey: "category")
+    context.object(with: article.objectID).setValue(category, forKey: "category")
     do {
       try context.save()
       NSLog("saved article as category")
@@ -96,19 +113,15 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func tagArticleSubcategory(subcategory_id: NSManagedObjectID, article_id: NSManagedObjectID) {
+  func tagArticleSubcategory(subcategory: String, article: Article) {
     let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "SubcategoryArticle", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(context.object(with: article_id), forKey: "article")
-      newVal.setValue(context.object(with: subcategory_id), forKey: "subcategory")
-      NSLog("Set all values for newVal")
-      do {
-        try context.save()
-        NSLog("Saved article subcategory")
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
-      }
+    context.object(with: article.objectID).setValue(subcategory, forKey: "subcategory")
+    do {
+      try context.save()
+      NSLog("saved article as subcategory")
+      
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
   }
   
@@ -134,7 +147,8 @@ class ViewModel: ObservableObject {
       NSLog("Set all values for newVal")
       do {
         try context.save()
-        return newVal as? Article
+        arts.append((context.object(with:newVal.objectID) as? Article)!)//UNSAFE
+        return context.object(with:newVal.objectID) as? Article
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
