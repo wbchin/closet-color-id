@@ -33,9 +33,10 @@ struct ImageCaptureView: View {
           Text("").onAppear{
             self.runImagga(capturedImage: capturedImage!)
           }
+        
     
           if self.imaggaCall.colors != nil{
-          NavigationLink(destination: ArticleView(article: self.imaggaCall.article, viewModel: viewModel), label: { Text("view saved article")})
+            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.imaggaCall.article), label: { Text("view saved article")})
           }
         } else {
           Color(UIColor.systemBackground)

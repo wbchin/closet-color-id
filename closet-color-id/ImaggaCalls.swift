@@ -65,7 +65,7 @@ class ImaggaCalls: ObservableObject{
           myGroup.leave()
           myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
                    print("AFTER GETTING RANDOM BEERS")
-            //print(self.article.primary_color_name!)
+            //print(self.article!.primary_color_name!)
             completion(self.article)
                }
         }
