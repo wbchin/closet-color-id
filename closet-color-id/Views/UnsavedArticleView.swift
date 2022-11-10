@@ -11,17 +11,7 @@ import SwiftUI
 struct UnsavedArticleView: View {
   let viewModel: ViewModel
   let article: Article
-//  var image: UIImage
-//  let primary_color_name: String
-//  let primary_color_family: String
-//  let primary_color_hex: String
-//  let secondary_color_name: String
-//  let secondary_color_hex: String
-//  let secondary_color_family: String
-//  let complimentary_color_name: String
-//  let complimentary_color_hex: String
-//  let complimentary_color_family: String
-  let capturedImage = UIImage(named:"pusheen.png")
+  let capturedImage = UIImage(named:"shirt.png")
   @State private var isShowingSave = true
   @State private var isShowingSubcats = false
   @State private var isShowingCats = false
@@ -36,6 +26,7 @@ struct UnsavedArticleView: View {
 
 
                 Button(action: {
+                  NSLog(self.article.debugDescription)
                   isShowingSave = false
                 }) {
                   Text("Save to wardrobe")

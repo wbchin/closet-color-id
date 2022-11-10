@@ -7,7 +7,7 @@ struct TagSubcategoryView: View {
   let subcategory: [String]
   let style = ""
   let article: Article
-    @State private var capturedImage: UIImage? = UIImage(named:"pusheen.png")
+    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   @State var isShowingSubcat = true
   
   var body: some View {

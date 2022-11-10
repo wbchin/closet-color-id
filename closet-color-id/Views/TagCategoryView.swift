@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
             
 struct TagCategoryView: View {
-    @State private var capturedImage: UIImage? = UIImage(named:"pusheen.png")
+    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   let viewModel: ViewModel
   let article: Article
 //  var image: UIImage

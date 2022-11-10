@@ -27,7 +27,6 @@ struct ContentView: View {
   var body: some View {
     VStack {
         
-        
       TabView{
         WardrobeView(viewModel: viewModel,
                      tops: [], bottoms: [], footwear: [], outerwear: [])
@@ -35,7 +34,7 @@ struct ContentView: View {
           Label("Clothing", systemImage: "tshirt")
         }
           
-        ImageCaptureView(imaggaCall: ImaggaCalls(),  viewModel: viewModel)
+        ImageCaptureView( viewModel: viewModel, image: nil)
             .tabItem{
               Label("Camera", systemImage: "camera")
             }
@@ -46,9 +45,9 @@ struct ContentView: View {
         }
     }
     }
-    func customTab() {
-        CustomTabBar(capturedImage: $capturedImage)
-    }
+//    func customTab() {
+//        CustomTabBar(capturedImage: $capturedImage)
+//    }
   }
   
   struct ContentView_Previews: PreviewProvider {

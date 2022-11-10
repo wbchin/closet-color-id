@@ -7,20 +7,25 @@ import Alamofire
 import Foundation
 import UIKit
 import SwiftUI
-class ImaggaCalls: ObservableObject{
+class ImaggaCalls: ObservableObject {
 //    @Published var colors = [PhotoColor]()
 //    @Published var image: UIImage
 //    init(image: UIImage){
 //        uploadImage(image: image)
 //    }
-    @Published var colors: [PhotoColor]?
-    let viewModel = ViewModel()
-  let image: UIImage? = UIImage(named: "pusheen.png")
+    @State var colors: [PhotoColor]?
+    let viewModel: ViewModel
+    var image: UIImage? = nil
     @State var article: Article = Article()
+  
+  init(viewModel: ViewModel) {
+      self.viewModel = viewModel
+      //self.image = image
+    }
     
-  func uploadImage(image: UIImage, completion: @escaping((Article) -> ())) {
+  func uploadImage(completion: @escaping((Article) -> ())) {
         let myGroup = DispatchGroup()
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+    guard let imageData = self.image!.jpegData(compressionQuality: 0.5) else {
             print("Could not get JPEG representation of UIImage")
             return
         }
@@ -50,8 +55,59 @@ class ImaggaCalls: ObservableObject{
                     
                     print("downloading")
                     
-                  self.downloadColors(uploadId: firstFileID, completion: completion)
+                  //self.downloadColors(uploadId: firstFileID, completion: completion)
                   //myGroup.leave()
+                  myGroup.enter()
+                      AF.request(ImaggaRouter.colors(firstFileID))
+                          .responseData { response in
+                              // 2.
+                              switch response.result{
+                              case .failure:
+                                  print("Error while fetching colors: \(String(describing: response.result))")
+                                  return
+                              case .success(let data):
+              //                case .success(let data):
+                                  do{
+                                    print(try ImaggaRouter.colors(firstFileID).asURLRequest())
+                                      guard let asJSON = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                                            let result = asJSON["result"] as? [String: Any],
+                                            let info = result["colors"] as? [String: Any],
+                                            let imageColors = info["image_colors"] as? [[String: Any]] else {
+                                          print("Invalid color information received from service")
+                                          return
+                                      }
+                                    print("photocololors starting now")
+                                      let photoColors = imageColors.compactMap({ (dict) -> PhotoColor? in
+                                          guard
+                                              let hex = dict["closest_palette_color_html_code"] as? String,
+                                              let name = dict["closest_palette_color"] as? String,
+                                              let family = dict["closest_palette_color_parent"] as? String
+                                          else {
+                                              return nil
+                                          }
+
+                                          return PhotoColor(
+                                              //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
+                                              primaryHex: hex,
+                                              primaryName: name,
+                                              primaryFamily: family)
+                                      })
+                                      self.colors = photoColors
+                                    if photoColors.count == 1 {
+                                        self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex)!
+                                    } else {
+                                      print(self.image)
+                                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_color_hex: photoColors[1].primaryHex)!
+                                    }
+              //                      print(self.article.debugDescription)
+                                    NSLog("done")
+                                  } catch{
+                                      print("Error while uploading file: \(String(describing: response.result))")
+                                  }
+                                  
+                              }
+                          }
+                  myGroup.leave()
                   
                 } catch{
                     print("Error while uploading file: \(String(describing: response.result))")
@@ -93,6 +149,7 @@ class ImaggaCalls: ObservableObject{
                           print(data)
                             return
                         }
+                        print("Starting photoColors")
                         let photoColors = imageColors.compactMap({ (dict) -> PhotoColor? in
                             guard
                                 let hex = dict["closest_palette_color_html_code"] as? String,
@@ -108,25 +165,26 @@ class ImaggaCalls: ObservableObject{
                                 primaryName: name,
                                 primaryFamily: family)
                         })
+                      print("set self.colors")
                         self.colors = photoColors
-                      if photoColors.count == 1 {
-                          self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex)!
-                      } else {
-                        self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_color_hex: photoColors[1].primaryHex)!
-                      }
-                      //print(self.article.primary_color_name!)
+                     
                     } catch{
                         print("Error while uploading file: \(String(describing: response.result))")
                     }
+                  
+                  print("COLOR COUNT")
+                  print(String(self.colors!.count))
+                  if self.colors!.count == 1 {
+                    print("one")
+                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_color_hex: self.colors!.first!.primaryHex)!
+                  } else {
+                    print("twoo")
+                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_color_hex: self.colors!.first!.primaryHex, secondary_color_name: self.colors![1].primaryName, secondary_color_family: self.colors![1].primaryFamily, secondary_color_hex: self.colors![1].primaryHex)!
+                  }
+//                      print(self.article.debugDescription)
+                  print("done")
                     
                 }
-                
-                
-                // 4.
-                
-                
-                // 5.
-//                completion(photoColors)
             }
     myGroup.leave()
     myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
