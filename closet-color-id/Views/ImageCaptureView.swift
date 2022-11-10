@@ -75,6 +75,7 @@ struct ImageCaptureView: View {
       }
       func runImagga() {
         NSLog("imagga run")
+        self.imaggaCall.image = image!
         self.imaggaCall.uploadImage(completion: { article in
            self.article = article
         })
@@ -84,27 +85,37 @@ struct ImageCaptureView: View {
     var body: some View {
       NavigationView {
         ZStack {
-//          if self.image != nil{
-//              Text("").onAppear{
-//                let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
-//                self.imaggaCall.image = image!
-//                self.runImagga()
-//              }
-//          }
-          if self.image != nil {
-                Image(uiImage: image!)
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-            } else {
-                Color(UIColor.systemBackground)
-            }
+          if self.image != nil{
+            Image(uiImage: image!)
+                                .resizable()
+                                .scaledToFill()
+                                .ignoresSafeArea()
+              Text("").onAppear{
+                let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
+                self.imaggaCall.image = image!
+                self.runImagga()
+              }
+          }
+//          if self.image != nil {
+//                Image(uiImage: image!)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .ignoresSafeArea()
+//            } else {
+//                Color(UIColor.systemBackground)
+//            }
           
           
           VStack {
             Spacer()
+            if self.article != nil {
+              //              NSLog(self.viewModel.arts.count)
+              let _ = print("COUNT")
+              let _ = print(self.viewModel.arts.count)
+//              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
+            }
             Button(action: {
-//              NSLog(self.imaggaCall.article.debugDescription)
+              //              NSLog(self.imaggaCall.article.debugDescription)
               isCustomCameraViewPresented.toggle()
             }, label: {
               Image(systemName: "camera.fill")
@@ -118,13 +129,10 @@ struct ImageCaptureView: View {
             .sheet(isPresented: $isCustomCameraViewPresented, content: {
               CustomCameraView(capturedImage: $image)
             })
-            if self.article != nil{
-//              NSLog(self.viewModel.arts.count)
-              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
-            }
+           
+          }
           }
         }
-      }
     }
   }
   

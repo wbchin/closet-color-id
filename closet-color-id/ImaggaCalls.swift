@@ -25,10 +25,12 @@ class ImaggaCalls: ObservableObject {
     
   func uploadImage(completion: @escaping((Article) -> ())) {
         let myGroup = DispatchGroup()
-    guard let imageData = self.image!.jpegData(compressionQuality: 0.5) else {
-            print("Could not get JPEG representation of UIImage")
-            return
-        }
+    print("Image Imagga")
+    print(self.image?.size)
+        guard let imageData = self.image!.jpegData(compressionQuality: 0.5) else {
+                print("Could not get JPEG representation of UIImage")
+                return
+            }
         myGroup.enter()
         AF.upload(
             multipartFormData: { multipartFormData in
@@ -61,11 +63,15 @@ class ImaggaCalls: ObservableObject {
                       AF.request(ImaggaRouter.colors(firstFileID))
                           .responseData { response in
                               // 2.
+                            print("RESPONSE")
+                            print(response)
                               switch response.result{
                               case .failure:
+                                print("fisl)")
                                   print("Error while fetching colors: \(String(describing: response.result))")
                                   return
                               case .success(let data):
+                                print("succ 2")
               //                case .success(let data):
                                   do{
                                     print(try ImaggaRouter.colors(firstFileID).asURLRequest())
