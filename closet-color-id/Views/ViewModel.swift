@@ -39,6 +39,34 @@ class ViewModel: ObservableObject {
     }
   }
   
+  func updateArticles() {
+    arts.removeAll()
+    fetchArticles()
+  }
+  
+  func deleteAllArticles() {
+    // Initialize Fetch Request
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      NSLog(String(objects.count))
+      for data in objects as [NSManagedObject] {
+        context.delete(data)
+        //loadArticle(data: data)
+        NSLog("Loaded article")
+      }
+     
+    } catch {
+      print("Error")
+   
+    }
+
+  }
+  
   func fetchArticles() -> [Article]? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
@@ -47,6 +75,12 @@ class ViewModel: ObservableObject {
     let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
+      NSLog(String(objects.count))
+      NSLog((objects.first?.primary_color_name!)!)
+      for data in objects as [NSManagedObject] {
+        loadArticle(data: data)
+        NSLog("Loaded article")
+      }
       return objects
     } catch {
       print("Error")
@@ -99,6 +133,7 @@ class ViewModel: ObservableObject {
       newArticle.category = data.value(forKey: "category") as? String
       newArticle.subcategory = data.value(forKey: "subcategory") as? String
     arts.append(newArticle)
+    NSLog("loadArticle completed")
   }
   
   func tagArticleCategory(category: String, article: Article) {
@@ -126,6 +161,7 @@ class ViewModel: ObservableObject {
   }
   
   func saveArticle(image_data: Data, primary_color_name:String, primary_color_family: String, primary_color_hex: String, secondary_color_name: String = "", secondary_color_family: String = "",  secondary_color_hex: String = "") -> Article?{
+    NSLog("starting save article")
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")

@@ -4,11 +4,7 @@ struct WardrobeView: View {
   @Environment(\.managedObjectContext) private var viewContext
   let viewModel: ViewModel
   let appDelegate: AppDelegate = AppDelegate()
-  var articles : [Article] {
-    get {
-      return viewModel.fetchArticles()!
-    }
-  }
+//  var articles = viewModel.arts
   var tops: [[Article]]
   var bottoms: [[Article]]
   var footwear: [[Article]]
@@ -29,9 +25,9 @@ struct WardrobeView: View {
       ScrollView{
         Text("Tops")
         LazyVGrid(columns: columns, spacing: 5){
-          ForEach(sym, id: \.self) { array in
-            ForEach(array, id: \.self) {top in
-              Image(uiImage: UIImage(named: top)!)
+          ForEach(viewModel.arts, id: \.self) { top in
+//            ForEach(array, id: \.self) {top in
+            Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
                 .renderingMode(.original)
                 .resizable()
                 .scaledToFit()
@@ -39,21 +35,25 @@ struct WardrobeView: View {
                 .frame(width: 80, height: 80)
                 .cornerRadius(10)
             }
-          }
+//          }
           
         }
-        Text("Bottoms")
-        LazyVGrid(columns: columns, spacing: 10){
-          ForEach(bols, id: \.self) { array in
-            ForEach(array, id: \.self) {bottom in
-              Image(systemName: bottom)
-                .font(.system(size: 30))
-                .frame(width: 50, height: 50)
-                .cornerRadius(10)
-            }
-          }
-        }
+//        Text("Bottoms")
+//        LazyVGrid(columns: columns, spacing: 10){
+//          ForEach(bols, id: \.self) { array in
+//            ForEach(array, id: \.self) {bottom in
+//              Image(systemName: bottom)
+//                .font(.system(size: 30))
+//                .frame(width: 50, height: 50)
+//                .cornerRadius(10)
+//            }
+//          }
+//        }
       }
+      .onAppear(perform: {
+        //self.viewModel.deleteAllArticles()
+        self.viewModel.updateArticles()
+      })
       .padding(.horizontal)
       .navigationBarTitle("WARDROBE")
     }
