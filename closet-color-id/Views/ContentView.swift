@@ -7,9 +7,17 @@
 
 import SwiftUI
 
+struct CustomTab: View {
+    @Binding var capturedImage: UIImage?
+    var body: some View {
+        Text("hello picture")
+    }
+}
 struct ContentView: View {
+    @State var capturedImage: UIImage? = nil
   @ObservedObject var dataPopulation = DataPopulation()
   @ObservedObject var viewModel = ViewModel()
+
   @FetchRequest(entity: Category.entity(), sortDescriptors: [])
   var categories: FetchedResults<Category>
   //Create tops, bottoms, footwear, and outerwear here>
@@ -21,13 +29,15 @@ struct ContentView: View {
 //  var articles: [Article]? = viewModel.fetchArticles()
   var body: some View {
     VStack {
+        
+        
       TabView{
         WardrobeView(viewModel: viewModel,
                      tops: [], bottoms: [], footwear: [], outerwear: [])
         .tabItem{
           Label("Clothing", systemImage: "tshirt")
         }
-          
+
           ImageCaptureView(viewModel: viewModel)
             .tabItem{
               Label("Camera", systemImage: "camera")
@@ -45,14 +55,18 @@ struct ContentView: View {
       dataPopulation.populateTopSubcategories(category_id: top_cat_id!.objectID)
       dataPopulation.populateBottomSubcategories(category_id: bottom_cat_id!.objectID)
       dataPopulation.populateFootwearSubcategories(category_id: footwear_cat_id!.objectID)
+        dataPopulation.createArticle()
     }
-      
+
+    }
+    func customTab() {
+        CustomTabBar(capturedImage: $capturedImage)
     }
   }
   
   struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-      ContentView()
+        ContentView()
     }
   }
 

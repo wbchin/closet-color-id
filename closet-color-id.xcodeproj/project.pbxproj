@@ -39,6 +39,10 @@
 		63C8C87428F25954009D30B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C8C87328F25954009D30B1 /* ContentView.swift */; };
 		63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C8C87528F25958009D30B1 /* Assets.xcassets */; };
 		63C8C87928F25958009D30B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C8C87828F25958009D30B1 /* Preview Assets.xcassets */; };
+		C5155EC2291AF0DD00282036 /* shirt.png in Resources */ = {isa = PBXBuildFile; fileRef = C5155EC1291AF0DD00282036 /* shirt.png */; };
+		C5155EC4291B19FF00282036 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5155EC3291B19FF00282036 /* CustomTabBar.swift */; };
+		C5155EC7291C8BB400282036 /* shirt 2.png in Resources */ = {isa = PBXBuildFile; fileRef = C5155EC5291C8BB400282036 /* shirt 2.png */; };
+		C5155EC8291C8BB400282036 /* shirt 3.png in Resources */ = {isa = PBXBuildFile; fileRef = C5155EC6291C8BB400282036 /* shirt 3.png */; };
 		E64D62DD29195D9F009A1FA7 /* pusheen.png in Resources */ = {isa = PBXBuildFile; fileRef = E64D62DC29195D9F009A1FA7 /* pusheen.png */; };
 		E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5ECF52918147A00AB7C39 /* ViewModel.swift */; };
 		E6D7FFDD291322ED00BF24CA /* closet-color-id.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFDB291322ED00BF24CA /* closet-color-id.xcdatamodeld */; };
@@ -83,6 +87,10 @@
 		63C8C87328F25954009D30B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		63C8C87528F25958009D30B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63C8C87828F25958009D30B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C5155EC1291AF0DD00282036 /* shirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shirt.png; path = ../../shirt.png; sourceTree = "<group>"; };
+		C5155EC3291B19FF00282036 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		C5155EC5291C8BB400282036 /* shirt 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shirt 2.png"; path = "../../shirt 2.png"; sourceTree = "<group>"; };
+		C5155EC6291C8BB400282036 /* shirt 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "shirt 3.png"; path = "../../shirt 3.png"; sourceTree = "<group>"; };
 		E64D62DC29195D9F009A1FA7 /* pusheen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen.png; sourceTree = "<group>"; };
 		E6B5ECF52918147A00AB7C39 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E6D7FFDC291322ED00BF24CA /* closet-color-id.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "closet-color-id.xcdatamodel"; sourceTree = "<group>"; };
@@ -139,6 +147,7 @@
 				6380384C2913436D008F2157 /* OutfitCardView.swift */,
 				63A2700129141D540023F366 /* CameraView.swift */,
 				63A2700329141DC40023F366 /* CustomCameraView.swift */,
+				C5155EC3291B19FF00282036 /* CustomTabBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -191,7 +200,10 @@
 				63108EA829129FAD00808888 /* Models */,
 				63C8C87128F25954009D30B1 /* closet_color_idApp.swift */,
 				63C8C87528F25958009D30B1 /* Assets.xcassets */,
+				C5155EC5291C8BB400282036 /* shirt 2.png */,
+				C5155EC6291C8BB400282036 /* shirt 3.png */,
 				E64D62DC29195D9F009A1FA7 /* pusheen.png */,
+				C5155EC1291AF0DD00282036 /* shirt.png */,
 				63C8C87728F25958009D30B1 /* Preview Content */,
 				63108EBC2912A82500808888 /* ImaggaRouter.swift */,
 				E6E854462919D6DD000A4805 /* Persistence.swift */,
@@ -299,6 +311,9 @@
 				E64D62DD29195D9F009A1FA7 /* pusheen.png in Resources */,
 				63C8C87928F25958009D30B1 /* Preview Assets.xcassets in Resources */,
 				63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */,
+				C5155EC8291C8BB400282036 /* shirt 3.png in Resources */,
+				C5155EC7291C8BB400282036 /* shirt 2.png in Resources */,
+				C5155EC2291AF0DD00282036 /* shirt.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +349,7 @@
 				63108ECB2912D2D000808888 /* CategoryArticle.swift in Sources */,
 				63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */,
 				63A2700029141C8B0023F366 /* CameraService.swift in Sources */,
+				C5155EC4291B19FF00282036 /* CustomTabBar.swift in Sources */,
 				E6E854472919D6DD000A4805 /* Persistence.swift in Sources */,
 				E6D7FFDD291322ED00BF24CA /* closet-color-id.xcdatamodeld in Sources */,
 				E6D7FFE7291411D000BF24CA /* AnyGestureRecognizer.swift in Sources */,

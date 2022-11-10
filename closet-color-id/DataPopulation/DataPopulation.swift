@@ -21,7 +21,11 @@ import UIKit
 class DataPopulation: ObservableObject {
   let appDelegate: AppDelegate = AppDelegate()
   let viewModel: ViewModel = ViewModel()
-
+    var shirt: UIImage = UIImage(named: "shirt.png")!
+    
+    func createArticle() {
+        viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_hex: "#ffffff", primary_color_family: "red", secondary_color_name: "black", secondary_color_family: "black", secondary_color_hex: "#000000", complimentary_color_name: "egg shell", complimentary_color_family: "white", complimentary_color_hex: "#ffffff")
+    }
   func populateTopSubcategories(category_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
     

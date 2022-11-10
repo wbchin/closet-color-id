@@ -122,7 +122,7 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveArticle() {
+    func saveArticle(image_data: Data, primary_color_name: String, primary_color_hex: String, primary_color_family: String, secondary_color_name: String, secondary_color_family: String, secondary_color_hex: String, complimentary_color_name: String, complimentary_color_family: String, complimentary_color_hex: String) {
 //    newArticle.primary_color_family = ""
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
@@ -130,16 +130,16 @@ class ViewModel: ObservableObject {
       NSLog(entity.debugDescription)
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       NSLog("created newVal")
-      newVal.setValue(self.image_data, forKey: "image_data")
-      newVal.setValue("blue test", forKey: "primary_color_name")
-      newVal.setValue("diff refresh", forKey: "primary_color_family")
-      newVal.setValue("test", forKey: "primary_color_hex")
-      newVal.setValue("test", forKey: "secondary_color_name")
-      newVal.setValue("test", forKey: "secondary_color_family")
-      newVal.setValue("test", forKey: "secondary_color_hex")
-      newVal.setValue("test", forKey: "complimentary_color_name")
-      newVal.setValue("test", forKey: "complimentary_color_family")
-      newVal.setValue("test", forKey: "complimentary_color_hex")
+      newVal.setValue(image_data, forKey: "image_data")
+      newVal.setValue(primary_color_name, forKey: "primary_color_name")
+      newVal.setValue(primary_color_family, forKey: "primary_color_family")
+      newVal.setValue(primary_color_hex, forKey: "primary_color_hex")
+      newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
+      newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
+      newVal.setValue(secondary_color_hex, forKey: "secondary_color_hex")
+      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
+      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
+      newVal.setValue(complimentary_color_hex, forKey: "complimentary_color_hex")
       NSLog("Set all values for newVal")
       do {
         try context.save()

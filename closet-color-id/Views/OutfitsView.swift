@@ -8,25 +8,46 @@
 import SwiftUI
 
 struct OutfitsView: View {
-//    let viewController: ViewController
-    @State private var clothes = ["pink tee", "green tee", "black tee"]
+    //    let viewController: ViewController
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
+    @State private var outfits = ["pink tee", "green tee", "black tee"]
     var body: some View {
-            NavigationView {
-                List {
-                    ForEach(clothes, id: \.self) { item in
-                        Text(item)
+        NavigationView{
+            ScrollView{
+                Text("Tops")
+                LazyVGrid(columns: columns, spacing: 5){
+                    ForEach(sym, id: \.self) { array in
+                        ForEach(array, id: \.self) {top in
+                            Image(uiImage: UIImage(named: top)!)
+                                .renderingMode(.original)
+                                .resizable()
+                                .scaledToFit()
+                                .font(.system(size: 30))
+                                .frame(width: 80, height: 80)
+                                .cornerRadius(10)
+                        }
+                        
+                        
                     }
                 }
-                .navigationBarTitle("CLOTHES")
-                .navigationBarItems(trailing: Button(action: {
-                    self.addRow()
-                }) {
-                    Image(systemName: "plus")
-                })
+                
             }
+            .navigationBarTitle("OUTFITS")
+            .navigationBarItems(trailing: Button(action: {
+                self.addRow()
+            }) {
+                Image(systemName: "shirt")
+            })
         }
-    private func addRow() {
-        self.clothes.append("New Clothes")
+        
+        
+    }
+    func addRow() {
+        self.outfits.append("New Outfit")
     }
 }
 

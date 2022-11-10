@@ -37,6 +37,8 @@ struct ImageCaptureView: View {
     @State private var capturedImage: UIImage? = nil
         @State private var isCustomCameraViewPresented = false
         let viewModel: ViewModel
+    var shirt: UIImage = UIImage(named: "shirt.png")!
+
         var body: some View {
             ZStack {
                 if capturedImage != nil {
@@ -50,7 +52,7 @@ struct ImageCaptureView: View {
                 
                 VStack {
                   Button(action: {
-                    self.viewModel.saveArticle()
+                    self.viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_hex: "#ffffff", primary_color_family: "red", secondary_color_name: "black", secondary_color_family: "black", secondary_color_hex: "#000000", complimentary_color_name: "egg shell", complimentary_color_family: "white", complimentary_color_hex: "#ffffff")
                   }) {
                     Text("Done")
                   }
