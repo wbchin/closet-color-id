@@ -51,6 +51,7 @@ class ViewModel: ObservableObject {
     
     // Get a reference to a NSManagedObjectContext
     let context = appDelegate.persistentContainer.viewContext
+    context.reset()
     do {
       let objects = try context.fetch(fetchRequest)
       NSLog(String(objects.count))
@@ -59,6 +60,7 @@ class ViewModel: ObservableObject {
         //loadArticle(data: data)
         NSLog("Loaded article")
       }
+      try context.save()
      
     } catch {
       print("Error")
@@ -76,7 +78,7 @@ class ViewModel: ObservableObject {
     do {
       let objects = try context.fetch(fetchRequest)
       NSLog(String(objects.count))
-      NSLog((objects.first?.primary_color_name!)!)
+      //NSLog((objects.first?.primary_color_name!)!)
       for data in objects as [NSManagedObject] {
         loadArticle(data: data)
         NSLog("Loaded article")
