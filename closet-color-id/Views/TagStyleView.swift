@@ -5,7 +5,6 @@ struct TagStyleView: View {
   let viewModel: ViewModel
   @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   var article: Article
-
   @State var isShowingStyle = true
 //
 //  var styles: [Style] {
@@ -15,14 +14,15 @@ struct TagStyleView: View {
 //  }
 //
   var body: some View {
-      ForEach(StyleName.allCats, id: \.self) { s in
+    ForEach(self.viewModel.styles) { style in
       Button(action: {
-//        viewModel.saveArticleStyle(article_id: <#T##NSManagedObjectID#>, style_id: <#T##NSManagedObjectID#>)
+        viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
         isShowingStyle = false
       }) {
-        Text(s)
+        Text(style.name!)
       }
     }
+    
 
     if !isShowingStyle {
 //        let article = self.viewModel.saveArticle()

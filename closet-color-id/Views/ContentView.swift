@@ -43,8 +43,10 @@ struct ContentView: View {
               Label("Outfits", systemImage: "door.french.closed")
             }
         }
-    }
-    }
+    }.onAppear(perform: {
+      self.dataPopulation.populateStyles()
+    })
+  }
 //    func customTab() {
 //        CustomTabBar(capturedImage: $capturedImage)
 //    }

@@ -21,6 +21,7 @@ class ViewModel: ObservableObject {
     }
   }
   @Published var arts = [Article]()
+  @Published var styles = [Style]()
   
   func fetchLatestArticle() -> Article? {
     let fetchRequest: NSFetchRequest<Article>
@@ -42,6 +43,11 @@ class ViewModel: ObservableObject {
   func updateArticles() {
     arts.removeAll()
     fetchArticles()
+  }
+  
+  func updateStyles() {
+    styles.removeAll()
+    fetchStyles()
   }
   
   func deleteAllArticles() {
@@ -113,6 +119,10 @@ class ViewModel: ObservableObject {
     let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
+      for data in objects {
+        styles.append(data)
+        NSLog("Loaded style")
+      }
       return objects
     } catch {
       print("Error")
@@ -140,29 +150,6 @@ class ViewModel: ObservableObject {
     }
   }
   
-//  func loadArticle(data: NSManagedObject) {
-//    //let newArticle = Article()
-//    let context = appDelegate.persistentContainer.viewContext
-//    if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
-//      let newArticle = NSManagedObject(entity: entity, insertInto: context)
-//
-//      newArticle.setValue(data.value(forKey: "image_data"), forKey: "image_data")
-//      newArticle.setValue(data.value(forKey: "primary_color_name"), forKey: "primary_color_name")
-//      newArticle.setValue(data.value(forKey: "primary_color_family"), forKey: "primary_color_family")
-//      newArticle.setValue(data.value(forKey: "primary_color_hex"), forKey: "primary_color_hex")
-//      newArticle.setValue(data.value(forKey: "secondary_color_name"), forKey: "secondary_color_name")
-//      newArticle.setValue(data.value(forKey: "secondary_color_family"), forKey: "secondary_color_family")
-//      newArticle.setValue(data.value(forKey: "complimentary_color_name"), forKey: "complimentary_color_name")
-//      newArticle.setValue(data.value(forKey: "complimentary_color_family"), forKey: "complimentary_color_family")
-//      newArticle.setValue(data.value(forKey: "complimentary_color_hex"), forKey: "complimentary_color_hex")
-//      newArticle.setValue(data.value(forKey: "category"), forKey: "category")
-//      newArticle.setValue(data.value(forKey: "subcategory"), forKey: "subcategory")
-//
-//      arts.append(newArticle as! Article)
-//      NSLog("loadArticle completed")
-//    }
-//  }
-  
   func tagArticleCategory(category: String, article: Article) {
     let context = appDelegate.persistentContainer.viewContext
     context.object(with: article.objectID).setValue(category, forKey: "category")
@@ -172,6 +159,35 @@ class ViewModel: ObservableObject {
       
     } catch {
       NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
+    }
+  }
+  
+  func findComplimentaryArticle(article: Article) -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    fetchRequest.predicate = NSPredicate(
+      format: "complimentary_color_family = %@", article.complimentary_color_family!
+    )
+    let color_predicate = NSPredicate(
+        format: "complimentary_color_family = %@", article.complimentary_color_family!
+    )
+    let category_predicate = NSPredicate(
+        format: "category != %@", article.category!
+    )
+    
+    fetchRequest.predicate = NSCompoundPredicate(
+        andPredicateWithSubpredicates: [
+          color_predicate,
+          category_predicate
+        ]
+    )
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
     }
   }
   
@@ -256,7 +272,7 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+  func tagArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "ArticleStyle", in: context) {
       let newVal = NSManagedObject(entity: entity, insertInto: context)

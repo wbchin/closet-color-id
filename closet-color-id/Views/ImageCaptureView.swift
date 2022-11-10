@@ -112,7 +112,7 @@ struct ImageCaptureView: View {
               //              NSLog(self.viewModel.arts.count)
               let _ = print("COUNT")
               let _ = print(self.viewModel.arts.count)
-//              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
+              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
             }
             Button(action: {
               //              NSLog(self.imaggaCall.article.debugDescription)
