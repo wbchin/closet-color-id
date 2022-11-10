@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+struct CustomTab: View {
+    @Binding var capturedImage: UIImage?
+    var body: some View {
+        Text("hello picture")
+    }
+}
 struct ContentView: View {
+    @State var capturedImage: UIImage? = nil
   @ObservedObject var dataPopulation = DataPopulation()
   @ObservedObject var viewModel = ViewModel()
   //Create tops, bottoms, footwear, and outerwear here>
@@ -19,6 +26,8 @@ struct ContentView: View {
 //  var articles: [Article]? = viewModel.fetchArticles()
   var body: some View {
     VStack {
+        
+        
       TabView{
         WardrobeView(viewModel: viewModel,
                      tops: [], bottoms: [], footwear: [], outerwear: [])
@@ -35,16 +44,16 @@ struct ContentView: View {
               Label("Outfits", systemImage: "door.french.closed")
             }
         }
-    }.onAppear {
-      
     }
-      
+    }
+    func customTab() {
+        CustomTabBar(capturedImage: $capturedImage)
     }
   }
   
   struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-      ContentView()
+        ContentView()
     }
   }
 

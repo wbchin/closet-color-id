@@ -39,7 +39,7 @@
 //                                completion([String](), [PhotoColor]())
 //                                return
 //                            }
-//                            
+
 //                            // 2.
 //                            guard let responseJSON = response.result.value as? [String: Any],
 //                                  let uploadedFiles = responseJSON["result"] as? [String: Any],
@@ -64,7 +64,6 @@
 //                }
 //            )
 //        }
-//        
 //        func downloadColors(uploadId: String, completion: @escaping ([PhotoColor]) -> Void) {
 //            Alamofire.request(ImaggaRouter.colors(uploadId))
 //                .responseJSON { response in
@@ -74,7 +73,6 @@
 //                        completion([PhotoColor]())
 //                        return
 //                    }
-//                    
 //                    // 3.
 //                    guard let responseJSON = response.result.value as? [String: Any],
 //                          let result = responseJSON["result"] as? [String: Any],
@@ -84,7 +82,6 @@
 //                        completion([PhotoColor]())
 //                        return
 //                    }
-//                    
 //                    // 4.
 //                    let photoColors = imageColors.flatMap({ (dict) -> PhotoColor? in
 //                        guard
@@ -94,7 +91,6 @@
 //                        else {
 //                            return nil
 //                        }
-//                        
 //                        return PhotoColor(
 //                            //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
 //                            primaryHex: hex,
@@ -105,4 +101,4 @@
 //                }
 //        }
 //    }
-//}
+
