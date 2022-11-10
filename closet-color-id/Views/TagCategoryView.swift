@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
             
 struct TagCategoryView: View {
-    @State private var capturedImage: UIImage? = UIImage(named:"pusheen.png")
+//    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   let viewModel: ViewModel
   let article: Article
 //  var image: UIImage
@@ -24,7 +24,7 @@ struct TagCategoryView: View {
       NavigationView{
           VStack {
             // insert image here
-            Image(uiImage: capturedImage!).resizable().scaledToFit().padding()
+              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
       //      Spacer()
       //
             Button(action: {
@@ -71,7 +71,7 @@ struct TagCategoryView: View {
             
             if !isShowingCat {
               NavigationLink (
-                destination: TagSubcategoryView(viewModel: viewModel, image: capturedImage!, subcategory: subcats, article: article),
+                destination: TagSubcategoryView(viewModel: viewModel, subcategory: subcats, article: article),
                 label:{
                   Text("Done")
                 })

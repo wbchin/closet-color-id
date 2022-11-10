@@ -66,6 +66,7 @@ class CameraSevice {
     }
     
     func capturePhoto(with settings: AVCapturePhotoSettings = AVCapturePhotoSettings()) {
+        //print(delegate)
         output.capturePhoto(with: settings, delegate: delegate!)
     }
     

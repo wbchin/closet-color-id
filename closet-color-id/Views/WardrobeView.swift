@@ -51,7 +51,7 @@ struct WardrobeView: View {
 //        }
       }
       .onAppear(perform: {
-        //self.viewModel.deleteAllArticles()
+//        self.viewModel.deleteAllArticles()
         self.viewModel.updateArticles()
       })
       .padding(.horizontal)

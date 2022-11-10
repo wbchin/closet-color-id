@@ -77,10 +77,10 @@ class ViewModel: ObservableObject {
     let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
-      NSLog(String(objects.count))
-      //NSLog((objects.first?.primary_color_name!)!)
-      for data in objects as [NSManagedObject] {
-        loadArticle(data: data)
+//      NSLog(String(objects.count))
+//      NSLog((objects.first?.primary_color_name!)!)
+      for data in objects {
+        arts.append(data)
         NSLog("Loaded article")
       }
       return objects
@@ -120,23 +120,48 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func loadArticle(data: NSManagedObject) {
-    let newArticle = Article()
-      newArticle.image_data = data.value(forKey: "image_data") as? Data
-      newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String
-      newArticle.primary_color_family = data.value(forKey: "primary_color_family") as? String
-      newArticle.primary_color_hex = data.value(forKey: "primary_color_hex") as? String
-      newArticle.secondary_color_name = data.value(forKey: "secondary_color_name") as? String
-      newArticle.secondary_color_family = data.value(forKey: "secondary_color_family") as? String
-      newArticle.secondary_color_hex = data.value(forKey: "secondary_color_hex") as? String
-      newArticle.complimentary_color_name = data.value(forKey: "complimentary_color_name") as? String
-      newArticle.complimentary_color_family = data.value(forKey: "complimentary_color_family") as? String
-      newArticle.complimentary_color_hex = data.value(forKey: "complimentary_color_hex") as? String
-      newArticle.category = data.value(forKey: "category") as? String
-      newArticle.subcategory = data.value(forKey: "subcategory") as? String
-    arts.append(newArticle)
-    NSLog("loadArticle completed")
+  func fetchArticle(article_id: UUID) -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    
+    
+    fetchRequest.predicate = NSPredicate(
+      format: "article_id = %@", article_id.uuidString
+    )
+    
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
   }
+  
+//  func loadArticle(data: NSManagedObject) {
+//    //let newArticle = Article()
+//    let context = appDelegate.persistentContainer.viewContext
+//    if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
+//      let newArticle = NSManagedObject(entity: entity, insertInto: context)
+//
+//      newArticle.setValue(data.value(forKey: "image_data"), forKey: "image_data")
+//      newArticle.setValue(data.value(forKey: "primary_color_name"), forKey: "primary_color_name")
+//      newArticle.setValue(data.value(forKey: "primary_color_family"), forKey: "primary_color_family")
+//      newArticle.setValue(data.value(forKey: "primary_color_hex"), forKey: "primary_color_hex")
+//      newArticle.setValue(data.value(forKey: "secondary_color_name"), forKey: "secondary_color_name")
+//      newArticle.setValue(data.value(forKey: "secondary_color_family"), forKey: "secondary_color_family")
+//      newArticle.setValue(data.value(forKey: "complimentary_color_name"), forKey: "complimentary_color_name")
+//      newArticle.setValue(data.value(forKey: "complimentary_color_family"), forKey: "complimentary_color_family")
+//      newArticle.setValue(data.value(forKey: "complimentary_color_hex"), forKey: "complimentary_color_hex")
+//      newArticle.setValue(data.value(forKey: "category"), forKey: "category")
+//      newArticle.setValue(data.value(forKey: "subcategory"), forKey: "subcategory")
+//
+//      arts.append(newArticle as! Article)
+//      NSLog("loadArticle completed")
+//    }
+//  }
   
   func tagArticleCategory(category: String, article: Article) {
     let context = appDelegate.persistentContainer.viewContext
@@ -177,6 +202,7 @@ class ViewModel: ObservableObject {
       newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
       newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
       newVal.setValue(secondary_color_hex, forKey: "secondary_color_hex")
+      newVal.setValue(UUID(), forKey: "article_id")
 //      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
 //      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
 //      newVal.setValue(complimentary_color_hex, forKey: "complimentary_color_hex")
@@ -185,8 +211,13 @@ class ViewModel: ObservableObject {
       NSLog("Set all values for newVal")
       do {
         try context.save()
-        arts.append((context.object(with:newVal.objectID) as? Article)!)//UNSAFE
-        return context.object(with:newVal.objectID) as? Article
+        NSLog("article saved")
+        let returnVal = context.object(with:newVal.objectID) as? Article
+        NSLog(returnVal.debugDescription)
+        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
+//        return (arts.count-1)
+//        return context.object(with:newVal.objectID) as? Article
+        return arts.last
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")

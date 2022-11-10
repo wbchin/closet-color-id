@@ -50,62 +50,89 @@ struct ImageCaptureView: View {
 //      }
 //    }
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var capturedImage: UIImage? = UIImage(named: "pusheen.png")
+    @State var image: UIImage? = nil
     @State var showUnsavedArticleView: Bool = false
     @State var results = [PhotoColor]()
+    let viewModel: ViewModel
     @State var isCustomCameraViewPresented = false
-    @ObservedObject var imaggaCall: ImaggaCalls = ImaggaCalls()
+    @ObservedObject var imaggaCall: ImaggaCalls
+  
+//    var imaggaCall: ImaggaCalls {
+//      get {
+//        return ImaggaCalls(viewModel: viewModel)
+//      }
+//    }
     @State var colors: [PhotoColor]?
     @State var donePressed = false
-    @State var article: Article? = Article()
+    @State var article: Article? 
+  @State var articleIndex: Int? = -1
     let appDelegate = AppDelegate()
-    func runImagga(capturedImage: UIImage) {
-      imaggaCall.uploadImage(image: capturedImage, completion: { (article) ->
-        Void in self.article = article
-      })
-    }
-    let viewModel: ViewModel
+  
+    init(viewModel: ViewModel, image: UIImage?){
+          self.viewModel = viewModel
+      self.imaggaCall = ImaggaCalls(viewModel: viewModel)
+      //self.image = image// << here !!
+      }
+      func runImagga() {
+        NSLog("imagga run")
+        self.imaggaCall.image = image!
+        self.imaggaCall.uploadImage(completion: { article in
+           self.article = article
+        })
+      }
+    
     
     var body: some View {
       NavigationView {
         ZStack {
-          if self.colors == nil{
-            Text("").onAppear{
-              self.runImagga(capturedImage: capturedImage!)
+          if self.image != nil{
+            Image(uiImage: image!).resizable().scaledToFit().padding()
+              Text("").onAppear{
+                let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
+                self.imaggaCall.image = image!
+                self.runImagga()
+              }
+          }
+//          if self.image != nil {
+//                Image(uiImage: image!)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .ignoresSafeArea()
+//            } else {
+//                Color(UIColor.systemBackground)
+//            }
+          
+          
+          VStack {
+            Spacer()
+            if self.article != nil {
+              //              NSLog(self.viewModel.arts.count)
+              let _ = print("COUNT")
+              let _ = print(self.viewModel.arts.count)
+              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
             }
+              if image == nil{
+                  Button(action: {
+                    //              NSLog(self.imaggaCall.article.debugDescription)
+                    isCustomCameraViewPresented.toggle()
+                  }, label: {
+                    Image(systemName: "camera.fill")
+                      .font(.largeTitle)
+                      .padding()
+                      .background(Color.black)
+                      .foregroundColor(.white)
+                      .clipShape(Circle())
+                  })
+                  .padding(.bottom)
+                  .sheet(isPresented: $isCustomCameraViewPresented, content: {
+                    CustomCameraView(capturedImage: $image)
+                  })
+              }
             
-            
-            if self.imaggaCall.colors != nil{
-              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.imaggaCall.article), label: { Text("view saved article")})
-            }
-          } else {
-            Color(UIColor.systemBackground)
+           
+          }
           }
         }
-      }
-      
-      if self.colors != nil {
-        Text(self.colors!.first!.primaryName)
-      }
-      
-      
-      VStack {
-        Spacer()
-        Button(action: {
-          isCustomCameraViewPresented.toggle()
-        }, label: {
-          Image(systemName: "camera.fill")
-            .font(.largeTitle)
-            .padding()
-            .background(Color.black)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-        })
-        .padding(.bottom)
-        .sheet(isPresented: $isCustomCameraViewPresented, content: {
-          CustomCameraView(capturedImage: $capturedImage)
-        })
-      }
     }
   }
   
