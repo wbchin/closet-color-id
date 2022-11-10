@@ -26,7 +26,7 @@ struct ContentView: View {
           Label("Clothing", systemImage: "tshirt")
         }
           
-          ImageCaptureView(imaggaCall: ImaggaCalls(), viewModel: viewModel)
+        ImageCaptureView(imaggaCall: ImaggaCalls(),  viewModel: viewModel)
             .tabItem{
               Label("Camera", systemImage: "camera")
             }

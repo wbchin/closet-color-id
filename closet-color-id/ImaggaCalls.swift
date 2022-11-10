@@ -6,6 +6,7 @@
 import Alamofire
 import Foundation
 import UIKit
+import SwiftUI
 class ImaggaCalls: ObservableObject{
 //    @Published var colors = [PhotoColor]()
 //    @Published var image: UIImage
@@ -13,12 +14,17 @@ class ImaggaCalls: ObservableObject{
 //        uploadImage(image: image)
 //    }
     @Published var colors: [PhotoColor]?
+    let viewModel = ViewModel()
+  let image: UIImage? = UIImage(named: "pusheen.png")
+    @State var article: Article = Article()
     
-    func uploadImage(image: UIImage) {
+  func uploadImage(image: UIImage, completion: @escaping((Article) -> ())) {
+        let myGroup = DispatchGroup()
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             print("Could not get JPEG representation of UIImage")
             return
         }
+        myGroup.enter()
         AF.upload(
             multipartFormData: { multipartFormData in
                 multipartFormData.append(imageData,
@@ -31,6 +37,7 @@ class ImaggaCalls: ObservableObject{
             switch response.result {
             case .success(let data):
                 print("succ")
+              
                 do{
                     guard let asJSON = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                           let uploadedFiles = asJSON["result"] as? [String: Any],
@@ -42,57 +49,31 @@ class ImaggaCalls: ObservableObject{
                     print("Content uploaded with ID: \(firstFileID)")
                     
                     print("downloading")
-                    self.downloadColors(uploadId: firstFileID)
+                    
+                  self.downloadColors(uploadId: firstFileID, completion: completion)
+                  //myGroup.leave()
+                  
                 } catch{
                     print("Error while uploading file: \(String(describing: response.result))")
                 }
+            
             case .failure(let error):
                 print("fial")
                 print("Error while uploading file: \(String(describing: error))")
                 return
             }
+          myGroup.leave()
+          myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+                   print("AFTER GETTING RANDOM BEERS")
+            //print(self.article.primary_color_name!)
+            completion(self.article)
+               }
         }
-        //        ,
-        //            completionHandler: { encodingResult in
-        //                switch encodingResult {
-        //                case .success(let upload, _, _):
-        //                    upload.uploadProgress { progress in
-        //                        progressCompletion(Float(progress.fractionCompleted))
-        //                    }
-        //                    upload.validate()
-        //                    upload.responseJSON { response in
-        //                        // 1.
-        //                        guard response.result.isSuccess else {
-        //                            print("Error while uploading file: \(String(describing: response.result.error))")
-        //                            completion([String](), [PhotoColor]())
-        //                            return
-        //                        }
-        //
-        //                        // 2.
-        //                        guard let responseJSON = response.result.value as? [String: Any],
-        //                              let uploadedFiles = responseJSON["result"] as? [String: Any],
-        //                              let firstFileID = uploadedFiles["upload_id"] as? String else {
-        //                            print("Invalid information received from service")
-        //                            completion([String](), [PhotoColor]())
-        //                            return
-        //                        }
-        //
-        //                        print("Content uploaded with ID: \(firstFileID)")
-        //
-        //                        // 3.
-        //                        self.downloadTags(uploadId: firstFileID) { tags in
-        //                            self.downloadColors(uploadId: firstFileID) { colors in
-        //                                completion(tags, colors)
-        //                            }
-        //                        }
-        //                    }
-        //                case .failure(let encodingError):
-        //                    print(encodingError)
-        //                }
-        //            }
     }
     
-    func downloadColors(uploadId: String){
+  func downloadColors(uploadId: String, completion: @escaping((Article) -> ())){
+      let myGroup = DispatchGroup()
+    myGroup.enter()
         AF.request(ImaggaRouter.colors(uploadId))
             .responseData { response in
                 // 2.
@@ -103,11 +84,13 @@ class ImaggaCalls: ObservableObject{
                 case .success(let data):
 //                case .success(let data):
                     do{
+                      print(try ImaggaRouter.colors(uploadId).asURLRequest())
                         guard let asJSON = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                               let result = asJSON["result"] as? [String: Any],
                               let info = result["colors"] as? [String: Any],
                               let imageColors = info["image_colors"] as? [[String: Any]] else {
                             print("Invalid color information received from service")
+                          print(data)
                             return
                         }
                         let photoColors = imageColors.compactMap({ (dict) -> PhotoColor? in
@@ -126,6 +109,12 @@ class ImaggaCalls: ObservableObject{
                                 primaryFamily: family)
                         })
                         self.colors = photoColors
+                      if photoColors.count == 1 {
+                          self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex)!
+                      } else {
+                        self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_color_hex: photoColors[1].primaryHex)!
+                      }
+                      //print(self.article.primary_color_name!)
                     } catch{
                         print("Error while uploading file: \(String(describing: response.result))")
                     }
@@ -139,6 +128,12 @@ class ImaggaCalls: ObservableObject{
                 // 5.
 //                completion(photoColors)
             }
+    myGroup.leave()
+    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+             print("download completed")
+      //print(self.colors!.first!.primaryName)
+      completion(self.article)
+         }
     }
 }
 //

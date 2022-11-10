@@ -13,17 +13,20 @@ struct ArticleView: View {
   let viewModel: ViewModel
   
   var body: some View {
+    
+//    Text(article.primary_color_name!)
+//    Text(article.primary_color_family!)
+//    Text(article.primary_color_hex!)
+    
     Text(article.primary_color_name!)
-    Text(article.primary_color_family!)
-    Text(article.primary_color_hex!)
     
-    if (article.category != nil) {
-      Text(article.category!)
-    }
-    
-    if (article.subcategory != nil) {
-      Text(article.subcategory!)
-    }
+//    if (article.category != nil) {
+//      Text(article.category!)
+//    }
+//    
+//    if (article.subcategory != nil) {
+//      Text(article.subcategory!)
+//    }
     
     Spacer()
     }
