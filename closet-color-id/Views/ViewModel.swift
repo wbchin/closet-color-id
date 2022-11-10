@@ -17,11 +17,13 @@ class ViewModel: ObservableObject {
   var articles: FetchedResults<Article>
   let appDelegate: AppDelegate = AppDelegate()
   let image: UIImage = UIImage(named: "pusheen.png")!
-  var image_data : Data {
-    get {
-      return image.pngData()!
-    }
-  }
+//  var image_data : Data {
+//    get {
+//      return image.pngData()!
+//    }
+//  }
+    var image_data = UIImage(named:"pusheen.png")?.pngData()
+    @Published var arts = [Article]()
   
   func fetchLatestArticle() -> Article? {
     let fetchRequest: NSFetchRequest<Article>
@@ -55,6 +57,38 @@ class ViewModel: ObservableObject {
     }
   }
   
+    func fetchArticles() {
+      let context = appDelegate.persistentContainer.viewContext
+      let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Article")
+      request.returnsObjectsAsFaults = false
+      do {
+        let result = try context.fetch(request)
+        for data in result as! [NSManagedObject] {
+          loadArticle(data: data)
+          NSLog("[Article] loaded")
+        }
+      } catch {
+        NSLog("[Contacts] ERROR: was unable to load Contacts from CoreData")
+      }
+    }
+    
+    func loadArticle(data: NSManagedObject) {
+      let newArticle = Article()
+        newArticle.image_data = data.value(forKey: "image_data") as? Data
+        newArticle.primary_color_name = data.value(forKey: "primary_color_name") as? String
+        newArticle.primary_color_family = data.value(forKey: "primary_color_family") as? String
+        newArticle.primary_color_hex = data.value(forKey: "primary_color_hex") as? String
+        newArticle.secondary_color_name = data.value(forKey: "secondary_color_name") as? String
+        newArticle.secondary_color_family = data.value(forKey: "secondary_color_family") as? String
+        newArticle.secondary_color_hex = data.value(forKey: "secondary_color_hex") as? String
+        newArticle.complimentary_color_name = data.value(forKey: "complimentary_color_name") as? String
+        newArticle.complimentary_color_family = data.value(forKey: "complimentary_color_family") as? String
+        newArticle.complimentary_color_hex = data.value(forKey: "complimentary_color_hex") as? String
+        newArticle.category = data.value(forKey: "category") as? String
+        newArticle.subcategory = data.value(forKey: "subcategory") as? String
+      arts.append(newArticle)
+    }
+    
   func fetchOutfits() -> [Outfit]? {
     let fetchRequest: NSFetchRequest<Outfit>
     fetchRequest = Outfit.fetchRequest()
@@ -114,11 +148,10 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveArticle() {
+    func saveArticle() -> Article? {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")
-      NSLog(entity.debugDescription)
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       NSLog("created newVal")
       newVal.setValue(self.image_data, forKey: "image_data")
@@ -136,12 +169,16 @@ class ViewModel: ObservableObject {
       NSLog("Set all values for newVal")
       do {
         try context.save()
-        context.refreshAllObjects()
+          arts.append((context.object(with:newVal.objectID) as? Article)!)//UNSAFE
+          return context.object(with:newVal.objectID) as? Article
+          
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
       }
+        
     }
+        return nil
   }
   
   func saveOutfit(name: String) {

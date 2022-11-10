@@ -25,14 +25,19 @@ struct WardrobeView: View {
       NavigationView{
         List{
           Text("Articles")
-          ForEach(articles) { article in
-                WardrobeCardView(viewModel: viewModel, article: article)
-              }
-        
-          Text("Tops")
-          ForEach(tops) { top in
-            WardrobeCardView(viewModel: viewModel, article: top)
-          }
+
+                ForEach(viewModel.arts, id: \.self) { article in
+                    Text(article.primary_color_name!) //UMSAFE
+    //                WardrobeCardView(viewModel: viewModel, article: article)
+//                    if (article == nil){
+//                        Text("fuck")
+//                    }else{
+//                        Text(article.article_id!.uuidString) //UMSAFE
+//                    }
+                    
+                  }
+            
+            
               
 //                Text("Bottoms")
 //                ForEach(bottoms) { bottom in
@@ -46,7 +51,7 @@ struct WardrobeView: View {
 //                ForEach(outerwear) { jacket in
 //                    WardrobeCardView(article: jacket)
 //                }
-            } .navigationBarTitle("WARDROBE")
+            }.navigationBarTitle("WARDROBE")
               
               }
             }
