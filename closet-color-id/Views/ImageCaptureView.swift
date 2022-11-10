@@ -86,10 +86,7 @@ struct ImageCaptureView: View {
       NavigationView {
         ZStack {
           if self.image != nil{
-            Image(uiImage: image!)
-                                .resizable()
-                                .scaledToFill()
-                                .ignoresSafeArea()
+            Image(uiImage: image!).resizable().scaledToFit().padding()
               Text("").onAppear{
                 let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
                 self.imaggaCall.image = image!
@@ -112,23 +109,26 @@ struct ImageCaptureView: View {
               //              NSLog(self.viewModel.arts.count)
               let _ = print("COUNT")
               let _ = print(self.viewModel.arts.count)
-//              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
+              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
             }
-            Button(action: {
-              //              NSLog(self.imaggaCall.article.debugDescription)
-              isCustomCameraViewPresented.toggle()
-            }, label: {
-              Image(systemName: "camera.fill")
-                .font(.largeTitle)
-                .padding()
-                .background(Color.black)
-                .foregroundColor(.white)
-                .clipShape(Circle())
-            })
-            .padding(.bottom)
-            .sheet(isPresented: $isCustomCameraViewPresented, content: {
-              CustomCameraView(capturedImage: $image)
-            })
+              if image == nil{
+                  Button(action: {
+                    //              NSLog(self.imaggaCall.article.debugDescription)
+                    isCustomCameraViewPresented.toggle()
+                  }, label: {
+                    Image(systemName: "camera.fill")
+                      .font(.largeTitle)
+                      .padding()
+                      .background(Color.black)
+                      .foregroundColor(.white)
+                      .clipShape(Circle())
+                  })
+                  .padding(.bottom)
+                  .sheet(isPresented: $isCustomCameraViewPresented, content: {
+                    CustomCameraView(capturedImage: $image)
+                  })
+              }
+            
            
           }
           }

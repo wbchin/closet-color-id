@@ -11,7 +11,7 @@ import SwiftUI
 struct UnsavedArticleView: View {
   let viewModel: ViewModel
   let article: Article
-  let capturedImage = UIImage(named:"shirt.png")
+//    let image: UIImage?
   @State private var isShowingSave = true
   @State private var isShowingSubcats = false
   @State private var isShowingCats = false
@@ -22,7 +22,7 @@ struct UnsavedArticleView: View {
     NavigationView{
               VStack {
                 // insert image here
-                Image(uiImage: capturedImage!).resizable().scaledToFit().padding()
+                  Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().padding()
 
 
                 Button(action: {

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct TagStyleView: View {
   let viewModel: ViewModel
-  @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
+//  @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   var article: Article
 
   @State var isShowingStyle = true
