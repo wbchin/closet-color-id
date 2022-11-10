@@ -13,13 +13,28 @@ import SwiftUI
 import UIKit
 
 class ViewModel: ObservableObject {
-  @FetchRequest(entity: Article.entity(), sortDescriptors: [])
-  var articles: FetchedResults<Article>
   let appDelegate: AppDelegate = AppDelegate()
   let image: UIImage = UIImage(named: "pusheen.png")!
   var image_data : Data {
     get {
       return image.pngData()!
+    }
+  }
+  
+  func fetchLatestArticle() -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+    fetchRequest.fetchLimit = 1
+    
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
     }
   }
   
@@ -97,34 +112,35 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveArticle() {
+  func saveArticle(image_data: Data, primary_color_name:String, primary_color_family: String, primary_color_hex: String, secondary_color_name: String = "", secondary_color_family: String = "",  secondary_color_hex: String = "") -> Article?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       NSLog("created entity")
       NSLog(entity.debugDescription)
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       NSLog("created newVal")
-      newVal.setValue(self.image_data, forKey: "image_data")
-      newVal.setValue("blue test", forKey: "primary_color_name")
-      newVal.setValue("diff refresh", forKey: "primary_color_family")
-      newVal.setValue("test", forKey: "primary_color_hex")
-      newVal.setValue("test", forKey: "secondary_color_name")
-      newVal.setValue("test", forKey: "secondary_color_family")
-      newVal.setValue("test", forKey: "secondary_color_hex")
-      newVal.setValue("test", forKey: "complimentary_color_name")
-      newVal.setValue("test", forKey: "complimentary_color_family")
-      newVal.setValue("test", forKey: "complimentary_color_hex")
-      newVal.setValue("top", forKey: "category")
-      newVal.setValue("blouse", forKey: "subcategory")
+      newVal.setValue(image_data, forKey: "image_data")
+      newVal.setValue(primary_color_name, forKey: "primary_color_name")
+      newVal.setValue(primary_color_family, forKey: "primary_color_family")
+      newVal.setValue(primary_color_hex, forKey: "primary_color_hex")
+      newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
+      newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
+      newVal.setValue(secondary_color_hex, forKey: "secondary_color_hex")
+//      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
+//      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
+//      newVal.setValue(complimentary_color_hex, forKey: "complimentary_color_hex")
+//      newVal.setValue(category, forKey: "category")
+//      newVal.setValue(subcategory, forKey: "subcategory")
       NSLog("Set all values for newVal")
       do {
         try context.save()
-        context.refreshAllObjects()
+        return newVal as? Article
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
       }
     }
+    return nil
   }
   
   func saveOutfit(name: String) {
@@ -202,6 +218,18 @@ class ViewModel: ObservableObject {
       } catch {
         NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
       }
+    }
+  }
+  
+  func deleteArticle(article_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    context.delete(context.object(with: article_id))
+    do {
+      try context.save()
+      NSLog("Article deleted")
+      
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to delete article from CoreData")
     }
   }
 }
