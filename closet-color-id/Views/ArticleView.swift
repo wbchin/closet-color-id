@@ -13,13 +13,19 @@ struct ArticleView: View {
   let viewModel: ViewModel
   
   var body: some View {
+      VStack{
+          NavigationView{
+            Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
+            Text(article.primary_color_name!)
+            Text(article.secondary_color_name!)
+            Text(article.category!)
+          }
+      }.navigationBarBackButtonHidden(true)
     
 //    Text(article.primary_color_name!)
 //    Text(article.primary_color_family!)
 //    Text(article.primary_color_hex!)
-    
-    Text(article.primary_color_name!)
-    
+      
 //    if (article.category != nil) {
 //      Text(article.category!)
 //    }
