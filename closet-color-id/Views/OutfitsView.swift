@@ -69,7 +69,12 @@ struct OutfitsView: View {
         }) {
           Image(systemName: "plus")
         })
-      }
+      }.onAppear(perform: {
+//        self.viewModel.deleteUnstyledArticles()
+//        self.viewModel.updateArticles()
+//        self.viewModel.deleteUntaggedArticles()
+//        self.viewModel.updateArticles()
+      })
     }
   }
   

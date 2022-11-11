@@ -7,6 +7,7 @@ struct TagSubcategoryView: View {
   let subcategory: [String]
   let style = ""
   let article: Article
+//  var imaggaCall: ImaggaCalls
 //    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   @State var isShowingSubcat = true
   

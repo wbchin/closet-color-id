@@ -11,6 +11,7 @@ import SwiftUI
 struct UnsavedArticleView: View {
   let viewModel: ViewModel
   let article: Article
+//  var imaggaCall: ImaggaCalls
 //    let image: UIImage?
   @State private var isShowingSave = true
   @State private var isShowingSubcats = false

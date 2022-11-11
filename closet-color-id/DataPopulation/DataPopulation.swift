@@ -19,127 +19,42 @@ import UIKit
 //+ the gym/dance/street fit — idk what to call this
 
 class DataPopulation: ObservableObject {
-//  let appDelegate: AppDelegate = AppDelegate()
-//  let viewModel: ViewModel = ViewModel()
-//    var shirt: UIImage = UIImage(named: "pusheen.png")!
-//
-//    func createArticle() {
-//      viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_family: "red", primary_color_hex: "#ffffff", secondary_color_name: "black", secondary_color_family: "black", secondary_color_hex: "#000000")
-//    }
-//  func populateTopSubcategories(category_id: NSManagedObjectID) {
-//    let context = appDelegate.persistentContainer.viewContext
-//
-//    if let entity = NSEntityDescription.entity(forEntityName: "Subcategory", in: context) {
-//      NSLog("created entity")
-//      NSLog(entity.debugDescription)
-//
-//      // tops
-//      let longSleeve = NSManagedObject(entity: entity, insertInto: context)
-//      longSleeve.setValue("long sleeve", forKey: "name")
-//      longSleeve.setValue(context.object(with: category_id), forKey: "category")
-//      let shortSleeve = NSManagedObject(entity: entity, insertInto: context)
-//      shortSleeve.setValue("short sleeve", forKey: "name")
-//      shortSleeve.setValue(context.object(with: category_id), forKey: "category")
-//      let buttonUp = NSManagedObject(entity: entity, insertInto: context)
-//      buttonUp.setValue("button up", forKey: "name")
-//      buttonUp.setValue(context.object(with: category_id), forKey: "category")
-//      let blouse = NSManagedObject(entity: entity, insertInto: context)
-//      blouse.setValue("blouse", forKey: "name")
-//      blouse.setValue(context.object(with: category_id), forKey: "category")
-//      let sleeveless = NSManagedObject(entity: entity, insertInto: context)
-//      sleeveless.setValue("sleeveless", forKey: "name")
-//      sleeveless.setValue(context.object(with: category_id), forKey: "category")
-//
-//      do {
-//        try context.save()
-//        NSLog("Top Subcategories populated")
-//      } catch {
-//        NSLog("[Contacts] ERROR: Failed to save Top Subcategories to CoreData")
-//      }
-//    }
-//  }
-//
-//  func populateBottomSubcategories(category_id: NSManagedObjectID) {
-//    let context = appDelegate.persistentContainer.viewContext
-//
-//    if let entity = NSEntityDescription.entity(forEntityName: "Subcategory", in: context) {
-//      NSLog("created entity")
-//      NSLog(entity.debugDescription)
-//
-//      // bottoms
-//      let pants = NSManagedObject(entity: entity, insertInto: context)
-//      pants.setValue("pants", forKey: "name")
-//      pants.setValue(context.object(with: category_id), forKey: "category")
-//      let shorts = NSManagedObject(entity: entity, insertInto: context)
-//      shorts.setValue("shorts", forKey: "name")
-//      shorts.setValue(context.object(with: category_id), forKey: "category")
-//      let skirt = NSManagedObject(entity: entity, insertInto: context)
-//      skirt.setValue("skirt", forKey: "name")
-//      skirt.setValue(context.object(with: category_id), forKey: "category")
-//
-//      do {
-//        try context.save()
-//        NSLog("Bottom Subcategories populated")
-//      } catch {
-//        NSLog("[Contacts] ERROR: Failed to save Subcategories to CoreData")
-//      }
-//    }
-//  }
-//
-//  func populateFootwearSubcategories(category_id: NSManagedObjectID) {
-//    let context = appDelegate.persistentContainer.viewContext
-//
-//    if let entity = NSEntityDescription.entity(forEntityName: "Subcategory", in: context) {
-//      NSLog("created entity")
-//      NSLog(entity.debugDescription)
-//
-//      // footwear
-//      let sneaker = NSManagedObject(entity: entity, insertInto: context)
-//      sneaker.setValue("sneaker", forKey: "name")
-//      sneaker.setValue(context.object(with: category_id), forKey: "category")
-//      let dressShoe = NSManagedObject(entity: entity, insertInto: context)
-//      dressShoe.setValue("dress shoe", forKey: "name")
-//      dressShoe.setValue(context.object(with: category_id), forKey: "category")
-//      let sandal = NSManagedObject(entity: entity, insertInto: context)
-//      sandal.setValue("sandal", forKey: "name")
-//      sandal.setValue(context.object(with: category_id), forKey: "category")
-//      let heels = NSManagedObject(entity: entity, insertInto: context)
-//      heels.setValue("heels", forKey: "name")
-//      heels.setValue(context.object(with: category_id), forKey: "category")
-//
-//      do {
-//        try context.save()
-//        NSLog("Footwear Subcategories populated")
-//      } catch {
-//        NSLog("[Contacts] ERROR: Failed to save Subcategories to CoreData")
-//      }
-//    }
-//  }
-//
-//
-//  func populateCategories() {
-//    let context = appDelegate.persistentContainer.viewContext
-//
-//    if let entity = NSEntityDescription.entity(forEntityName: "Category", in: context) {
-//      NSLog("created entity")
-//      NSLog(entity.debugDescription)
-//      let topVal = NSManagedObject(entity: entity, insertInto: context)
-//      topVal.setValue("top", forKey: "name")
-//
-//      let bottomVal = NSManagedObject(entity: entity, insertInto: context)
-//      bottomVal.setValue("bottom", forKey: "name")
-//
-//      let footVal = NSManagedObject(entity: entity, insertInto: context)
-//      footVal.setValue("footwear", forKey: "name")
-//
-//      let outerVal = NSManagedObject(entity: entity, insertInto: context)
-//      outerVal.setValue("outerwear", forKey: "name")
-//      do {
-//        try context.save()
-//
-//      } catch {
-//        NSLog("[Contacts] ERROR: Failed to save Category to CoreData")
-//      }
-//    }
-//  }
+  let appDelegate: AppDelegate = AppDelegate()
+  let viewModel: ViewModel = ViewModel()
+  var shirt: UIImage = UIImage(named: "shirt.png")!
+
+  func createArticle() {
+    if self.viewModel.arts.count == 0 {
+      let article = viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_family: "red", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "black", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
+      viewModel.tagArticleCategory(category: "top", article: article!)
+      viewModel.tagArticleSubcategory(subcategory: "blouse", article: article!)
+      let style = viewModel.fetchStyles()!.first
+      viewModel.tagArticleStyle(article_id: article!.objectID, style_id: style!.objectID)
+    }
+  }
+
+  // ["Professional", "Casual", "Night Out", "Athletic"]
+  func populateStyles() {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
+      NSLog("created entity")
+      NSLog(entity.debugDescription)
+
+      let prof = NSManagedObject(entity: entity, insertInto: context)
+      prof.setValue("professional", forKey: "name")
+      let casual = NSManagedObject(entity: entity, insertInto: context)
+      casual.setValue("casual", forKey: "name")
+      let night = NSManagedObject(entity: entity, insertInto: context)
+      night.setValue("night", forKey: "name")
+      let athletic = NSManagedObject(entity: entity, insertInto: context)
+      athletic.setValue("athletic", forKey: "name")
+
+      do {
+        try context.save()
+        NSLog("styles populated")
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save Styles to CoreData")
+      }
+    }
+  }
 }

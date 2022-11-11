@@ -14,12 +14,11 @@ struct ArticleView: View {
   
   var body: some View {
       VStack{
-          NavigationView{
             Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
             Text(article.primary_color_name!)
             Text(article.secondary_color_name!)
             Text(article.category!)
-          }
+          
       }.navigationBarBackButtonHidden(true)
     
 //    Text(article.primary_color_name!)

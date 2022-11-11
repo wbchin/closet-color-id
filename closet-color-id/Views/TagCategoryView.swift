@@ -5,6 +5,7 @@ struct TagCategoryView: View {
 //    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   let viewModel: ViewModel
   let article: Article
+//  var imaggaCall: ImaggaCalls
 //  var image: UIImage
 //  let primary_color_name: String
 //  let primary_color_family: String

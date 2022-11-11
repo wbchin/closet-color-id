@@ -1,89 +1,191 @@
-////
-////  TheColorApiCalls.swift
-////  closet-color-id
-////
-////  Created by Allison Cao on 11/9/22.
-////
 //
-//import Foundation
-//import Foundation
+//  TheColorApiCalls.swift
+//  closet-color-id
 //
-//class TheColorApiCalls: ObservableObject {
-//  let url = "https://www.thecolorapi.com/"
-//  let params  = "scheme?hex=0047AB&rgb=0,71,171&hsl=215,100%,34%&cmyk=100,58,0,33&format=html&mode=analogic&count=6"
-//  
-//  var components = URLComponents()
-//  components.scheme = "https"
-//  components.host = "www.thecolorapi.com"
-//  components.path = "/scheme"
-//  
-//  components.queryItems = [
-//    URLQueryItem(name: "hex", value: "0047AB"),
-//    URLQueryItem(name: "rgb", value: "0,71,171"),
-//    URLQueryItem(name: "hsl", value: "215,100,34"),
-//    URLQueryItem(name: "cmyk", value: "100,58,0,33"),
-//  ]
-//  
-//  struct Result: Decodable {
-//    let mode: String
-//    let colors: [Color]
-//    
-//    enum CodingKeys : String, CodingKey {
-//      case mode
-//      case colors
+//  Created by Allison Cao on 11/9/22.
+//
+
+import Foundation
+import Alamofire
+
+class TheColorApiCalls: ObservableObject {
+    var hue: Int?
+    var name: String?
+    struct Result: Decodable {
+        let mode: String
+        let colors: [Color]
+        
+        enum CodingKeys : String, CodingKey {
+            case mode
+            case colors
+        }
+    }
+    
+    struct Color: Decodable {
+        let hex: Hex
+        let hsv: HSV
+        let name: Name
+        
+        enum CodingKeys : String, CodingKey {
+          case hex
+          case hsv
+          case name
+        }
+        
+    }
+  
+    struct Name: Decodable {
+      let value: String
+      
+      enum CodingKeys : String, CodingKey {
+        case value
+      }
+    }
+    
+    struct Hex: Decodable {
+        let value: String
+        let clean: String
+        
+        enum CodingKeys : String, CodingKey {
+            case value
+            case clean
+        }
+    }
+    
+    struct HSV: Decodable{
+        let h: Int
+        let s: Int
+        let v: Int
+        
+        enum CodingKeys : String, CodingKey {
+            case h
+            case s
+            case v
+        }
+    }
+  
+  func fetchHue(rgb: String, completion: @escaping((Int) -> ()) ) async throws -> Int {
+    let myGroup = DispatchGroup()
+    myGroup.enter()
+    let url = "https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement"
+    let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
+    let hue = try Int(JSONDecoder().decode(Result.self, from: data).colors[0].hsv.h)
+    myGroup.leave()
+    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+      completion(hue)
+    }
+    return hue
+  }
+  
+  func fetchAlamo(rgb: String, completion: @escaping((Bool) -> ())){
+    let myGroup = DispatchGroup()
+    myGroup.enter()
+    AF.request("https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement").responseData{
+      response in
+      switch response.result{
+      case .failure:
+        print("fail")
+        return
+      case .success(let data):
+        do{
+          guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any?],
+                let result = json["result"] as? [String: Any],
+                let colors = result["colors"] as? [[String: Any]]
+          else{
+            //let name = colors.first!["name"]["value"] as? String,//unsure
+            //let h = colors["hsv"]["h"] as Int else{
+            print ("json wrong ")
+            return
+          }
+            
+        } catch {
+          print("json serial fail")
+        }
+//          self.hue = h
+//          self.name = name
+        }
+      }
+    myGroup.leave()
+    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+             print("color api done aamo")
+      //print(self.colors!.first!.primaryName)
+      completion(true)
+    }
+  }
+                  
+  
+  
+  func fetchName(rgb: String, completion: @escaping((String) -> ())) {
+    let myGroup = DispatchGroup()
+    myGroup.enter()
+    
+    let url = "https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement"
+    let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+      
+      guard let data = data else {
+        Swift.print("Error: No data to decode")
+        return
+      }
+      
+      guard let r = try? JSONDecoder().decode(Result.self, from: data) else {
+        Swift.print("Error: Couldn't decode data into a result")
+        return
+      }
+      self.name = r.colors[0].name.value
+    }
+    myGroup.leave()
+    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+      print("fetchName completion")
+      completion(self.name!)
+    }
+  }
+  
+//  func load2(rgb: String) {
+//    Task {
+//      do {
+//        let hue = try await fetchHue(rgb: rgb, completion: hue
+//                                     in self.hue! = hue)
+//        print(hue)
+//      }
+//      catch {
+//        print(Error.self)
+//      }
 //    }
 //  }
-//  
-//  struct Color: Decodable {
-//    let hex: Hex
-//    let rgb: RGB
-//    
-//    enum CodingKeys : String, CodingKey {
-//      case hex
-//      case rgb
-//    }
-//  }
-//  
-//  struct Hex: Decodable {
-//    let value: String
-//    let clean: String
-//    
-//    enum CodingKeys : String, CodingKey {
-//      case value
-//      case clean
-//    }
-//  }
-//  
-//  struct RGB: Decodable {
-//    let r: Int
-//    let g: Int
-//    let b: Int
-//    
-//    enum CodingKeys : String, CodingKey {
-//      case r
-//      case g
-//      case b
-//    }
-//  }
-//  
-//  let task = URLSession.shared.dataTask(with: components.url!) { (data, response, error) in
-//    guard let data = data else {
-//      print("Error: No data to decode")
-//      return
-//    }
-//    
-//    guard let result = try? JSONDecoder().decode(Result.self, from: data) else {
-//      print("Error: Couldn't decode data into a result")
-//      return
-//    }
-//    
-//    print("Mode: \(result.mode)")
-//    print("---------------------------")
-//    
-//    print("Complimentary Colors:")
-//    for color in result.colors {
-//      print("- \(color.hex.value)")
-//    }
-//    
-//  }
-//}
+        
+        
+  func load(rgb: String, completion: @escaping((Bool) -> ())) async {
+    let myGroup = DispatchGroup()
+    myGroup.enter()
+    let url = "https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement"
+    print(url)
+    
+    //let sem = DispatchSemaphore(value: 0)
+    
+    DispatchQueue.main.async {
+      let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+        
+        guard let data = data else {
+          Swift.print("Error: No data to decode")
+          return
+        }
+        
+        guard let r = try? JSONDecoder().decode(Result.self, from: data) else {
+          Swift.print("Error: Couldn't decode data into a result")
+          return
+        }
+        self.hue = Int(r.colors[0].hsv.h)
+        self.name = r.colors[0].name.value
+        print(self.hue)
+        print(self.name)
+        //SAVE TO ARTICLE
+      }
+      task.resume()
+      //sem.wait(timeout: .distantFuture)
+    }
+    myGroup.leave()
+    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
+      completion(true)
+    }
+  }
+    }
