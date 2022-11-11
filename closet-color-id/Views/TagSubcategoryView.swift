@@ -4,7 +4,8 @@ import SwiftUI
 struct TagSubcategoryView: View {
   let viewModel: ViewModel
 //  var image: UIImage
-  let subcategory: [String]
+  //let subcategory: [String]
+    let subcats: [String]
   let style = ""
   let article: Article
 //  var imaggaCall: ImaggaCalls
@@ -14,14 +15,14 @@ struct TagSubcategoryView: View {
   var body: some View {
       NavigationView{
           VStack{
-              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
-              ForEach(SubcategoryName.subcategoryNamesShirts, id: \.self) { sub in
+              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+              ForEach(self.subcats, id: \.self) { sub in
                 Button(action: {
                   isShowingSubcat = false
-                  viewModel.tagArticleCategory(category: sub, article: article)
+                    viewModel.tagArticleSubcategory(subcategory: sub, article: article)
                 }) {
-                  Text(sub)
-                }
+                    Text(sub.lowercased())
+                }.frame(maxHeight: .infinity, alignment: .bottom).font(.system(size: 36))
               }
 //              if (cat == "top") {
 //                ForEach(SubcategoryName.subcategoryNamesShirts, id: \.self) { sub in
@@ -59,7 +60,7 @@ struct TagSubcategoryView: View {
                 NavigationLink (
                   destination: TagStyleView(viewModel: viewModel, article: article),
                   label:{
-                    Text("Done")
+                    Text("Done").frame(maxHeight: .infinity, alignment: .bottom).font(.system(size: 36))
                   })
           }
           

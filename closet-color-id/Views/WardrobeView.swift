@@ -1,85 +1,100 @@
 import SwiftUI
 
 struct WardrobeView: View {
-  @Environment(\.managedObjectContext) private var viewContext
-  let viewModel: ViewModel
-  let appDelegate: AppDelegate = AppDelegate()
-//  var articles = viewModel.arts
-  var tops: [[Article]]
-  var bottoms: [[Article]]
-  var footwear: [[Article]]
-  var outerwear: [[Article]]
-  let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible()),
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
-  //    var shirt = Image("shirt")
-  
-  var sym = [["pusheen", "shirt"], ["shirt 2", "pusheen", "shirt"], ["shirt 3"], ["shirt", "pusheen", "pusheen", "shirt"]]
-  var bols = [["keyboard", "hifispeaker.fill"], ["printer.fill", "tv.fill", "desktopcomputer"], ["headphones"], ]
-  let dataPopulation: DataPopulation = DataPopulation()
-  var body: some View {
-    NavigationView{
-      ScrollView{
-        Text("Tops")
-        LazyVGrid(columns: columns, spacing: 5){
-          ForEach(viewModel.arts, id: \.self) { top in
-//            ForEach(array, id: \.self) {top in
-            Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
-                .renderingMode(.original)
-                .resizable()
-                .scaledToFit()
-                .font(.system(size: 30))
-                .frame(width: 80, height: 80)
-                .cornerRadius(10)
-            }
-//          }
-          
-        }
-//        Text("Bottoms")
-//        LazyVGrid(columns: columns, spacing: 10){
-//          ForEach(bols, id: \.self) { array in
-//            ForEach(array, id: \.self) {bottom in
-//              Image(systemName: bottom)
-//                .font(.system(size: 30))
-//                .frame(width: 50, height: 50)
-//                .cornerRadius(10)
-//            }
-//          }
-//        }
-      }
-      .onAppear(perform: {
-//        self.viewModel.deleteAllArticles()
-//        self.viewModel.updateArticles()
-//        self.viewModel.deleteUnstyledArticles()
-//        self.viewModel.updateArticles()
-//        self.viewModel.deleteUntaggedArticles()
-//        self.viewModel.updateArticles()
-      })
-      .padding(.horizontal)
-      .navigationBarTitle("WARDROBE")
+    @Environment(\.managedObjectContext) private var viewContext
+    let viewModel: ViewModel
+    let appDelegate: AppDelegate = AppDelegate()
+    //  var articles = viewModel.arts
+    //    var tops: [[Article]] {
+    //        get {
+    //            let subcats = SubcategoryName.subcategoryNamesShirts
+    //            var aSubCat = [[Article]]()
+    //            for subcat in subcats {
+    //                aSubCat.append(self.viewModel.fetchSubcatArts(subcategory: subcat))
+    //            }
+    //            return aSubCat
+    //        }
+    //    }
+    @State var tops: [Article] = [Article]()
+    @State var bottoms: [Article] = [Article]()
+    @State var footwear: [Article] = [Article]()
+    func populateCats() {
+        //self.viewModel.updateArticles()
+        self.tops = self.viewModel.fetchCatArts(category: "top")
+        self.bottoms = self.viewModel.fetchCatArts(category: "bottom")
+        self.footwear = self.viewModel.fetchCatArts(category: "footwear")
     }
-    
-  }
-  //      NavigationView{
-  //        List{
-  //          Text("Articles")
-  //          ForEach(viewModel.arts, id: \.self) { article in
-  //                Text(article.primary_color_name!) //UMSAFE
-  //
-  //              }
-  //            } .navigationBarTitle("WARDROBE")
-  //
-  //              }
-  //            }
-  
-  
-  
-  //struct WardrobeView_Previews: PreviewProvider {
-  //    static var previews: some View {
-  //        WardrobeView()
-  //    }
-  //}
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
+    let dataPopulation: DataPopulation = DataPopulation()
+    var body: some View {
+        NavigationView{
+            ScrollView{
+                Text("Tops")
+                LazyVGrid(columns: columns, spacing: 10){
+                    ForEach(self.tops, id: \.self) { top in
+                        NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
+                            Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
+                                .renderingMode(.original)
+                                .resizable()
+                                .scaledToFit()
+                                .font(.system(size: 30))
+                                .frame(width: 80, height: 80)
+                                .cornerRadius(10)
+                                .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                .rotationEffect(.degrees(90))
+                        }
+                    }
+                }
+                VStack{
+                    Text("Bottoms")
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.bottoms, id: \.self) { bottom in
+                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
+                            }
+                        }
+                    VStack{
+                        Text("Footwear")
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.footwear, id: \.self) { foot in
+                                NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
+                            }
+                        }
+                    }
+                }
+            }.onAppear(perform: {
+                self.populateCats()
+            })
+            .padding(.horizontal)
+            .navigationBarTitle("WARDROBE")
+            .frame(alignment: .leading)
+            .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+//            .toolbarBackground(Color(red: 0.74, green: 0.64, blue: 0.55), for: .navigationBar)
+        }
+        .navigationBarBackButtonHidden(true)
+    }
 }

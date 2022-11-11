@@ -13,6 +13,8 @@ struct OutfitsView: View {
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
+    let exampleColor : Color = Color(red: 0.5, green: 0.8, blue: 0.5)
+
   var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
   @State private var outfits = ["pink tee", "green tee", "black tee"]
   var body: some View {
@@ -37,6 +39,8 @@ struct OutfitsView: View {
         
       }
       .navigationBarTitle("OUTFITS")
+      .frame(alignment: .leading)
+      .background(Color(red: 0.96, green: 0.94, blue: 0.91))
       .navigationBarItems(trailing: Button(action: {
         self.addRow()
       }) {
@@ -63,18 +67,18 @@ struct OutfitsView: View {
             Text(outfit.name!)
           }
         }
-        .navigationBarTitle("OUTFITS")
-        .navigationBarItems(trailing: Button(action: {
-          // this needs it's own view
-        }) {
-          Image(systemName: "plus")
-        })
+        
+        
       }.onAppear(perform: {
 //        self.viewModel.deleteUnstyledArticles()
 //        self.viewModel.updateArticles()
 //        self.viewModel.deleteUntaggedArticles()
 //        self.viewModel.updateArticles()
-      })
+      }).navigationBarItems(trailing: Button(action: {
+          // this needs it's own view
+        }) {
+          Image(systemName: "plus")
+        })
     }
   }
   

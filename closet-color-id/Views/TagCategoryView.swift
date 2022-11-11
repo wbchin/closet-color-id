@@ -25,26 +25,26 @@ struct TagCategoryView: View {
       NavigationView{
           VStack {
             // insert image here
-              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
+              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
       //      Spacer()
       //
             Button(action: {
 //              TagSubcategoryView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "", cat: "", subcategory: "")
                 isShowingCat = false
                 cat = "top"
-              viewModel.tagArticleCategory(category: "top", article: article)
-              subcats = SubcategoryName.subcategoryNamesShirts
+                subcats = SubcategoryName.subcategoryNamesShirts
+                viewModel.tagArticleCategory(category: "top", article: article)
             }) {
-              Text("Top")
+              Text("Top").frame(maxHeight: .infinity, alignment: .bottom).font(.system(size: 36))
             }
       //
             Button(action: {
 //              TagSubcategoryView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "", cat: "", subcategory: "")
                 isShowingCat = false
-              viewModel.tagArticleCategory(category: "bottom", article: article)
               subcats = SubcategoryName.subcategoryNamesBottoms
+                viewModel.tagArticleCategory(category: "bottom", article: article)
             }) {
-              Text("Bottom")
+              Text("Bottom").font(.system(size: 36))
             }
       //
       //
@@ -52,10 +52,10 @@ struct TagCategoryView: View {
             Button(action: {
 //              TagSubcategoryView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "", cat: "", subcategory: "")
                 isShowingCat = false
+                subcats = SubcategoryName.subcategoryNamesFootwear
               viewModel.tagArticleCategory(category: "top", article: article)
-              subcats = SubcategoryName.subcategoryNamesFootwear
             }) {
-              Text("Footwear")
+              Text("Footwear").font(.system(size: 36))
             }
       //
 //            Button(action: {
@@ -72,9 +72,9 @@ struct TagCategoryView: View {
             
             if !isShowingCat {
               NavigationLink (
-                destination: TagSubcategoryView(viewModel: viewModel, subcategory: subcats, article: article),
+                destination: TagSubcategoryView(viewModel: viewModel, subcats: subcats, article: article),
                 label:{
-                  Text("Done")
+                  Text("Done").frame(maxHeight: 50, alignment: .bottom).font(.system(size: 36))
                 })
             }
           }

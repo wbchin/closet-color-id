@@ -5,10 +5,11 @@
 ////  Created by Waverly Chin on 11/2/22.
 ////
 //
-//import Foundation
+import Foundation
+import SwiftUI
 //import Alamofire
 //
-//class ViewController: ObservableObject{
+class ViewController: UIViewController{
 //    extension ViewController {
 //        func upload(image: UIImage,
 //                    progressCompletion: @escaping (_ percent: Float) -> Void,
@@ -63,7 +64,7 @@
 //                    }
 //                }
 //            )
-//        }
+        }
 //        func downloadColors(uploadId: String, completion: @escaping ([PhotoColor]) -> Void) {
 //            Alamofire.request(ImaggaRouter.colors(uploadId))
 //                .responseJSON { response in

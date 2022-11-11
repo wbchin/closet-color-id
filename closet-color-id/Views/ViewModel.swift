@@ -153,6 +153,44 @@ class ViewModel: ObservableObject {
       return nil
     }
   }
+    
+//    func fetchSubcatCatArts(category: String, subcategories: [String]) -> [[Article]] {
+//        var out = [Article]()
+//        let context = appDelegate.persistentContainer.viewContext
+//        //context.object(with: article.objectID).setValue(category, forKey: "category")
+//        for subcategory in subcategories {
+//            for article in self.arts {
+//                if context.object(with: article.objectID).value(forKey: "category") as! String == category{
+//                    out.append(self.fetchSubcatArts(subcategory: subcategory))
+//                }
+//            }
+//        }
+//        return out
+//    }
+    
+    func fetchSubcatArts(subcategory: String) -> [Article] {
+        var out = [Article]()
+        let context = appDelegate.persistentContainer.viewContext
+        //context.object(with: article.objectID).setValue(category, forKey: "category")
+        for article in self.arts {
+            if context.object(with: article.objectID).value(forKey: "subcategory") as! String == subcategory{
+                out.append(article)
+            }
+        }
+        return out
+    }
+    
+    func fetchCatArts(category: String) -> [Article] {
+        var out = [Article]()
+        let context = appDelegate.persistentContainer.viewContext
+        //context.object(with: article.objectID).setValue(category, forKey: "category")
+        for article in self.arts {
+            if context.object(with: article.objectID).value(forKey: "category") as! String == category{
+                out.append(article)
+            }
+        }
+        return out
+    }
   
   func fetchArticle(article_id: UUID) -> Article? {
     let fetchRequest: NSFetchRequest<Article>
