@@ -7,6 +7,7 @@ struct TagSubcategoryView: View {
   let subcategory: [String]
   let style = ""
   let article: Article
+  var imaggaCall: ImaggaCalls
 //    @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   @State var isShowingSubcat = true
   
@@ -56,7 +57,7 @@ struct TagSubcategoryView: View {
 //              }
               if !isShowingSubcat {
                 NavigationLink (
-                  destination: TagStyleView(viewModel: viewModel, article: article),
+                  destination: TagStyleView(viewModel: viewModel, article: article, imaggaCall: self.imaggaCall),
                   label:{
                     Text("Done")
                   })

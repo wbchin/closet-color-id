@@ -5,6 +5,7 @@ struct TagStyleView: View {
   let viewModel: ViewModel
 //  @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   var article: Article
+  var imaggaCall: ImaggaCalls
   @State var isShowingStyle = true
 //
 //  var styles: [Style] {
@@ -18,6 +19,8 @@ struct TagStyleView: View {
       Button(action: {
         viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
         isShowingStyle = false
+        self.imaggaCall.image = nil
+        self.imaggaCall.article = Article()
       }) {
         Text(style.name!)
       }

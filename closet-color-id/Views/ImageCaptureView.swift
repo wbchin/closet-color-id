@@ -65,11 +65,11 @@ struct ImageCaptureView: View {
     @State var colors: [PhotoColor]?
     @State var donePressed = false
     @State var article: Article? 
-  @State var articleIndex: Int? = -1
+    @State var articleIndex: Int? = -1
     let appDelegate = AppDelegate()
   
     init(viewModel: ViewModel, image: UIImage?){
-          self.viewModel = viewModel
+      self.viewModel = viewModel
       self.imaggaCall = ImaggaCalls(viewModel: viewModel)
       //self.image = image// << here !!
       }
@@ -85,31 +85,23 @@ struct ImageCaptureView: View {
     var body: some View {
       NavigationView {
         ZStack {
+          Text("ImageCaptureView")
           if self.image != nil{
+            let _ = print(image)
             Image(uiImage: image!).resizable().scaledToFit().padding()
-              Text("").onAppear{
-                let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
-                self.imaggaCall.image = image!
-                self.runImagga()
-              }
+            Text("").onAppear{
+              let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
+              self.imaggaCall.image = self.image!
+              self.runImagga()
+            }
           }
-//          if self.image != nil {
-//                Image(uiImage: image!)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .ignoresSafeArea()
-//            } else {
-//                Color(UIColor.systemBackground)
-//            }
-          
-          
           VStack {
             Spacer()
             if self.article != nil {
               //              NSLog(self.viewModel.arts.count)
               let _ = print("COUNT")
               let _ = print(self.viewModel.arts.count)
-              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!), label: { Text("view saved article")})
+              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!, imaggaCall: self.imaggaCall), label: { Text("view saved article")})
             }
               if image == nil{
                   Button(action: {
@@ -128,11 +120,13 @@ struct ImageCaptureView: View {
                     CustomCameraView(capturedImage: $image)
                   })
               }
-            
-           
-          }
           }
         }
+        }//.onAppear(perform: {
+//          self.image = nil
+//          //self.imaggaCall.image = nil
+//          self.article = nil
+//        })
     }
   }
   

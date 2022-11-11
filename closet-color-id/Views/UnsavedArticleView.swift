@@ -11,6 +11,7 @@ import SwiftUI
 struct UnsavedArticleView: View {
   let viewModel: ViewModel
   let article: Article
+  var imaggaCall: ImaggaCalls
 //    let image: UIImage?
   @State private var isShowingSave = true
   @State private var isShowingSubcats = false
@@ -42,7 +43,7 @@ struct UnsavedArticleView: View {
                 if !isShowingSave {
     //                TagCategoryView(viewModel: viewModel, image: capturedImage!, primary_color_name: "", primary_color_family: "", primary_color_hex: "", secondary_color_name: "", secondary_color_hex: "", secondary_color_family: "", complimentary_color_name: "", complimentary_color_hex: "", complimentary_color_family: "")
                   NavigationLink (
-                    destination: TagCategoryView(viewModel: viewModel, article: article),
+                    destination: TagCategoryView(viewModel: viewModel, article: article, imaggaCall: self.imaggaCall),
                     label:{
                       Text("Done")
                     })
