@@ -35,26 +35,26 @@ struct ContentView: View {
       }
   }
   
-  var handler: Binding<Int> { Binding(
-      get: { return self.selection },
-      set: {
-        print("entered handler")
-          if ($0 == 0 || $0 == 2) {
-              print("Reset here!!")
-            ImageCaptureView.article = nil
-            ImageCaptureView.imaggaCall.image = nil
-            ImageCaptureView.image = nil
-          }
-          self.selection = $0
-      }
-  )}
+//  var handler: Binding<Int> { Binding(
+//      get: { return self.selection },
+//      set: {
+//        print("entered handler")
+//          if ($0 == 0 || $0 == 2) {
+//              print("Reset here!!")
+////            ImageCaptureView.article = nil
+////            ImageCaptureView.imaggaCall.image = nil
+////            ImageCaptureView.image = nil
+//          }
+//          self.selection = $0
+//      }
+//  )}
   
   
 //  var articles: [Article]? = viewModel.fetchArticles()
   var body: some View {
     VStack {
         
-      TabView(selection: handler) {
+      TabView {
         WardrobeView(viewModel: viewModel,
                      tops: [], bottoms: [], footwear: [], outerwear: [])
         .tabItem{
@@ -72,7 +72,13 @@ struct ContentView: View {
             }.tag(2)
         }
     }.onAppear(perform: {
+//      self.viewModel.deleteAllArticles()
+      self.viewModel.deleteAllStyles()
+      self.viewModel.updateArticles()
       self.dataPopulation.populateStyles()
+      self.viewModel.updateStyles()
+      self.dataPopulation.createArticle()
+      
     })
   }
 //    func customTab() {

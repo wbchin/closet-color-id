@@ -21,10 +21,16 @@ import UIKit
 class DataPopulation: ObservableObject {
   let appDelegate: AppDelegate = AppDelegate()
   let viewModel: ViewModel = ViewModel()
-  var shirt: UIImage = UIImage(named: "pusheen.png")!
+  var shirt: UIImage = UIImage(named: "shirt.png")!
 
   func createArticle() {
-    viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_family: "red", primary_color_hex: "#ffffff", secondary_color_name: "black", secondary_color_family: "black", secondary_color_hex: "#000000")
+    if self.viewModel.arts.count == 0 {
+      let article = viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_family: "red", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "black", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
+      viewModel.tagArticleCategory(category: "top", article: article!)
+      viewModel.tagArticleSubcategory(subcategory: "blouse", article: article!)
+      let style = viewModel.fetchStyles()!.first
+      viewModel.tagArticleStyle(article_id: article!.objectID, style_id: style!.objectID)
+    }
   }
 
   // ["Professional", "Casual", "Night Out", "Athletic"]

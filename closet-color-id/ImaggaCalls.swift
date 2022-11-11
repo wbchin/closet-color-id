@@ -87,7 +87,10 @@ class ImaggaCalls: ObservableObject {
                                           guard
                                               let hex = dict["closest_palette_color_html_code"] as? String,
                                               let name = dict["closest_palette_color"] as? String,
-                                              let family = dict["closest_palette_color_parent"] as? String
+                                              let family = dict["closest_palette_color_parent"] as? String,
+                                              let r = dict["r"] as? Int,
+                                              let g = dict["g"] as? Int,
+                                              let b = dict["b"] as? Int
                                           else {
                                               return nil
                                           }
@@ -96,14 +99,17 @@ class ImaggaCalls: ObservableObject {
                                               //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                               primaryHex: hex,
                                               primaryName: name,
-                                              primaryFamily: family)
+                                              primaryFamily: family,
+                                              r: r,
+                                              g: g,
+                                              b: b)
                                       })
                                       self.colors = photoColors
                                     if photoColors.count == 1 {
-                                        self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex)!
+                                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_r: photoColors.first!.r, primary_g: photoColors.first!.g, primary_b: photoColors.first!.b, secondary_color_name: nil, secondary_color_family: nil, secondary_r: nil, secondary_g: nil, secondary_b: nil)!
                                     } else {
                                       print(self.image)
-                                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_color_hex: photoColors.first!.primaryHex, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_color_hex: photoColors[1].primaryHex)!
+                                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_r: photoColors.first!.r, primary_g: photoColors.first!.g, primary_b: photoColors.first!.b, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_r: photoColors.first!.r, secondary_g: photoColors.first!.g, secondary_b: photoColors.first!.b)!
                                     }
               //                      print(self.article.debugDescription)
                                     NSLog("done")
@@ -160,7 +166,10 @@ class ImaggaCalls: ObservableObject {
                             guard
                                 let hex = dict["closest_palette_color_html_code"] as? String,
                                 let name = dict["closest_palette_color"] as? String,
-                                let family = dict["closest_palette_color_parent"] as? String
+                                let family = dict["closest_palette_color_parent"] as? String,
+                                let r = dict["r"] as? Int,
+                                let g = dict["g"] as? Int,
+                                let b = dict["b"] as? Int
                             else {
                                 return nil
                             }
@@ -169,7 +178,10 @@ class ImaggaCalls: ObservableObject {
                                 //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                 primaryHex: hex,
                                 primaryName: name,
-                                primaryFamily: family)
+                                primaryFamily: family,
+                                r: r,
+                                g: g,
+                                b: b)
                         })
                       print("set self.colors")
                         self.colors = photoColors
@@ -181,11 +193,10 @@ class ImaggaCalls: ObservableObject {
                   print("COLOR COUNT")
                   print(String(self.colors!.count))
                   if self.colors!.count == 1 {
-                    print("one")
-                      self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_color_hex: self.colors!.first!.primaryHex)!
+                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_r: self.colors!.first!.r, primary_g: self.colors!.first!.g, primary_b: self.colors!.first!.b, secondary_color_name: nil, secondary_color_family: nil, secondary_r: nil, secondary_g: nil, secondary_b: nil)!
                   } else {
-                    print("twoo")
-                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_color_hex: self.colors!.first!.primaryHex, secondary_color_name: self.colors![1].primaryName, secondary_color_family: self.colors![1].primaryFamily, secondary_color_hex: self.colors![1].primaryHex)!
+                    print(self.image)
+                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_r: self.colors!.first!.r, primary_g: self.colors!.first!.g, primary_b: self.colors!.first!.b, secondary_color_name: self.colors![1].primaryName, secondary_color_family: self.colors![1].primaryFamily, secondary_r: self.colors!.first!.r, secondary_g: self.colors!.first!.g, secondary_b: self.colors!.first!.b)!
                   }
 //                      print(self.article.debugDescription)
                   print("done")

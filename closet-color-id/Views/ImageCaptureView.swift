@@ -56,52 +56,53 @@ struct ImageCaptureView: View {
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = false
     @ObservedObject var imaggaCall: ImaggaCalls
-  
-//    var imaggaCall: ImaggaCalls {
-//      get {
-//        return ImaggaCalls(viewModel: viewModel)
-//      }
-//    }
     @State var colors: [PhotoColor]?
     @State var donePressed = false
     @State var article: Article? 
-    @State var articleIndex: Int? = -1
+    //@State var articleIndex: Int? = -1
+    @State var calledImagga: Bool = false
     let appDelegate = AppDelegate()
   
     init(viewModel: ViewModel, image: UIImage?){
       self.viewModel = viewModel
       self.imaggaCall = ImaggaCalls(viewModel: viewModel)
       //self.image = image// << here !!
-      }
-      func runImagga() {
-        NSLog("imagga run")
-        self.imaggaCall.image = image!
-        self.imaggaCall.uploadImage(completion: { article in
-           self.article = article
-        })
-      }
+    }
+    func runImagga() {
+      NSLog("imagga run")
+      self.imaggaCall.image = image!
+      self.imaggaCall.uploadImage(completion: { article in
+        self.article = article
+      })
+    }
     
     
     var body: some View {
       NavigationView {
         ZStack {
           Text("ImageCaptureView")
-          if self.image != nil{
-            let _ = print(image)
-            Image(uiImage: image!).resizable().scaledToFit().padding()
+          if self.image != nil && self.calledImagga != true {
             Text("").onAppear{
+              let _ = self.calledImagga = true
+              let _ = print("entered self.image != nil")
+              Image(uiImage: image!).resizable().scaledToFit().padding()
               let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
-              self.imaggaCall.image = self.image!
-              self.runImagga()
+              let _ = self.imaggaCall.image = self.image!
+              let _ = self.runImagga()
             }
           }
           VStack {
             Spacer()
             if self.article != nil {
               //              NSLog(self.viewModel.arts.count)
-              let _ = print("COUNT")
-              let _ = print(self.viewModel.arts.count)
-              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts.last!, imaggaCall: self.imaggaCall), label: { Text("view saved article")})
+              
+              //let _ = self.viewModel.updateArticles()
+              Text("").onAppear{
+                self.viewModel.updateArticles()
+                let _ = print("COUNT")
+                let _ = print(self.viewModel.arts.count)
+              }
+              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts[self.viewModel.arts.count-1]), label: { Text("view saved article")})
             }
               if image == nil{
                   Button(action: {
@@ -122,11 +123,16 @@ struct ImageCaptureView: View {
               }
           }
         }
-        }//.onAppear(perform: {
-//          self.image = nil
-//          //self.imaggaCall.image = nil
-//          self.article = nil
-//        })
+        }.onDisappear(perform: {
+//          self.viewModel.deleteUnstyledArticles()
+//          self.viewModel.updateArticles()
+//          self.viewModel.deleteUntaggedArticles()
+//          self.viewModel.updateArticles()
+          self.image = nil
+          self.imaggaCall.image = nil
+          self.article = nil
+          self.calledImagga = false
+        })
     }
   }
   

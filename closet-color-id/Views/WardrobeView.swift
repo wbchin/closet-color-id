@@ -52,7 +52,11 @@ struct WardrobeView: View {
       }
       .onAppear(perform: {
 //        self.viewModel.deleteAllArticles()
-        self.viewModel.updateArticles()
+//        self.viewModel.updateArticles()
+//        self.viewModel.deleteUnstyledArticles()
+//        self.viewModel.updateArticles()
+//        self.viewModel.deleteUntaggedArticles()
+//        self.viewModel.updateArticles()
       })
       .padding(.horizontal)
       .navigationBarTitle("WARDROBE")

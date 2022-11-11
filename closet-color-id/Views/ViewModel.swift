@@ -75,6 +75,30 @@ class ViewModel: ObservableObject {
 
   }
   
+  func deleteAllStyles() {
+    // Initialize Fetch Request
+    let fetchRequest: NSFetchRequest<Style>
+    fetchRequest = Style.fetchRequest()
+    
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    context.reset()
+    do {
+      let objects = try context.fetch(fetchRequest)
+      for data in objects as [NSManagedObject] {
+        context.delete(data)
+        //loadArticle(data: data)
+        NSLog("Deleted all the styles")
+      }
+      try context.save()
+     
+    } catch {
+      print("Error")
+   
+    }
+
+  }
+  
   func fetchArticles() -> [Article]? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
@@ -203,7 +227,44 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveArticle(image_data: Data, primary_color_name:String, primary_color_family: String, primary_color_hex: String, secondary_color_name: String = "", secondary_color_family: String = "",  secondary_color_hex: String = "") -> Article?{
+  func setColorFamily(hue: Int) -> String{
+    if (0 <= hue && hue < 55) {
+      return "red"
+    }
+    if (55 <= hue && hue < 110) {
+      return "orange"
+    }
+    if (110 <= hue && hue < 165) {
+      return "yellow"
+    }
+    if (165 <= hue && hue < 220) {
+      return "green"
+    }
+    if (220 <= hue && hue < 275) {
+      return "blue"
+    }
+    if (275 <= hue && hue < 330) {
+      return "indigo"
+    }
+    if (330 <= hue && hue < 360) {
+      return "violet"
+    }
+    return ""
+  }
+  
+  func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String) {
+    let context = appDelegate.persistentContainer.viewContext
+    context.object(with: article.objectID).setValue(complimentary_color_family, forKey: "complimentary_color_family")
+    context.object(with: article.objectID).setValue(complimentary_color_name, forKey: "complimentary_color_name")
+    do {
+      try context.save()
+      NSLog("complimentary color saved")
+    } catch {
+      NSLog("[Contacts] ERROR: Failed to complimentary color saved")
+    }
+  }
+  
+  func saveArticle(image_data: Data, primary_color_name: String, primary_color_family: String, primary_r: Int, primary_g: Int, primary_b: Int, secondary_color_name: String?, secondary_color_family: String?,  secondary_r: Int?, secondary_g: Int?, secondary_b: Int?) -> Article?{
     NSLog("starting save article")
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
@@ -214,10 +275,14 @@ class ViewModel: ObservableObject {
       newVal.setValue(image_data, forKey: "image_data")
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
       newVal.setValue(primary_color_family, forKey: "primary_color_family")
-      newVal.setValue(primary_color_hex, forKey: "primary_color_hex")
+      newVal.setValue(primary_r, forKey: "primary_r")
+      newVal.setValue(primary_g, forKey: "primary_g")
+      newVal.setValue(primary_b, forKey: "primary_b")
       newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
       newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
-      newVal.setValue(secondary_color_hex, forKey: "secondary_color_hex")
+      newVal.setValue(secondary_r, forKey: "secondary_r")
+      newVal.setValue(secondary_g, forKey: "secondary_g")
+      newVal.setValue(secondary_b, forKey: "secondary_b")
       newVal.setValue(UUID(), forKey: "article_id")
 //      newVal.setValue(complimentary_color_name, forKey: "complimentary_color_name")
 //      newVal.setValue(complimentary_color_family, forKey: "complimentary_color_family")
@@ -233,7 +298,7 @@ class ViewModel: ObservableObject {
         arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
 //        return (arts.count-1)
 //        return context.object(with:newVal.objectID) as? Article
-        return arts.last
+        return returnVal
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
@@ -329,6 +394,54 @@ class ViewModel: ObservableObject {
       
     } catch {
       NSLog("[Contacts] ERROR: Failed to delete article from CoreData")
+    }
+  }
+  
+  func deleteUnstyledArticles() {
+    NSLog("Deleting unstyled articles")
+    let articles = fetchArticles()!
+    
+    for article in articles {
+      print(article.debugDescription)
+      if article.articleStyles == nil {
+        print("article style is nil")
+      }
+    }
+
+  }
+  
+  func deleteUntaggedArticles() {
+    NSLog("Deleting untagged articles")
+    let context = appDelegate.persistentContainer.viewContext
+    
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    
+    let cat_predicate = NSPredicate(
+        format: "category = nil"
+    )
+    let subcat_predicate = NSPredicate(
+        format: "subcategory = nil"
+    )
+//    let style_predicate = NSPredicate(
+//        format: "articleStyles = %@", "nil"
+//    )
+    
+    fetchRequest.predicate = NSCompoundPredicate(
+        orPredicateWithSubpredicates: [
+          cat_predicate,
+          subcat_predicate
+          //style_predicate
+        ]
+    )
+    do {
+      let objects = try context.fetch(fetchRequest)
+      for object in objects as [NSManagedObject] {
+        context.delete(object)
+      }
+      try context.save()
+    } catch {
+      print("Error")
     }
   }
 }

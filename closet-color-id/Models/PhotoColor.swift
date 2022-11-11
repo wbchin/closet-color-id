@@ -11,4 +11,7 @@ struct PhotoColor: Hashable{
     let primaryHex: String
     let primaryName: String
     let primaryFamily: String
+    let r: Int
+    let g: Int
+    let b: Int
 }
