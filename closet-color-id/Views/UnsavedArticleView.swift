@@ -23,7 +23,7 @@ struct UnsavedArticleView: View {
     NavigationView{
               VStack {
                 // insert image here
-                  Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().padding()
+                  Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
 
 
                 Button(action: {
@@ -31,6 +31,8 @@ struct UnsavedArticleView: View {
                   isShowingSave = false
                 }) {
                   Text("Save to wardrobe")
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                        .font(.system(size: 36))
                 }
 
           //      Button(action: {
@@ -46,6 +48,7 @@ struct UnsavedArticleView: View {
                     destination: TagCategoryView(viewModel: viewModel, article: article),
                     label:{
                       Text("Done")
+                            .font(.system(size: 36))
                     })
                 }
               }

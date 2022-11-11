@@ -9,31 +9,54 @@ import SwiftUI
 import CoreData
 
 struct ArticleView: View {
-  var article: Article
-  let viewModel: ViewModel
-  
-  var body: some View {
-      VStack{
-            Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
-            Text(article.primary_color_name!)
-            Text(article.secondary_color_name!)
-            Text(article.category!)
-          
-      }.navigationBarBackButtonHidden(true)
-    
-//    Text(article.primary_color_name!)
-//    Text(article.primary_color_family!)
-//    Text(article.primary_color_hex!)
-      
-//    if (article.category != nil) {
-//      Text(article.category!)
-//    }
-//    
-//    if (article.subcategory != nil) {
-//      Text(article.subcategory!)
-//    }
-    
-    Spacer()
+    var article: Article
+    let viewModel: ViewModel
+    let backgroundColor : Color = Color(red: 141, green: 223, blue: 144)
+    var body: some View {
+        NavigationView {
+            VStack{
+                Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                HStack {
+                    Text(article.category!)
+                        .padding()
+                        .border(.white, width: 4)
+                    Text(article.subcategory!)
+                        .padding()
+                        .border(.white, width: 4)
+//                    let articleStyle = article.articleStyles?.first as! ArticleStyle
+//                    Text((articleStyle.style?.name!)!)
+//                        .padding()
+//                        .border(.white, width: 4)
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .font(.system(size: 36))
+                HStack {
+                    let _ = print(article.debugDescription)
+                    VStack {
+                        Text(article.primary_color_name!)
+                        Rectangle()
+                            .fill(Color(red: Double(article.primary_r)/255,
+                                        green: Double(article.primary_g)/255,
+                                        blue: Double(article.primary_b)/255))
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                    .border(.white, width: 4)
+                    VStack {
+                        Text(article.secondary_color_name!)
+                        Rectangle()
+                            .fill(Color(red: Double(article.secondary_r)/255,
+                                        green: Double(article.secondary_g)/255,
+                                        blue: Double(article.secondary_b)/255))
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                    .border(.white, width: 4)
+                }
+            }
+//            Spacer()
+                .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+        }//.navigationBarBackButtonHidden(true)
     }
 }
 

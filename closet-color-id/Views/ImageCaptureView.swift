@@ -78,52 +78,54 @@ struct ImageCaptureView: View {
     
     
     var body: some View {
-      NavigationView {
-        ZStack {
-          Text("ImageCaptureView")
-          if self.image != nil && self.calledImagga != true {
-            Text("").onAppear{
-              let _ = self.calledImagga = true
-              let _ = print("entered self.image != nil")
-              Image(uiImage: image!).resizable().scaledToFit().padding()
-              let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
-              let _ = self.imaggaCall.image = self.image!
-              let _ = self.runImagga()
+        NavigationView {
+                ZStack {
+                    Text("Take a Picture!")
+                    if self.image != nil && self.calledImagga != true {
+                        Text("").onAppear{
+                            let _ = self.calledImagga = true
+                            let _ = print("entered self.image != nil")
+                            //              Image(uiImage: image!).resizable().scaledToFit().padding()
+                            let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
+                            let _ = self.imaggaCall.image = self.image!
+                            let _ = self.runImagga()
+                        }
+                    }
+                    VStack {
+                        Spacer()
+                        if self.article != nil {
+                            //              NSLog(self.viewModel.arts.count)
+                            
+                            //let _ = self.viewModel.updateArticles()
+                            Text("").onAppear{
+                                self.viewModel.updateArticles()
+                                let _ = print("COUNT")
+                                let _ = print(self.viewModel.arts.count)
+                            }
+                            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts[self.viewModel.arts.count-1]), label: { Text("View saved article").font(.system(size: 36))})
+                        }
+                        if image == nil{
+                            Button(action: {
+                                //              NSLog(self.imaggaCall.article.debugDescription)
+                                isCustomCameraViewPresented.toggle()
+                            }, label: {
+                                Image(systemName: "camera.fill")
+                                    .font(.largeTitle)
+                                    .padding()
+                                    .background(Color.black)
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+                            })
+                            .padding(.bottom)
+                            .sheet(isPresented: $isCustomCameraViewPresented, content: {
+                                CustomCameraView(capturedImage: $image)
+                            })
+                        }
+                    }
+                }
             }
-          }
-          VStack {
-            Spacer()
-            if self.article != nil {
-              //              NSLog(self.viewModel.arts.count)
-              
-              //let _ = self.viewModel.updateArticles()
-              Text("").onAppear{
-                self.viewModel.updateArticles()
-                let _ = print("COUNT")
-                let _ = print(self.viewModel.arts.count)
-              }
-              NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts[self.viewModel.arts.count-1]), label: { Text("view saved article")})
-            }
-              if image == nil{
-                  Button(action: {
-                    //              NSLog(self.imaggaCall.article.debugDescription)
-                    isCustomCameraViewPresented.toggle()
-                  }, label: {
-                    Image(systemName: "camera.fill")
-                      .font(.largeTitle)
-                      .padding()
-                      .background(Color.black)
-                      .foregroundColor(.white)
-                      .clipShape(Circle())
-                  })
-                  .padding(.bottom)
-                  .sheet(isPresented: $isCustomCameraViewPresented, content: {
-                    CustomCameraView(capturedImage: $image)
-                  })
-              }
-          }
-        }
-        }.onDisappear(perform: {
+            .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+            .onDisappear(perform: {
 //          self.viewModel.deleteUnstyledArticles()
 //          self.viewModel.updateArticles()
 //          self.viewModel.deleteUntaggedArticles()
@@ -133,6 +135,7 @@ struct ImageCaptureView: View {
           self.article = nil
           self.calledImagga = false
         })
+        
     }
   }
   

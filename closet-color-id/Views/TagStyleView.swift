@@ -28,50 +28,41 @@ struct TagStyleView: View {
   }
   
   var body: some View {
-    VStack {
-      Text("Styles")
-//      if !runColor{
-//        Text("").onAppear{
-//          self.runColorApi()
-//          print("hue and family: ")
-//          print(self.comp_hue)
-//          print(self.comp_name)
-//          runColor = true
-//        }
-//      }
-//      if (self.comp_name != nil){
-//        Text("").onAppear{
-//          let family = self.viewModel.setColorFamily(hue: self.comp_hue)
-//          viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!)
-//        }
-        
-        ForEach(self.viewModel.styles) { style in
-        Button(action: {
-          
-          viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
-          isShowingStyle = false
-          //        self.imaggaCall.image = nil
-          //        self.imaggaCall.article = Article()
-        }) {
-          Text(style.name!)
-        }
-      }
-//      }
-      
-     
-      
-      if !isShowingStyle {
-        //        let article = self.viewModel.saveArticle()
-        NavigationLink (
-          destination: ArticleView(article: article, viewModel: viewModel),
-          label:{
-            Text("Done")
-          })//UNSAFE
-        
-      }
-    }//.task {
-//      await self.runColorApi()
-//    }
+      NavigationView {
+          VStack {
+              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+              Text("Styles").font(.system(size: 36))
+              //      if !runColor{
+              //        Text("").onAppear{
+              //          self.runColorApi()
+              //          runColor = true
+              //        }
+              //      }
+              //      if (self.comp_name != nil){
+              //        Text("").onAppear{
+              //          let family = self.viewModel.setColorFamily(hue: self.comp_hue)
+              //          viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!)
+              //        }
+              ForEach(self.viewModel.styles) { style in
+                  Button(action: {
+                      
+                      viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
+                      isShowingStyle = false
+                      //        self.imaggaCall.image = nil
+                      //        self.imaggaCall.article = Article()
+                  }) {
+                      Text(style.name!).frame(maxHeight: 50, alignment: .bottom).font(.system(size: 36))
+                  }
+              }
+              if !isShowingStyle {
+                  //        let article = self.viewModel.saveArticle()
+                  NavigationLink (
+                    destination: ArticleView(article: article, viewModel: viewModel),
+                    label:{
+                        Text("Done").font(.system(size: 36))
+                    })//UNSAFE
+              }
+          }}.navigationBarBackButtonHidden(true)
   }
   
 }
