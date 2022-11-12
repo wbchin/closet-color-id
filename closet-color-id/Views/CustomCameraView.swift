@@ -40,6 +40,7 @@ struct CustomCameraView: View {
                         .foregroundColor(.white)
                 })
                 .padding(.bottom)
+                .accessibilityLabel("Capture image button")
             }
         }
     }

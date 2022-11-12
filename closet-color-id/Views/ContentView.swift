@@ -71,11 +71,14 @@ struct ContentView: View {
         }
         .onAppear(perform: {
 //            self.viewModel.deleteAllArticles()
-            self.viewModel.deleteAllStyles()
+//            self.viewModel.deleteAllStyles()
             self.viewModel.updateArticles()
-            self.dataPopulation.populateStyles()
             self.viewModel.updateStyles()
-//            self.dataPopulation.createArticle()
+            if self.viewModel.styles.count == 0{
+                self.dataPopulation.populateStyles()
+                self.viewModel.updateStyles()
+            }
+            self.dataPopulation.createArticle()
         })
     }
 }
