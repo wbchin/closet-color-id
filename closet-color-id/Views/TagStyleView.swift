@@ -27,7 +27,6 @@ struct TagStyleView: View {
             
             self.comp_name = colorApiCall.name
             self.comp_hue = colorApiCall.hue!
-            print(self.comp_name)
         }
     })
    
@@ -41,7 +40,6 @@ struct TagStyleView: View {
                 Text("Styles").font(.system(size: 36))
                 if !runColor{
                     Text("").onAppear{
-                        print("RUNNING COLOR")
                         self.runColorApi()
                         runColor = true
                     }

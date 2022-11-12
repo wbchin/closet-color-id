@@ -15,8 +15,6 @@ struct ArticleView: View {
     var body: some View {
         NavigationView {
             VStack{
-                let _ = print(article.complimentary_color_name)
-                let _ = print(article.complimentary_color_family)
                 let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
                 Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
                     //.accessibilityLabel("Image of article. Categroy is " + article.category! + " subcategory is " + article.subcategory! + " style is " + articleStyle.style?.name!)

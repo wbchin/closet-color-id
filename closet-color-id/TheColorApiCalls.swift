@@ -84,7 +84,7 @@ class TheColorApiCalls: ObservableObject {
             response in
             switch response.result{
             case .failure:
-                print("fail")
+                print("fail to get response from the color api")
                 return
             case .success(let data):
                 do{
@@ -96,7 +96,7 @@ class TheColorApiCalls: ObservableObject {
                           let name = nameArray["value"] as? String,//unsure
                           let h = hsvArray["h"] as? Int
                     else{
-                        print("fail")
+                        print("fail to read json correctly")
                         return 
                     }
                     self.name = name
@@ -105,84 +105,6 @@ class TheColorApiCalls: ObservableObject {
                     print("json serial fail")
                     return
                 }
-            }
-            myGroup.leave()
-            myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
-                print("color api done aamo")
-                //print(self.colors!.first!.primaryName)
-                completion(true)
-            }
-        }
-        
-        
-        
-        func fetchName(rgb: String, completion: @escaping((String) -> ())) {
-            let myGroup = DispatchGroup()
-            myGroup.enter()
-            
-            let url = "https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement"
-            let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-                
-                guard let data = data else {
-                    Swift.print("Error: No data to decode")
-                    return
-                }
-                
-                guard let r = try? JSONDecoder().decode(Result.self, from: data) else {
-                    Swift.print("Error: Couldn't decode data into a result")
-                    return
-                }
-                self.name = r.colors[0].name.value
-            }
-            myGroup.leave()
-            myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
-                print("fetchName completion")
-                completion(self.name!)
-            }
-        }
-        
-        //  func load2(rgb: String) {
-        //    Task {
-        //      do {
-        //        let hue = try await fetchHue(rgb: rgb, completion: hue
-        //                                     in self.hue! = hue)
-        //        print(hue)
-        //      }
-        //      catch {
-        //        print(Error.self)
-        //      }
-        //    }
-        //  }
-        
-        
-        func load(rgb: String, completion: @escaping((Bool) -> ())) async {
-            let myGroup = DispatchGroup()
-            myGroup.enter()
-            let url = "https://www.thecolorapi.com/scheme?rgb=\(rgb)&mode=analogic-complement"
-            print(url)
-            
-            //let sem = DispatchSemaphore(value: 0)
-            
-            DispatchQueue.main.async {
-                let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
-                    
-                    guard let data = data else {
-                        Swift.print("Error: No data to decode")
-                        return
-                    }
-                    
-                    guard let r = try? JSONDecoder().decode(Result.self, from: data) else {
-                        Swift.print("Error: Couldn't decode data into a result")
-                        return
-                    }
-                    self.hue = Int(r.colors[0].hsv.h)
-                    self.name = r.colors[0].name.value
-                    print(self.hue)
-                    print(self.name)
-                    //SAVE TO ARTICLE
-                }
-                task.resume()
-                //sem.wait(timeout: .distantFuture)
             }
             myGroup.leave()
             myGroup.notify(queue: DispatchQueue.global(qos: .background)) {

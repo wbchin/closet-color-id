@@ -82,14 +82,6 @@ struct ImageCaptureView: View {
                 ZStack {
                     Text("Take a Picture!")
                     if self.image != nil && self.calledImagga != true {
-                        Text("").onAppear{
-                            let _ = self.calledImagga = true
-                            let _ = print("entered self.image != nil")
-                            //              Image(uiImage: image!).resizable().scaledToFit().padding()
-                            let _ = print("ATTEMPT TO SET IMAGGA IMAGE")
-                            let _ = self.imaggaCall.image = self.image!
-                            let _ = self.runImagga()
-                        }
                     }
                     VStack {
                         Spacer()
