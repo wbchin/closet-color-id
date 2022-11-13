@@ -29,7 +29,7 @@ class DataPopulation: ObservableObject {
     let article = viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "beige", primary_color_family: "brown", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "black", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
     viewModel.tagArticleCategory(category: "top", article: article!)
     viewModel.tagArticleSubcategory(subcategory: "blouse", article: article!)
-    let style = viewModel.fetchStyles()!.first
+    let style = self.fetchStyle(name: "professional")
     viewModel.tagArticleStyle(article_id: article!.objectID, style_id: style!.objectID)
     
     let article2 = viewModel.saveArticle(image_data: pants.pngData()!, primary_color_name: "navy", primary_color_family: "blue", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "black", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
@@ -38,8 +38,7 @@ class DataPopulation: ObservableObject {
     
     viewModel.tagArticleCategory(category: "bottom", article: article2!)
     viewModel.tagArticleSubcategory(subcategory: "pants", article: article2!)
-    let style2 = viewModel.fetchStyles()!.first
-    viewModel.tagArticleStyle(article_id: article2!.objectID, style_id: style2!.objectID)
+    viewModel.tagArticleStyle(article_id: article2!.objectID, style_id: style!.objectID)
     
     let article3 = viewModel.saveArticle(image_data: shoes.pngData()!, primary_color_name: "black", primary_color_family: "black", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "white", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
     
@@ -47,8 +46,22 @@ class DataPopulation: ObservableObject {
     
     viewModel.tagArticleCategory(category: "footwear", article: article3!)
     viewModel.tagArticleSubcategory(subcategory: "sneaker", article: article3!)
-    let style3 = viewModel.fetchStyles()!.first
-    viewModel.tagArticleStyle(article_id: article3!.objectID, style_id: style3!.objectID)
+    viewModel.tagArticleStyle(article_id: article3!.objectID, style_id: style!.objectID)
+  }
+  
+  func fetchStyle(name: String) -> Style?{
+    let context = appDelegate.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest<Style>
+     fetchRequest = Style.fetchRequest()
+     fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+ 
+     do {
+       let objects = try context.fetch(fetchRequest)
+       return objects.first
+     } catch {
+       print("Error")
+       return nil
+     }
   }
 
   // ["Professional", "Casual", "Night Out", "Athletic"]

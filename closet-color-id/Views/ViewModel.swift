@@ -433,19 +433,36 @@ class ViewModel: ObservableObject {
 //    //return filtered_arts as! [Article]
 //    return nil
     
+    var out = [Article]()
+    
     let context = appDelegate.persistentContainer.viewContext
+    print("first article Style:")
+    print(style.articleStyles?.allObjects.first as! ArticleStyle)
     let articleStyles = style.articleStyles
-    let fetchRequest: NSFetchRequest<Article>
-    fetchRequest = Article.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format:"SUBQUERY(articles, $a, ANY $a.articleStyles IN %@).@count > 0", style.articleStyles!)
-    fetchRequest.predicate = NSPredicate(format: "category = %@ AND articleStyles in (%@)", category, style.articleStyles!)
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects
-    } catch {
-      print("Error")
-      return nil
+    
+    for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
+      print("article style style")
+      print(articleStyle.style)
+      print("article style article")
+      print(articleStyle.article)
+      if (articleStyle.article!.category! == category) {
+        out.append(articleStyle.article!)
+      }
     }
+    
+    return out
+//    let fetchRequest: NSFetchRequest<ArticleStyle>
+//    fetchRequest = Style.fetchRequest()
+//    fetchRequest.predicate = NSPredicate(format: "articleStyles in (%@)", category, style.articleStyles!)
+//
+//    fetchRequest.predicate = NSPredicate(format: "category = %@ AND articleStyles in (%@)", category, style.articleStyles!)
+//    do {
+//      let objects = try context.fetch(fetchRequest)
+//      return objects
+//    } catch {
+//      print("Error")
+//      return nil
+//    }
   }
   
   func generateOutfit(style: Style, name: String) {
