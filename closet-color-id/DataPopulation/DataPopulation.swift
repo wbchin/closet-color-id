@@ -68,9 +68,6 @@ class DataPopulation: ObservableObject {
   func populateStyles() {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
-      NSLog("created entity")
-      NSLog(entity.debugDescription)
-
       let prof = NSManagedObject(entity: entity, insertInto: context)
       prof.setValue("professional", forKey: "name")
       let casual = NSManagedObject(entity: entity, insertInto: context)
@@ -82,7 +79,6 @@ class DataPopulation: ObservableObject {
 
       do {
         try context.save()
-        NSLog("styles populated")
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Styles to CoreData")
       }
