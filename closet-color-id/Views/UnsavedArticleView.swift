@@ -27,7 +27,6 @@ struct UnsavedArticleView: View {
 
 
                 Button(action: {
-                  NSLog(self.article.debugDescription)
                   isShowingSave = false
                 }) {
                   Text("Save to wardrobe")

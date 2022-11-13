@@ -13,7 +13,6 @@
 		63108EB22912A06100808888 /* OutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB12912A06100808888 /* OutfitView.swift */; };
 		63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EB32912A07400808888 /* ImageCaptureView.swift */; };
 		63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EBC2912A82500808888 /* ImaggaRouter.swift */; };
-		63108EC72912B69100808888 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63108EC62912B69100808888 /* ViewController.swift */; };
 		6344FF05291B572300C75BE5 /* ImaggaCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6344FF04291B572300C75BE5 /* ImaggaCalls.swift */; };
 		637C859B291B5E10001075B9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 637C859A291B5E10001075B9 /* Alamofire */; };
 		638038372912DFCA008F2157 /* CategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038362912DFCA008F2157 /* CategoryName.swift */; };
@@ -40,7 +39,6 @@
 		E644808D291CA71000293BDE /* shirt.png in Resources */ = {isa = PBXBuildFile; fileRef = E644808A291CA71000293BDE /* shirt.png */; };
 		E64B53B2291DBAC800A4799E /* PhotoColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64B53B1291DBAC800A4799E /* PhotoColor.swift */; };
 		E64D62DD29195D9F009A1FA7 /* pusheen.png in Resources */ = {isa = PBXBuildFile; fileRef = E64D62DC29195D9F009A1FA7 /* pusheen.png */; };
-		E6A25C39291AFD920080834B /* CoreDataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C38291AFD920080834B /* CoreDataPersistence.swift */; };
 		E6A25C3B291B0B1A0080834B /* UnsavedArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3A291B0B1A0080834B /* UnsavedArticleView.swift */; };
 		E6A25C3D291B2EA20080834B /* StyleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3C291B2EA10080834B /* StyleName.swift */; };
 		E6A25C3F291B32AC0080834B /* TagCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3E291B32AC0080834B /* TagCategoryView.swift */; };
@@ -65,7 +63,6 @@
 		63108EB12912A06100808888 /* OutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitView.swift; sourceTree = "<group>"; };
 		63108EB32912A07400808888 /* ImageCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCaptureView.swift; sourceTree = "<group>"; };
 		63108EBC2912A82500808888 /* ImaggaRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
-		63108EC62912B69100808888 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6344FF04291B572300C75BE5 /* ImaggaCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaCalls.swift; sourceTree = "<group>"; };
 		638038362912DFCA008F2157 /* CategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryName.swift; sourceTree = "<group>"; };
 		6380383A2912FD58008F2157 /* SubcategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryName.swift; sourceTree = "<group>"; };
@@ -93,7 +90,6 @@
 		E644808A291CA71000293BDE /* shirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shirt.png; sourceTree = "<group>"; };
 		E64B53B1291DBAC800A4799E /* PhotoColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoColor.swift; sourceTree = "<group>"; };
 		E64D62DC29195D9F009A1FA7 /* pusheen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pusheen.png; sourceTree = "<group>"; };
-		E6A25C38291AFD920080834B /* CoreDataPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistence.swift; sourceTree = "<group>"; };
 		E6A25C3A291B0B1A0080834B /* UnsavedArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedArticleView.swift; sourceTree = "<group>"; };
 		E6A25C3C291B2EA10080834B /* StyleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleName.swift; sourceTree = "<group>"; };
 		E6A25C3E291B32AC0080834B /* TagCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCategoryView.swift; sourceTree = "<group>"; };
@@ -133,7 +129,6 @@
 				6380384029130A0F008F2157 /* SubcategoryArticle.swift */,
 				6380384229130AC6008F2157 /* ArticleOutfit.swift */,
 				6380384429130BA4008F2157 /* StyleOutfit.swift */,
-				E6A25C38291AFD920080834B /* CoreDataPersistence.swift */,
 				E6A25C3C291B2EA10080834B /* StyleName.swift */,
 				E64B53B1291DBAC800A4799E /* PhotoColor.swift */,
 			);
@@ -161,14 +156,6 @@
 				E6A25C42291B34870080834B /* TagStyleView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		63108EAA29129FBF00808888 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				63108EC62912B69100808888 /* ViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		63A26FFC291419B20023F366 /* Camera */ = {
@@ -208,7 +195,6 @@
 				E6D7FFDB291322ED00BF24CA /* closet-color-id.xcdatamodeld */,
 				E6D7FFE52914116A00BF24CA /* Delegates */,
 				E6D7FFE22914111800BF24CA /* ViewModel */,
-				63108EAA29129FBF00808888 /* ViewControllers */,
 				63108EA929129FB800808888 /* Views */,
 				63108EA829129FAD00808888 /* Models */,
 				63C8C87128F25954009D30B1 /* closet_color_idApp.swift */,
@@ -341,7 +327,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6A25C39291AFD920080834B /* CoreDataPersistence.swift in Sources */,
 				E6D7FFDF29132F2500BF24CA /* AppDelegate.swift in Sources */,
 				63C8C87428F25954009D30B1 /* ContentView.swift in Sources */,
 				6380383F29130982008F2157 /* ArticleStyle.swift in Sources */,
@@ -363,7 +348,6 @@
 				E6A25C45291C90500080834B /* TheColorApiCalls.swift in Sources */,
 				638AF4F429158060007EC47D /* ImagePicker.swift in Sources */,
 				6380384B29133831008F2157 /* WardrobeCardView.swift in Sources */,
-				63108EC72912B69100808888 /* ViewController.swift in Sources */,
 				E6A25C3B291B0B1A0080834B /* UnsavedArticleView.swift in Sources */,
 				63108EBD2912A82500808888 /* ImaggaRouter.swift in Sources */,
 				63A2700029141C8B0023F366 /* CameraService.swift in Sources */,
@@ -510,7 +494,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"closet-color-id/Preview Content\"";
-				DEVELOPMENT_TEAM = 268947WGKQ;
+				DEVELOPMENT_TEAM = MJYH26FHKK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "closet-color-id/Info.plist";
@@ -527,7 +511,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "allisonxunc.closet-color-id";
+				PRODUCT_BUNDLE_IDENTIFIER = "wbc.closet-color-id";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

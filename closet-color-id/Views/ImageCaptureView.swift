@@ -69,7 +69,6 @@ struct ImageCaptureView: View {
       //self.image = image// << here !!
     }
     func runImagga() {
-      NSLog("imagga run")
       self.imaggaCall.image = image!
       self.imaggaCall.uploadImage(completion: { article in
         self.article = article
@@ -84,24 +83,19 @@ struct ImageCaptureView: View {
                     if self.image != nil && self.calledImagga != true {
                       Text("").onAppear{
                         self.runImagga()
+                          self.calledImagga = false
                       }
                     }
                     VStack {
                         Spacer()
                         if self.article != nil {
-                            //              NSLog(self.viewModel.arts.count)
-                            
-                            //let _ = self.viewModel.updateArticles()
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
-                                let _ = print("COUNT")
-                                let _ = print(self.viewModel.arts.count)
                             }
                             NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts[self.viewModel.arts.count-1]), label: { Text("View saved article").font(.system(size: 36))})
                         }
                         if image == nil{
                             Button(action: {
-                                //              NSLog(self.imaggaCall.article.debugDescription)
                                 isCustomCameraViewPresented.toggle()
                             }, label: {
                                 Image(systemName: "camera.fill")
@@ -129,6 +123,7 @@ struct ImageCaptureView: View {
           self.imaggaCall.image = nil
           self.article = nil
           self.calledImagga = false
+                print ("VALUES RESET")
         })
         
     }

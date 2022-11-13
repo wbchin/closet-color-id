@@ -33,22 +33,6 @@ struct ContentView: View {
             return viewModel.fetchArticles()
         }
     }
-//    init() {
-//
-//    }
-//  var handler: Binding<Int> { Binding(
-//      get: { return self.selection },
-//      set: {
-//        print("entered handler")
-//          if ($0 == 0 || $0 == 2) {
-//              print("Reset here!!")
-////            ImageCaptureView.article = nil
-////            ImageCaptureView.imaggaCall.image = nil
-////            ImageCaptureView.image = nil
-//          }
-//          self.selection = $0
-//      }
-//  )}
     init() {
         UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
     }
