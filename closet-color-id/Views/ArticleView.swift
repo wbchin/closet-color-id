@@ -17,7 +17,7 @@ struct ArticleView: View {
             VStack{
                 let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
                 Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
-                    //.accessibilityLabel("Image of article. Categroy is " + article.category! + " subcategory is " + article.subcategory! + " style is " + articleStyle.style?.name!)
+                    .accessibilityLabel("Image of article. See below for article information.")
                 HStack {
                     Text(article.category!)
                         .padding()
@@ -25,7 +25,7 @@ struct ArticleView: View {
                     Text(article.subcategory!)
                         .padding()
                         .border(.white, width: 4)
-                   
+
                     Text((articleStyle.style?.name!)!)
                         .padding()
                         .border(.white, width: 4)

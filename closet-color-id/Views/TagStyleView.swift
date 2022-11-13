@@ -3,11 +3,9 @@ import SwiftUI
 
 struct TagStyleView: View {
   let viewModel: ViewModel
-  //  @State private var capturedImage: UIImage? = UIImage(named:"shirt.png")
   var article: Article
   @State var comp_hue: Int = 0
   @State var comp_name: String?
-  //  var imaggaCall: ImaggaCalls
   @State var isShowingStyle = true
   @State var runColor = false
   var article_rgb: String {
@@ -19,9 +17,6 @@ struct TagStyleView: View {
   
   
   func runColorApi() {
-    //    try await self.colorApiCall.load(rgb: self.article_rgb, completion: { (success) -> Void in
-    //      self.comp_hue = self.colorApiCall.hue!
-    //      self.comp_name = self.colorApiCall.name!
     self.colorApiCall.fetchAlamo(rgb: self.article_rgb, completion: { name in
         if name {
             
@@ -54,14 +49,11 @@ struct TagStyleView: View {
                             
                             viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
                             isShowingStyle = false
-                            //        self.imaggaCall.image = nil
-                            //        self.imaggaCall.article = Article()
                         }) {
                             Text(style.name!).frame(maxHeight: 50, alignment: .bottom).font(.system(size: 36))
                         }
                     }
                     if !isShowingStyle {
-                        //        let article = self.viewModel.saveArticle()
                         NavigationLink (
                             destination: ArticleView(article: article, viewModel: viewModel),
                             label:{

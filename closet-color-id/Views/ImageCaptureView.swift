@@ -9,46 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ImageCaptureView: View {
-//  @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-//  @State private var capturedImage: UIImage? = nil
-//  @State private var isCustomCameraViewPresented = false
-//  let viewModel: ViewModel
-//  var shirt: UIImage = UIImage(named: "shirt.png")!
-//
-//  var body: some View {
-//    ZStack {
-//      if capturedImage != nil {
-//        Image(uiImage: capturedImage!)
-//          .resizable()
-//          .scaledToFill()
-//          .ignoresSafeArea()
-//      } else {
-//        Color(UIColor.systemBackground)
-//      }
-//
-//      VStack {
-//        Button(action: {
-//          self.viewModel.saveArticle(image_data: shirt.pngData()!, primary_color_name: "pink", primary_color_family: "red", primary_color_hex: "#ffffff", secondary_color_name: "black", secondary_color_family: "black", secondary_color_hex: "#000000")
-//        }) {
-//          Text("Done")
-//        }
-//        Spacer()
-//        Button(action: {
-//          isCustomCameraViewPresented.toggle()
-//        }, label: {
-//          Image(systemName: "camera.fill")
-//            .font(.largeTitle)
-//            .padding()
-//            .background(Color.black)
-//            .foregroundColor(.white)
-//            .clipShape(Circle())
-//        })
-//        .padding(.bottom)
-//        .sheet(isPresented: $isCustomCameraViewPresented, content: {
-//          CustomCameraView(capturedImage: $capturedImage)
-//        })
-//      }
-//    }
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var image: UIImage? = nil
     @State var showUnsavedArticleView: Bool = false
@@ -58,15 +18,13 @@ struct ImageCaptureView: View {
     @ObservedObject var imaggaCall: ImaggaCalls
     @State var colors: [PhotoColor]?
     @State var donePressed = false
-    @State var article: Article? 
-    //@State var articleIndex: Int? = -1
+    @State var article: Article?
     @State var calledImagga: Bool = false
     let appDelegate = AppDelegate()
   
     init(viewModel: ViewModel, image: UIImage?){
       self.viewModel = viewModel
       self.imaggaCall = ImaggaCalls(viewModel: viewModel)
-      //self.image = image// << here !!
     }
     func runImagga() {
       self.imaggaCall.image = image!
@@ -82,8 +40,10 @@ struct ImageCaptureView: View {
                     Text("Take a Picture!")
                     if self.image != nil && self.calledImagga != true {
                       Text("").onAppear{
+                          self.calledImagga = true
+                          self.imaggaCall.image = self.image
                         self.runImagga()
-                          self.calledImagga = false
+                          
                       }
                     }
                     VStack {
@@ -115,15 +75,10 @@ struct ImageCaptureView: View {
             }
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
             .onDisappear(perform: {
-//          self.viewModel.deleteUnstyledArticles()
-//          self.viewModel.updateArticles()
-//          self.viewModel.deleteUntaggedArticles()
-//          self.viewModel.updateArticles()
           self.image = nil
           self.imaggaCall.image = nil
           self.article = nil
           self.calledImagga = false
-                print ("VALUES RESET")
         })
         
     }

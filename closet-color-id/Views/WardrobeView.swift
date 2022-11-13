@@ -4,17 +4,6 @@ struct WardrobeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let viewModel: ViewModel
     let appDelegate: AppDelegate = AppDelegate()
-    //  var articles = viewModel.arts
-    //    var tops: [[Article]] {
-    //        get {
-    //            let subcats = SubcategoryName.subcategoryNamesShirts
-    //            var aSubCat = [[Article]]()
-    //            for subcat in subcats {
-    //                aSubCat.append(self.viewModel.fetchSubcatArts(subcategory: subcat))
-    //            }
-    //            return aSubCat
-    //        }
-    //    }
     @State var tops: [Article] = [Article]()
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()

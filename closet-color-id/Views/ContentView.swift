@@ -12,13 +12,6 @@ struct CustomTab: View {
         Text("hello picture")
     }
 }
-//@ObservedObject var imaggaCall: ImaggaCalls
-//  init(viewModel: ViewModel){
-//    self.viewModel = viewModel
-//    self.imaggaCall = ImaggaCalls(viewModel: viewModel)
-//    //self.image = image// << here !!
-//  }
-//Create tops, bottoms, footwear, and outerwear here>
 struct ContentView: View {
     @State private var selection = 0
     @State private var tappedOnce: Bool = false
@@ -27,7 +20,6 @@ struct ContentView: View {
     @State var capturedImage: UIImage? = nil
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
-//    let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
     var articles : [Article]? {
         get {
             return viewModel.fetchArticles()

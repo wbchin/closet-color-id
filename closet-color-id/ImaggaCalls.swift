@@ -8,11 +8,6 @@ import Foundation
 import UIKit
 import SwiftUI
 class ImaggaCalls: ObservableObject {
-//    @Published var colors = [PhotoColor]()
-//    @Published var image: UIImage
-//    init(image: UIImage){
-//        uploadImage(image: image)
-//    }
     @State var colors: [PhotoColor]?
     let viewModel: ViewModel
     var image: UIImage? = nil
@@ -20,7 +15,6 @@ class ImaggaCalls: ObservableObject {
   
   init(viewModel: ViewModel) {
       self.viewModel = viewModel
-      //self.image = image
     }
     
   func uploadImage(completion: @escaping((Article) -> ())) {
@@ -78,7 +72,6 @@ class ImaggaCalls: ObservableObject {
                                           }
 
                                           return PhotoColor(
-                                              //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                               primaryHex: hex,
                                               primaryName: name,
                                               primaryFamily: family,
@@ -148,7 +141,6 @@ class ImaggaCalls: ObservableObject {
                             }
 
                             return PhotoColor(
-                                //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                 primaryHex: hex,
                                 primaryName: name,
                                 primaryFamily: family,
