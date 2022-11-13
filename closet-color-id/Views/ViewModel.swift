@@ -50,6 +50,30 @@ class ViewModel: ObservableObject {
     fetchStyles()
   }
   
+  func deleteAllArticleStyles() {
+    // Initialize Fetch Request
+    let fetchRequest: NSFetchRequest<ArticleStyle>
+    fetchRequest = ArticleStyle.fetchRequest()
+    
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    context.reset()
+    do {
+      let objects = try context.fetch(fetchRequest)
+      NSLog(String(objects.count))
+      for data in objects as [NSManagedObject] {
+        context.delete(data)
+        //loadArticle(data: data)
+        NSLog("Loaded article")
+      }
+      try context.save()
+     
+    } catch {
+      print("Error")
+   
+    }
+  }
+  
   func deleteAllArticles() {
     // Initialize Fetch Request
     let fetchRequest: NSFetchRequest<Article>
@@ -412,27 +436,6 @@ class ViewModel: ObservableObject {
   
   func fetchStyleCats(style: Style, category: String) -> [Article]? {
     
-    //let arts = style.articleStyles.filter { $0.article == "Tom" }.first
-    
-    
-//    let articles = style.articleStyles.map{$0.first}
-//
-//    print("articles: ")
-//    print(articles)
-//
-//    print(style.value(forKey: "articleStyles"))
-//
-////    for articleStyle in style.value(forKey: "articleStyles") {
-////      print(articleStyle)
-////    }
-//
-//    print(style.articleStyles)
-//
-//    //let filtered_arts = articles.filter{ $0.value(forKey: "category") as! String == category }
-//
-//    //return filtered_arts as! [Article]
-//    return nil
-    
     var out = [Article]()
     
     let context = appDelegate.persistentContainer.viewContext
@@ -451,18 +454,6 @@ class ViewModel: ObservableObject {
     }
     
     return out
-//    let fetchRequest: NSFetchRequest<ArticleStyle>
-//    fetchRequest = Style.fetchRequest()
-//    fetchRequest.predicate = NSPredicate(format: "articleStyles in (%@)", category, style.articleStyles!)
-//
-//    fetchRequest.predicate = NSPredicate(format: "category = %@ AND articleStyles in (%@)", category, style.articleStyles!)
-//    do {
-//      let objects = try context.fetch(fetchRequest)
-//      return objects
-//    } catch {
-//      print("Error")
-//      return nil
-//    }
   }
   
   func generateOutfit(style: Style, name: String) {
@@ -495,13 +486,13 @@ class ViewModel: ObservableObject {
       }
     }
     
-    // save outfit
-    let outfit = self.saveOutfit(name: name)
-    
     if (res_bottom == nil || res_footwear == nil) {
       print("cannot find articles to generate outfit")
       return
     }
+    
+    // save outfit
+    let outfit = self.saveOutfit(name: name)
     
     // save ArticleOutfits
     self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)

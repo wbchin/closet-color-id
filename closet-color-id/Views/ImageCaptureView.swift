@@ -82,6 +82,9 @@ struct ImageCaptureView: View {
                 ZStack {
                     Text("Take a Picture!")
                     if self.image != nil && self.calledImagga != true {
+                      Text("").onAppear{
+                        self.runImagga()
+                      }
                     }
                     VStack {
                         Spacer()
