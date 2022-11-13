@@ -10,6 +10,7 @@ import SwiftUI
 struct OutfitsView: View {
   //    let viewController: ViewController
   var viewModel: ViewModel
+  var dataPopulation: DataPopulation
   let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
@@ -21,7 +22,7 @@ struct OutfitsView: View {
   var body: some View {
     NavigationView{
       Button(action: {
-        self.viewModel.generateOutfit(style: self.viewModel.styles.first!, name: "Interview")
+        self.viewModel.generateOutfit(style: self.dataPopulation.fetchStyle(name: "professional")!, name: "Interview")
       }, label: {
           Text("Generate Professional Outfit")
       })
