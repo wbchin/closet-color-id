@@ -185,6 +185,7 @@ class ViewModel: ObservableObject {
         let context = appDelegate.persistentContainer.viewContext
         //context.object(with: article.objectID).setValue(category, forKey: "category")
         for article in self.arts {
+          NSLog(article.category!)
             if context.object(with: article.objectID).value(forKey: "category") as! String == category{
                 out.append(article)
             }
@@ -345,7 +346,7 @@ class ViewModel: ObservableObject {
     return nil
   }
   
-  func saveOutfit(name: String) {
+  func saveOutfit(name: String) -> Outfit?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
       let newVal = NSManagedObject(entity: entity, insertInto: context)
@@ -353,11 +354,13 @@ class ViewModel: ObservableObject {
       do {
         try context.save()
         NSLog("Outfit saved")
+        return newVal as? Outfit
         
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Outfit to CoreData")
       }
     }
+    return nil
   }
   
   func saveStyle(name: String) {
@@ -405,6 +408,90 @@ class ViewModel: ObservableObject {
         NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
       }
     }
+  }
+  
+  func fetchStyleCats(style: Style, category: String) -> [Article]? {
+    
+    //let arts = style.articleStyles.filter { $0.article == "Tom" }.first
+    
+    
+//    let articles = style.articleStyles.map{$0.first}
+//
+//    print("articles: ")
+//    print(articles)
+//
+//    print(style.value(forKey: "articleStyles"))
+//
+////    for articleStyle in style.value(forKey: "articleStyles") {
+////      print(articleStyle)
+////    }
+//
+//    print(style.articleStyles)
+//
+//    //let filtered_arts = articles.filter{ $0.value(forKey: "category") as! String == category }
+//
+//    //return filtered_arts as! [Article]
+//    return nil
+    
+    let context = appDelegate.persistentContainer.viewContext
+    let articleStyles = style.articleStyles
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format:"SUBQUERY(articles, $a, ANY $a.articleStyles IN %@).@count > 0", style.articleStyles!)
+    fetchRequest.predicate = NSPredicate(format: "category = %@ AND articleStyles in (%@)", category, style.articleStyles!)
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
+  func generateOutfit(style: Style, name: String) {
+    let context = appDelegate.persistentContainer.viewContext
+    let articleStyles = style.articleStyles
+    
+    let tops = fetchStyleCats(style: style, category: "top")!
+    let bottoms = fetchStyleCats(style: style, category: "bottom")!
+    let footwear = fetchStyleCats(style: style, category: "footwear")!
+    
+    // randomly select which top to match with
+    
+    let res_top = tops.randomElement()
+    var res_bottom: Article? = nil
+    var res_footwear: Article? = nil
+    
+    for bottom in bottoms {
+      if (bottom.complimentary_color_family == res_top!.primary_color_family || bottom.primary_color_family == res_top!.complimentary_color_family ||
+          bottom.secondary_color_family == res_top!.complimentary_color_family ||
+          bottom.complimentary_color_family == res_top!.secondary_color_family) {
+        res_bottom = bottom
+      }
+    }
+    
+    for foot in footwear {
+      if (foot.complimentary_color_family == res_top!.primary_color_family || foot.primary_color_family == res_top!.complimentary_color_family ||
+          foot.secondary_color_family == res_top!.complimentary_color_family ||
+          foot.complimentary_color_family == res_top!.secondary_color_family) {
+        res_footwear = foot
+      }
+    }
+    
+    // save outfit
+    let outfit = self.saveOutfit(name: name)
+    
+    if (res_bottom == nil || res_footwear == nil) {
+      print("cannot find articles to generate outfit")
+      return
+    }
+    
+    // save ArticleOutfits
+    self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
+    self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
+    self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
+    
+    NSLog("done generating outfit")
   }
   
   func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
@@ -461,9 +548,6 @@ class ViewModel: ObservableObject {
     let subcat_predicate = NSPredicate(
         format: "subcategory = nil"
     )
-//    let style_predicate = NSPredicate(
-//        format: "articleStyles = %@", "nil"
-//    )
     
     fetchRequest.predicate = NSCompoundPredicate(
         orPredicateWithSubpredicates: [

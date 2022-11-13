@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OutfitsView: View {
   //    let viewController: ViewController
+  var viewModel: ViewModel
   let columns = [
     GridItem(.flexible()),
     GridItem(.flexible())
@@ -19,6 +20,11 @@ struct OutfitsView: View {
   @State private var outfits = ["pink tee", "green tee", "black tee"]
   var body: some View {
     NavigationView{
+      Button(action: {
+        self.viewModel.generateOutfit(style: self.viewModel.styles.first!, name: "Interview")
+      }, label: {
+          Text("Generate Professional Outfit")
+      })
       ScrollView{
         Text("Tops")
         LazyVGrid(columns: columns, spacing: 5){

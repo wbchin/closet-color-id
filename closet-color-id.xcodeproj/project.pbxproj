@@ -48,6 +48,8 @@
 		E6A25C43291B34870080834B /* TagStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C42291B34870080834B /* TagStyleView.swift */; };
 		E6A25C45291C90500080834B /* TheColorApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C44291C90500080834B /* TheColorApiCalls.swift */; };
 		E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5ECF52918147A00AB7C39 /* ViewModel.swift */; };
+		E6C9A4682920490D0018D137 /* jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A4672920490D0018D137 /* jeans.png */; };
+		E6C9A46A292049860018D137 /* converse.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A469292049860018D137 /* converse.png */; };
 		E6D7FFDD291322ED00BF24CA /* closet-color-id.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFDB291322ED00BF24CA /* closet-color-id.xcdatamodeld */; };
 		E6D7FFDF29132F2500BF24CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFDE29132F2500BF24CA /* AppDelegate.swift */; };
 		E6D7FFE12913304300BF24CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFE02913304300BF24CA /* SceneDelegate.swift */; };
@@ -99,6 +101,8 @@
 		E6A25C42291B34870080834B /* TagStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagStyleView.swift; sourceTree = "<group>"; };
 		E6A25C44291C90500080834B /* TheColorApiCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheColorApiCalls.swift; sourceTree = "<group>"; };
 		E6B5ECF52918147A00AB7C39 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		E6C9A4672920490D0018D137 /* jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jeans.png; sourceTree = "<group>"; };
+		E6C9A469292049860018D137 /* converse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = converse.png; sourceTree = "<group>"; };
 		E6D7FFDC291322ED00BF24CA /* closet-color-id.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "closet-color-id.xcdatamodel"; sourceTree = "<group>"; };
 		E6D7FFDE29132F2500BF24CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6D7FFE02913304300BF24CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +200,8 @@
 		63C8C87028F25954009D30B1 /* closet-color-id */ = {
 			isa = PBXGroup;
 			children = (
+				E6C9A4672920490D0018D137 /* jeans.png */,
+				E6C9A469292049860018D137 /* converse.png */,
 				E6E8544A2919DF58000A4805 /* DataPopulation */,
 				638AF4F529158450007EC47D /* Info.plist */,
 				63A26FFC291419B20023F366 /* Camera */,
@@ -321,6 +327,8 @@
 				63C8C87928F25958009D30B1 /* Preview Assets.xcassets in Resources */,
 				E644808C291CA71000293BDE /* shirt 3.png in Resources */,
 				E644808B291CA71000293BDE /* shirt 2.png in Resources */,
+				E6C9A46A292049860018D137 /* converse.png in Resources */,
+				E6C9A4682920490D0018D137 /* jeans.png in Resources */,
 				E644808D291CA71000293BDE /* shirt.png in Resources */,
 				63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */,
 			);
