@@ -185,6 +185,7 @@ class ViewModel: ObservableObject {
         let context = appDelegate.persistentContainer.viewContext
         //context.object(with: article.objectID).setValue(category, forKey: "category")
         for article in self.arts {
+          NSLog(article.category!)
             if context.object(with: article.objectID).value(forKey: "category") as! String == category{
                 out.append(article)
             }
@@ -410,11 +411,34 @@ class ViewModel: ObservableObject {
   }
   
   func fetchStyleCats(style: Style, category: String) -> [Article]? {
+    
+    //let arts = style.articleStyles.filter { $0.article == "Tom" }.first
+    
+    
+//    let articles = style.articleStyles.map{$0.first}
+//
+//    print("articles: ")
+//    print(articles)
+//
+//    print(style.value(forKey: "articleStyles"))
+//
+////    for articleStyle in style.value(forKey: "articleStyles") {
+////      print(articleStyle)
+////    }
+//
+//    print(style.articleStyles)
+//
+//    //let filtered_arts = articles.filter{ $0.value(forKey: "category") as! String == category }
+//
+//    //return filtered_arts as! [Article]
+//    return nil
+    
     let context = appDelegate.persistentContainer.viewContext
     let articleStyles = style.articleStyles
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "category = %@ && articleStyles in (%@)", category, style.articleStyles!)
+    fetchRequest.predicate = NSPredicate(format:"SUBQUERY(articles, $a, ANY $a.articleStyles IN %@).@count > 0", style.articleStyles!)
+    fetchRequest.predicate = NSPredicate(format: "category = %@ AND articleStyles in (%@)", category, style.articleStyles!)
     do {
       let objects = try context.fetch(fetchRequest)
       return objects

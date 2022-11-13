@@ -45,8 +45,8 @@ class DataPopulation: ObservableObject {
     
     viewModel.setComplimentaryColor(article: article3!, complimentary_color_family: "beige", complimentary_color_name: "skin")
     
-    viewModel.tagArticleCategory(category: "footwear", article: article2!)
-    viewModel.tagArticleSubcategory(subcategory: "sneaker", article: article2!)
+    viewModel.tagArticleCategory(category: "footwear", article: article3!)
+    viewModel.tagArticleSubcategory(subcategory: "sneaker", article: article3!)
     let style3 = viewModel.fetchStyles()!.first
     viewModel.tagArticleStyle(article_id: article3!.objectID, style_id: style3!.objectID)
   }

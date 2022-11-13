@@ -63,7 +63,7 @@ struct ContentView: View {
                     .tabItem{
                         Label("Camera", systemImage: "camera")
                     }.tag(1)
-                OutfitsView()
+              OutfitsView(viewModel: viewModel)
                     .tabItem{
                         Label("Outfits", systemImage: "door.french.closed")
                     }.tag(2)
@@ -71,11 +71,16 @@ struct ContentView: View {
         }
         .onAppear(perform: {
 //            self.viewModel.deleteAllArticles()
-          self.dataPopulation.createArticle()
-            self.viewModel.deleteAllStyles()
             self.viewModel.updateArticles()
-            self.dataPopulation.populateStyles()
             self.viewModel.updateStyles()
+            if self.viewModel.styles.count == 0{
+                self.dataPopulation.populateStyles()
+                self.viewModel.updateStyles()
+            }
+          if self.viewModel.arts.count == 0 {
+            self.dataPopulation.createArticle()
+          }
+            
         })
     }
 }
