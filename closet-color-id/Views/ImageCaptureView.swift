@@ -84,6 +84,7 @@ struct ImageCaptureView: View {
                     if self.image != nil && self.calledImagga != true {
                       Text("").onAppear{
                         self.runImagga()
+                        self.calledImagga = true
                       }
                     }
                     VStack {

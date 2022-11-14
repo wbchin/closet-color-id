@@ -19,10 +19,18 @@ struct OutfitsView: View {
 
   var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
   @State private var outfits = ["pink tee", "green tee", "black tee"]
+  // must be internal or public.
+  
   var body: some View {
     NavigationView{
       Button(action: {
-        self.viewModel.generateOutfit(style: self.dataPopulation.fetchStyle(name: "professional")!, name: "Interview")
+        // wait 5 seconds to generate outfit
+        
+        self.viewModel.generateOutfitStyle = self.dataPopulation.fetchStyle(name: "professional")!
+        self.viewModel.genrateOutfitName = "Professional"
+        _ = Timer.scheduledTimer(timeInterval: 4, target: self.viewModel, selector: #selector(self.viewModel.generateOutfit(sender:)), userInfo: ["professional", "interview"], repeats: true)
+
+//        self.viewModel.generateOutfit(style: self.dataPopulation.fetchStyle(name: "professional")!, name: "Interview")
       }, label: {
           Text("Generate Professional Outfit")
       })
