@@ -12,13 +12,6 @@ struct CustomTab: View {
         Text("hello picture")
     }
 }
-//@ObservedObject var imaggaCall: ImaggaCalls
-//  init(viewModel: ViewModel){
-//    self.viewModel = viewModel
-//    self.imaggaCall = ImaggaCalls(viewModel: viewModel)
-//    //self.image = image// << here !!
-//  }
-//Create tops, bottoms, footwear, and outerwear here>
 struct ContentView: View {
     @State private var selection = 0
     @State private var tappedOnce: Bool = false
@@ -27,28 +20,11 @@ struct ContentView: View {
     @State var capturedImage: UIImage? = nil
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
-//    let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
     var articles : [Article]? {
         get {
             return viewModel.fetchArticles()
         }
     }
-//    init() {
-//
-//    }
-//  var handler: Binding<Int> { Binding(
-//      get: { return self.selection },
-//      set: {
-//        print("entered handler")
-//          if ($0 == 0 || $0 == 2) {
-//              print("Reset here!!")
-////            ImageCaptureView.article = nil
-////            ImageCaptureView.imaggaCall.image = nil
-////            ImageCaptureView.image = nil
-//          }
-//          self.selection = $0
-//      }
-//  )}
     init() {
         UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
     }

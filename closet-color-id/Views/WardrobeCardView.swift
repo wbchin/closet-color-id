@@ -20,7 +20,6 @@ struct WardrobeCardView: View {
           destination: ArticleView(article: article, viewModel: viewModel),
             label:{
               Text(article.primary_color_family!)
-              //Image(uiImage:  UIImage(data: article.image_data!)!) //This is unsafe and needs to be revised.
             })
       
         

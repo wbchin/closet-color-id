@@ -66,11 +66,8 @@ class ViewModel: ObservableObject {
     context.reset()
     do {
       let objects = try context.fetch(fetchRequest)
-      NSLog(String(objects.count))
       for data in objects as [NSManagedObject] {
         context.delete(data)
-        //loadArticle(data: data)
-        NSLog("Loaded article")
       }
       try context.save()
      
@@ -90,11 +87,8 @@ class ViewModel: ObservableObject {
     context.reset()
     do {
       let objects = try context.fetch(fetchRequest)
-      NSLog(String(objects.count))
       for data in objects as [NSManagedObject] {
         context.delete(data)
-        //loadArticle(data: data)
-        NSLog("Loaded article")
       }
       try context.save()
      
@@ -117,8 +111,6 @@ class ViewModel: ObservableObject {
       let objects = try context.fetch(fetchRequest)
       for data in objects as [NSManagedObject] {
         context.delete(data)
-        //loadArticle(data: data)
-        NSLog("Deleted all the styles")
       }
       try context.save()
      
@@ -137,11 +129,8 @@ class ViewModel: ObservableObject {
     let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
-//      NSLog(String(objects.count))
-//      NSLog((objects.first?.primary_color_name!)!)
       for data in objects {
         arts.append(data)
-        NSLog("Loaded article")
       }
       return objects
     } catch {
@@ -175,7 +164,6 @@ class ViewModel: ObservableObject {
       let objects = try context.fetch(fetchRequest)
       for data in objects {
         styles.append(data)
-        NSLog("Loaded style")
       }
       return objects
     } catch {
@@ -183,25 +171,9 @@ class ViewModel: ObservableObject {
       return nil
     }
   }
-    
-//    func fetchSubcatCatArts(category: String, subcategories: [String]) -> [[Article]] {
-//        var out = [Article]()
-//        let context = appDelegate.persistentContainer.viewContext
-//        //context.object(with: article.objectID).setValue(category, forKey: "category")
-//        for subcategory in subcategories {
-//            for article in self.arts {
-//                if context.object(with: article.objectID).value(forKey: "category") as! String == category{
-//                    out.append(self.fetchSubcatArts(subcategory: subcategory))
-//                }
-//            }
-//        }
-//        return out
-//    }
-    
     func fetchSubcatArts(subcategory: String) -> [Article] {
         var out = [Article]()
         let context = appDelegate.persistentContainer.viewContext
-        //context.object(with: article.objectID).setValue(category, forKey: "category")
         for article in self.arts {
             if context.object(with: article.objectID).value(forKey: "subcategory") as! String == subcategory{
                 out.append(article)
@@ -213,9 +185,7 @@ class ViewModel: ObservableObject {
     func fetchCatArts(category: String) -> [Article] {
         var out = [Article]()
         let context = appDelegate.persistentContainer.viewContext
-        //context.object(with: article.objectID).setValue(category, forKey: "category")
         for article in self.arts {
-          NSLog(article.category!)
             if context.object(with: article.objectID).value(forKey: "category") as! String == category{
                 out.append(article)
             }
@@ -248,8 +218,6 @@ class ViewModel: ObservableObject {
     context.object(with: article.objectID).setValue(category, forKey: "category")
     do {
       try context.save()
-      NSLog("saved article as category")
-      
     } catch {
       NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
@@ -289,8 +257,6 @@ class ViewModel: ObservableObject {
     context.object(with: article.objectID).setValue(subcategory, forKey: "subcategory")
     do {
       try context.save()
-      NSLog("saved article as subcategory")
-      
     } catch {
       NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
     }
@@ -327,20 +293,15 @@ class ViewModel: ObservableObject {
     context.object(with: article.objectID).setValue(complimentary_color_name, forKey: "complimentary_color_name")
     do {
       try context.save()
-      NSLog("complimentary color saved")
     } catch {
       NSLog("[Contacts] ERROR: Failed to complimentary color saved")
     }
   }
   
   func saveArticle(image_data: Data, primary_color_name: String, primary_color_family: String, primary_r: Int, primary_g: Int, primary_b: Int, secondary_color_name: String?, secondary_color_family: String?,  secondary_r: Int?, secondary_g: Int?, secondary_b: Int?) -> Article?{
-    NSLog("starting save article")
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
-      NSLog("created entity")
-      NSLog(entity.debugDescription)
       let newVal = NSManagedObject(entity: entity, insertInto: context)
-      NSLog("created newVal")
       newVal.setValue(image_data, forKey: "image_data")
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
       newVal.setValue(primary_color_family, forKey: "primary_color_family")
@@ -353,15 +314,14 @@ class ViewModel: ObservableObject {
       newVal.setValue(secondary_g, forKey: "secondary_g")
       newVal.setValue(secondary_b, forKey: "secondary_b")
       newVal.setValue(UUID(), forKey: "article_id")
+<<<<<<< HEAD
       NSLog("Set all values for newVal")
+=======
+>>>>>>> main
       do {
         try context.save()
-        NSLog("article saved")
         let returnVal = context.object(with:newVal.objectID) as? Article
-        NSLog(returnVal.debugDescription)
         arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
-//        return (arts.count-1)
-//        return context.object(with:newVal.objectID) as? Article
         return returnVal
         
       } catch {
@@ -378,7 +338,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(name, forKey: "name")
       do {
         try context.save()
-        NSLog("Outfit saved")
         return newVal as? Outfit
         
       } catch {
@@ -395,8 +354,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(name, forKey: "name")
       do {
         try context.save()
-        NSLog("Outfit saved")
-        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save Style to CoreData")
       }
@@ -411,8 +368,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(context.object(with: style_id), forKey: "style")
       do {
         try context.save()
-        NSLog("Outfit saved")
-        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
       }
@@ -427,8 +382,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(context.object(with: style_id), forKey: "style")
       do {
         try context.save()
-        NSLog("StyleOutfit saved")
-        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
       }
@@ -442,15 +395,9 @@ class ViewModel: ObservableObject {
     var out = [Article]()
     
     let context = appDelegate.persistentContainer.viewContext
-    print("first article Style:")
-    print(style.articleStyles?.allObjects.first as! ArticleStyle)
     let articleStyles = style.articleStyles
     
     for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
-      print("article style style")
-      print(articleStyle.style)
-      print("article style article")
-      print(articleStyle.article)
       if (articleStyle.article!.category! == category) {
         out.append(articleStyle.article!)
       }
@@ -562,12 +509,10 @@ class ViewModel: ObservableObject {
     let fetchRequest: NSFetchRequest<Outfit>
     fetchRequest = Outfit.fetchRequest()
     
-    let cat_predicate = NSPredicate(
-        format: "articleStyles == nil"
-    )
-    let subcat_predicate = NSPredicate(
-        format: "subcategory = nil"
-    )
+    // save ArticleOutfits
+    self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
+    self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
+    self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
   }
   
   func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
@@ -578,8 +523,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
       do {
         try context.save()
-        NSLog("Outfit saved")
-        
       } catch {
         NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
       }
@@ -591,19 +534,15 @@ class ViewModel: ObservableObject {
     context.delete(context.object(with: article_id))
     do {
       try context.save()
-      NSLog("Article deleted")
-      
     } catch {
       NSLog("[Contacts] ERROR: Failed to delete article from CoreData")
     }
   }
   
   func deleteUnstyledArticles() {
-    NSLog("Deleting unstyled articles")
     let articles = fetchArticles()!
     
     for article in articles {
-      print(article.debugDescription)
       if article.articleStyles == nil {
         print("article style is nil")
       }
@@ -612,7 +551,6 @@ class ViewModel: ObservableObject {
   }
   
   func deleteUntaggedArticles() {
-    NSLog("Deleting untagged articles")
     let context = appDelegate.persistentContainer.viewContext
     
     let fetchRequest: NSFetchRequest<Article>

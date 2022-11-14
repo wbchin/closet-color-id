@@ -74,7 +74,6 @@ struct OutfitsView: View {
       }
     }
     
-    //@State private var clothes = ["pink tee", "green tee", "black tee"]
     var body: some View {
       NavigationView {
         List {

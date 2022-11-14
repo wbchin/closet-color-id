@@ -8,11 +8,6 @@ import Foundation
 import UIKit
 import SwiftUI
 class ImaggaCalls: ObservableObject {
-//    @Published var colors = [PhotoColor]()
-//    @Published var image: UIImage
-//    init(image: UIImage){
-//        uploadImage(image: image)
-//    }
     @State var colors: [PhotoColor]?
     let viewModel: ViewModel
     var image: UIImage? = nil
@@ -20,7 +15,6 @@ class ImaggaCalls: ObservableObject {
   
   init(viewModel: ViewModel) {
       self.viewModel = viewModel
-      //self.image = image
     }
     
   func uploadImage(completion: @escaping((Article) -> ())) {
@@ -48,13 +42,6 @@ class ImaggaCalls: ObservableObject {
                         print("Invalid information received from service")
                         return
                     }
-                    
-                    print("Content uploaded with ID: \(firstFileID)")
-                    
-                    print("downloading")
-                    
-                  //self.downloadColors(uploadId: firstFileID, completion: completion)
-                  //myGroup.leave()
                   myGroup.enter()
                       AF.request(ImaggaRouter.colors(firstFileID))
                           .responseData { response in
@@ -85,7 +72,6 @@ class ImaggaCalls: ObservableObject {
                                           }
 
                                           return PhotoColor(
-                                              //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                               primaryHex: hex,
                                               primaryName: name,
                                               primaryFamily: family,
@@ -99,7 +85,6 @@ class ImaggaCalls: ObservableObject {
                                     } else {
                                       self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_r: photoColors.first!.r, primary_g: photoColors.first!.g, primary_b: photoColors.first!.b, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_r: photoColors[1].r, secondary_g: photoColors[1].g, secondary_b: photoColors[1].b)!
                                     }
-                                    NSLog("done")
                                   } catch{
                                       print("Error while uploading file: \(String(describing: response.result))")
                                   }
@@ -134,7 +119,6 @@ class ImaggaCalls: ObservableObject {
                     print("Error while fetching colors: \(String(describing: response.result))")
                     return
                 case .success(let data):
-//                case .success(let data):
                     do{
                       print(try ImaggaRouter.colors(uploadId).asURLRequest())
                         guard let asJSON = try JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -157,7 +141,6 @@ class ImaggaCalls: ObservableObject {
                             }
 
                             return PhotoColor(
-                                //'primaryHex', 'primaryName', 'primaryFamily', 'secondaryHex', 'secondaryName', 'secondaryFamily' in call
                                 primaryHex: hex,
                                 primaryName: name,
                                 primaryFamily: family,
