@@ -60,7 +60,8 @@ struct TagStyleView: View {
                                 Text("Done").font(.system(size: 36))
                             })//UNSAFE
                     }
-                }}.navigationBarBackButtonHidden(true)
+                }
+            }.navigationBarBackButtonHidden(true)
         }
     }
 }

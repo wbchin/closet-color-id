@@ -11,7 +11,6 @@ import CoreData
 struct ArticleView: View {
     var article: Article
     let viewModel: ViewModel
-    let backgroundColor : Color = Color(red: 141, green: 223, blue: 144)
     var body: some View {
         NavigationView {
             VStack{
@@ -21,21 +20,45 @@ struct ArticleView: View {
                 HStack {
                     Text(article.category!)
                         .padding()
-                        .border(.white, width: 4)
+                        .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                        .background(.white)
                     Text(article.subcategory!)
                         .padding()
-                        .border(.white, width: 4)
-
+                        .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                        .background(.white)
                     Text((articleStyle.style?.name!)!)
                         .padding()
-                        .border(.white, width: 4)
+                        .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                        .background(.white)
                 }
                 .frame(maxHeight: .infinity, alignment: .bottom)
-                .font(.system(size: 36))
-            }
-                .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-        }//.navigationBarBackButtonHidden(true)
+                .font(.system(size: 20))
+                .textCase(.uppercase)
+                HStack {
+                    VStack {
+                        Text(article.primary_color_name!)
+                        Rectangle()
+                            .fill(Color(red: Double(article.primary_r)/255,
+                                        green: Double(article.primary_g)/255,
+                                        blue: Double(article.primary_b)/255))
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                    .border(.white, width: 4)
+                    VStack {
+                        Text(article.secondary_color_name!)
+                        Rectangle()
+                            .fill(Color(red: Double(article.secondary_r)/255,
+                                        green: Double(article.secondary_g)/255,
+                                        blue: Double(article.secondary_b)/255))
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                    .border(.white, width: 4)
+                }
+            }//.navigationBarBackButtonHidden(true)
+            .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+        }
     }
 }
-
 

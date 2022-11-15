@@ -71,16 +71,18 @@ struct OutfitsView: View {
         List {
           ForEach(outfits!, id: \.self) { outfit in
             Text(outfit.name!)
-          }
+          }.background(Color(red: 0.96, green: 0.94, blue: 0.91))
         }
         
         
-      }.onAppear(perform: {
+      }
+      .onAppear(perform: {
 //        self.viewModel.deleteUnstyledArticles()
 //        self.viewModel.updateArticles()
 //        self.viewModel.deleteUntaggedArticles()
 //        self.viewModel.updateArticles()
-      }).navigationBarItems(trailing: Button(action: {
+      })
+      .navigationBarItems(trailing: Button(action: {
           // this needs it's own view
         }) {
           Image(systemName: "plus")
