@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage?
+    @State var image: UIImage? = UIImage(named: "pusheen.png")
     @State var showUnsavedArticleView: Bool = false
     @State var results = [PhotoColor]()
     let viewModel: ViewModel
@@ -79,6 +79,7 @@ struct ImageCaptureView: View {
           self.imaggaCall.image = nil
           self.article = nil
           self.calledImagga = false
+                self.viewModel.article = nil //IS THIS GOOD
         })
         
     }
