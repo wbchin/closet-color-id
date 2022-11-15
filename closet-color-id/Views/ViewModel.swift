@@ -22,6 +22,7 @@ class ViewModel: ObservableObject {
   }
   @Published var arts = [Article]()
   @Published var styles = [Style]()
+    @Published var article: Article?
   
   func fetchLatestArticle() -> Article? {
     let fetchRequest: NSFetchRequest<Article>
@@ -312,6 +313,7 @@ class ViewModel: ObservableObject {
         try context.save()
         let returnVal = context.object(with:newVal.objectID) as? Article
         arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
+          self.article = returnVal
         return returnVal
         
       } catch {

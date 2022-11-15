@@ -46,9 +46,9 @@ struct ContentView: View {
             }
         }
         .onAppear(perform: {
-//            self.viewModel.deleteAllArticles()
-//          self.viewModel.deleteAllArticleStyles()
-//          self.viewModel.deleteAllStyles()
+            self.viewModel.deleteAllArticles()
+          self.viewModel.deleteAllArticleStyles()
+          self.viewModel.deleteAllStyles()
             self.viewModel.updateArticles()
             self.viewModel.updateStyles()
             if self.viewModel.styles.count == 0{
