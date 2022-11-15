@@ -28,9 +28,9 @@ struct OutfitsView: View {
         
         self.viewModel.generateOutfitStyle = self.dataPopulation.fetchStyle(name: "professional")!
         self.viewModel.genrateOutfitName = "Professional"
-        _ = Timer.scheduledTimer(timeInterval: 4, target: self.viewModel, selector: #selector(self.viewModel.generateOutfit(sender:)), userInfo: ["professional", "interview"], repeats: true)
+//        _ = Timer.scheduledTimer(timeInterval: 4, target: self.viewModel, selector: #selector(self.viewModel.generateOutfit(sender:)), userInfo: ["professional", "interview"], repeats: true)
 
-//        self.viewModel.generateOutfit(style: self.dataPopulation.fetchStyle(name: "professional")!, name: "Interview")
+        self.viewModel.generateOutfit(style: "professional", name: "Interview")
       }, label: {
           Text("Generate Professional Outfit")
       })

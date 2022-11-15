@@ -314,10 +314,6 @@ class ViewModel: ObservableObject {
       newVal.setValue(secondary_g, forKey: "secondary_g")
       newVal.setValue(secondary_b, forKey: "secondary_b")
       newVal.setValue(UUID(), forKey: "article_id")
-<<<<<<< HEAD
-      NSLog("Set all values for newVal")
-=======
->>>>>>> main
       do {
         try context.save()
         let returnVal = context.object(with:newVal.objectID) as? Article
@@ -433,14 +429,12 @@ class ViewModel: ObservableObject {
     return out
   }
   
-  @objc func generateOutfit(sender: Timer) {
+  @objc func generateOutfit(style: String, name: String) {
     let context = appDelegate.persistentContainer.viewContext
     var outfitCreated = false
-    let userInfo = sender.userInfo as! [String]
-    print("making user info")
-    let style = self.fetchStyle(name: "professional")!
-    let name = userInfo[1]
-    while !outfitCreated {
+    let style = fetchStyle(name: style)!
+    var count = 0
+    while (!outfitCreated && count <= 500) {
       //let context = appDelegate.persistentContainer.viewContext
       //let articleStyles = self.generateOutfitStyle.articleStyles
       
@@ -498,23 +492,79 @@ class ViewModel: ObservableObject {
       
       NSLog("done generating outfit")
       outfitCreated = true
-      sender.invalidate()
+      count = count + 1
     }
-    
   }
   
-  func isDuplicateOutfit(outfit: Outfit) {
-    let context = appDelegate.persistentContainer.viewContext
-    
-    let fetchRequest: NSFetchRequest<Outfit>
-    fetchRequest = Outfit.fetchRequest()
-    
-    // save ArticleOutfits
-    self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
-    self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
-    self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
-  }
-  
+//  @objc func generateOutfit(sender: Timer) {
+//    let context = appDelegate.persistentContainer.viewContext
+//    var outfitCreated = false
+//    let userInfo = sender.userInfo as! [String]
+//    print("making user info")
+//    let style = self.fetchStyle(name: "professional")!
+//    let name = userInfo[1]
+//    while !outfitCreated {
+//      //let context = appDelegate.persistentContainer.viewContext
+//      //let articleStyles = self.generateOutfitStyle.articleStyles
+//
+//      let tops = fetchStyleCats(style: style, category: "top")!
+//      let bottoms = fetchStyleCats(style: style, category: "bottom")!
+//      let footwear = fetchStyleCats(style: style, category: "footwear")!
+//
+//      // randomly select which top to match with
+//
+//      let res_top = tops.randomElement()
+//      var res_bottom: Article? = nil
+//      var res_footwear: Article? = nil
+//
+//      for bottom in bottoms {
+//        if (bottom.complimentary_color_family == res_top!.primary_color_family || bottom.primary_color_family == res_top!.complimentary_color_family ||
+//            bottom.secondary_color_family == res_top!.complimentary_color_family ||
+//            bottom.complimentary_color_family == res_top!.secondary_color_family) {
+//          res_bottom = bottom
+//        }
+//      }
+//
+//      for foot in footwear {
+//        if (foot.complimentary_color_family == res_top!.primary_color_family || foot.primary_color_family == res_top!.complimentary_color_family ||
+//            foot.secondary_color_family == res_top!.complimentary_color_family ||
+//            foot.complimentary_color_family == res_top!.secondary_color_family) {
+//          res_footwear = foot
+//        }
+//      }
+//
+//      if (res_bottom == nil || res_footwear == nil) {
+//        print("cannot find articles to generate outfit")
+//        return
+//      }
+//
+//      // check for duplication
+//      let res_top_outfits = retrieveOutfitsForArticle(article: res_top!)
+//      let res_bottom_outfits = retrieveOutfitsForArticle(article: res_bottom!)
+//      let res_footwear_outfits = retrieveOutfitsForArticle(article: res_footwear!)
+//
+//      let top_bottom = res_top_outfits!.filter{ res_bottom_outfits!.contains($0) }
+//      let top_bottom_footwear = top_bottom.filter{ res_footwear_outfits!.contains($0) }
+//
+//      if top_bottom_footwear.count != 0 {
+//        print("this outfit is a duplicate")
+//        continue
+//      }
+//
+//      // save outfit
+//      let outfit = self.saveOutfit(name: name)
+//
+//      // save ArticleOutfits
+//      self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
+//      self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
+//      self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
+//
+//      NSLog("done generating outfit")
+//      outfitCreated = true
+//      sender.invalidate()
+//    }
+//  }
+   
   func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
