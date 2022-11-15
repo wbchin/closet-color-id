@@ -293,13 +293,43 @@ class ViewModel: ObservableObject {
     }
   }
   
+  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> Int {
+    let minV:CGFloat = CGFloat(min(r, g, b))
+    let maxV:CGFloat = CGFloat(max(r, g, b))
+    let delta:CGFloat = maxV - minV
+    var hue:CGFloat = 0
+    if delta != 0 {
+      if r == maxV {
+         hue = (g - b) / delta
+      }
+      else if g == maxV {
+         hue = 2 + (b - r) / delta
+      }
+      else {
+         hue = 4 + (r - g) / delta
+      }
+      hue *= 60
+      if hue < 0 {
+         hue += 360
+      }
+    }
+    
+    let saturation = maxV == 0 ? 0 : (delta / maxV)
+    let brightness = maxV
+    return Int(hue)
+  }
+
+  
   func saveArticle(image_data: Data, primary_color_name: String, primary_color_family: String, primary_r: Int, primary_g: Int, primary_b: Int, secondary_color_name: String?, secondary_color_family: String?,  secondary_r: Int?, secondary_g: Int?, secondary_b: Int?) -> Article?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       newVal.setValue(image_data, forKey: "image_data")
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
-      newVal.setValue(primary_color_family, forKey: "primary_color_family")
+      // set the color primary family by hue
+      let hue = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
+      let family = setColorFamily(hue: hue)
+      newVal.setValue(family, forKey: "primary_color_family")
       newVal.setValue(primary_r, forKey: "primary_r")
       newVal.setValue(primary_g, forKey: "primary_g")
       newVal.setValue(primary_b, forKey: "primary_b")
