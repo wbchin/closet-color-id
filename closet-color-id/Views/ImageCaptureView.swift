@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage?
+    @State var image: UIImage? = UIImage(named: "jeans.png")
     @State var showUnsavedArticleView: Bool = false
     @State var results = [PhotoColor]()
     let viewModel: ViewModel
@@ -51,6 +51,7 @@ struct ImageCaptureView: View {
                         if viewModel.article != nil {
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
+                                print(viewModel.article.debugDescription)
                             }
                             NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
                         }
@@ -79,6 +80,7 @@ struct ImageCaptureView: View {
           self.imaggaCall.image = nil
           self.article = nil
           self.calledImagga = false
+                self.viewModel.article = nil //IS THIS GOOD
         })
         
     }

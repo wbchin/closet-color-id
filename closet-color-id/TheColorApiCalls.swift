@@ -11,6 +11,8 @@ import Alamofire
 class TheColorApiCalls: ObservableObject {
     var hue: Int?
     var name: String?
+    var seedHue: Int?
+    var seedName: String?
     struct Result: Decodable {
         let mode: String
         let colors: [Color]
@@ -91,6 +93,11 @@ class TheColorApiCalls: ObservableObject {
                     guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any?],
 //                          let result = json["result"] as? [String: Any],
                           let colors = json["colors"] as? [[String: Any]],
+                          let seed = json["seed"] as? [String: Any],
+                          let seedName = seed["name"] as? [String: Any],
+                          let seedNameValue = seedName["value"] as? String,
+                          let seedHSVArray = seed["hsv"] as? [String: Any],
+                          let seedH = seedHSVArray["h"] as? Int,
                           let nameArray = colors.first!["name"] as? [String: Any?],
                           let hsvArray = colors.first!["hsv"] as? [String: Any?],
                           let name = nameArray["value"] as? String,//unsure
@@ -101,6 +108,8 @@ class TheColorApiCalls: ObservableObject {
                     }
                     self.name = name
                     self.hue = h
+                    self.seedName = seedNameValue
+                    self.seedHue = seedH
                 }catch {
                     print("json serial fail")
                     return
