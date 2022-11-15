@@ -10,6 +10,7 @@ import SwiftUI
 class ImaggaCalls: ObservableObject {
     @State var colors: [PhotoColor]?
     let viewModel: ViewModel
+    let colorApiCall = TheColorApiCalls()
     var image: UIImage? = nil
     @State var article: Article = Article()
   
@@ -62,15 +63,14 @@ class ImaggaCalls: ObservableObject {
                                       let photoColors = imageColors.compactMap({ (dict) -> PhotoColor? in
                                           guard
                                               let hex = dict["closest_palette_color_html_code"] as? String,
-                                              let name = dict["closest_palette_color"] as? String,
-                                              let family = dict["closest_palette_color_parent"] as? String,
+                                              var name = dict["closest_palette_color"] as? String,
+                                              var family = dict["closest_palette_color_parent"] as? String,
                                               let r = dict["r"] as? Int,
                                               let g = dict["g"] as? Int,
                                               let b = dict["b"] as? Int
                                           else {
                                               return nil
                                           }
-
                                           return PhotoColor(
                                               primaryHex: hex,
                                               primaryName: name,
@@ -106,63 +106,5 @@ class ImaggaCalls: ObservableObject {
             completion(self.article)
                }
         }
-    }
-    
-  func downloadColors(uploadId: String, completion: @escaping((Article) -> ())){
-      let myGroup = DispatchGroup()
-    myGroup.enter()
-        AF.request(ImaggaRouter.colors(uploadId))
-            .responseData { response in
-                // 2.
-                switch response.result{
-                case .failure:
-                    print("Error while fetching colors: \(String(describing: response.result))")
-                    return
-                case .success(let data):
-                    do{
-                      print(try ImaggaRouter.colors(uploadId).asURLRequest())
-                        guard let asJSON = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                              let result = asJSON["result"] as? [String: Any],
-                              let info = result["colors"] as? [String: Any],
-                              let imageColors = info["image_colors"] as? [[String: Any]] else {
-                            print("Invalid color information received from service")
-                            return
-                        }
-                        let photoColors = imageColors.compactMap({ (dict) -> PhotoColor? in
-                            guard
-                                let hex = dict["closest_palette_color_html_code"] as? String,
-                                let name = dict["closest_palette_color"] as? String,
-                                let family = dict["closest_palette_color_parent"] as? String,
-                                let r = dict["r"] as? Int,
-                                let g = dict["g"] as? Int,
-                                let b = dict["b"] as? Int
-                            else {
-                                return nil
-                            }
-
-                            return PhotoColor(
-                                primaryHex: hex,
-                                primaryName: name,
-                                primaryFamily: family,
-                                r: r,
-                                g: g,
-                                b: b)
-                        })
-                        self.colors = photoColors
-                     
-                    } catch{
-                        print("Error while uploading file: \(String(describing: response.result))")
-                    }
-                  if self.colors!.count == 1 {
-                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_r: self.colors!.first!.r, primary_g: self.colors!.first!.g, primary_b: self.colors!.first!.b, secondary_color_name: nil, secondary_color_family: nil, secondary_r: nil, secondary_g: nil, secondary_b: nil)!
-                  } else {
-                    self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: self.colors!.first!.primaryName, primary_color_family: self.colors!.first!.primaryFamily, primary_r: self.colors!.first!.r, primary_g: self.colors!.first!.g, primary_b: self.colors!.first!.b, secondary_color_name: self.colors![1].primaryName, secondary_color_family: self.colors![1].primaryFamily, secondary_r: self.colors!.first!.r, secondary_g: self.colors!.first!.g, secondary_b: self.colors!.first!.b)!
-                  }
-                }
-            }
-    myGroup.leave()
-    myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
-      completion(self.article)
-         }
     }
 }
