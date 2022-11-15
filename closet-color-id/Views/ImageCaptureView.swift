@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage? = nil
+    @State var image: UIImage?
     @State var showUnsavedArticleView: Bool = false
     @State var results = [PhotoColor]()
     let viewModel: ViewModel
@@ -48,11 +48,11 @@ struct ImageCaptureView: View {
                     }
                     VStack {
                         Spacer()
-                        if self.article != nil {
+                        if viewModel.article != nil {
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
                             }
-                            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.arts[self.viewModel.arts.count-1]), label: { Text("View saved article").font(.system(size: 36))})
+                            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
                         }
                         if image == nil{
                             Button(action: {
