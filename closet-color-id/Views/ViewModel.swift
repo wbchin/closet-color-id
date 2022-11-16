@@ -57,6 +57,27 @@ class ViewModel: ObservableObject {
     fetchStyles()
   }
   
+  func deleteAllOutfits() {
+    // Initialize Fetch Request
+    let fetchRequest: NSFetchRequest<Outfit>
+    fetchRequest = Outfit.fetchRequest()
+    
+    // Get a reference to a NSManagedObjectContext
+    let context = appDelegate.persistentContainer.viewContext
+    context.reset()
+    do {
+      let objects = try context.fetch(fetchRequest)
+      for data in objects as [NSManagedObject] {
+        context.delete(data)
+      }
+      try context.save()
+     
+    } catch {
+      print("Error")
+   
+    }
+  }
+  
   func deleteAllArticleStyles() {
     // Initialize Fetch Request
     let fetchRequest: NSFetchRequest<ArticleStyle>
@@ -361,15 +382,20 @@ class ViewModel: ObservableObject {
   
   func saveOutfit(name: String) -> Outfit?{
     let context = appDelegate.persistentContainer.viewContext
+    context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+
     if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       newVal.setValue(name, forKey: "name")
+      print(newVal)
       do {
         try context.save()
+        NSLog("Outfit saved")
         return newVal as? Outfit
         
       } catch {
-        NSLog("[Contacts] ERROR: Failed to save Outfit to CoreData")
+        NSLog("ERROR: Failed to save Outfit to CoreData")
+        NSLog(error.localizedDescription)
       }
     }
     return nil
@@ -422,7 +448,7 @@ class ViewModel: ObservableObject {
     
     var out = [Article]()
     
-    let context = appDelegate.persistentContainer.viewContext
+    //let context = appDelegate.persistentContainer.viewContext
     let articleStyles = style.articleStyles
     
     for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
@@ -451,7 +477,7 @@ class ViewModel: ObservableObject {
   
   func retrieveOutfitsForArticle(article: Article) -> [Outfit]? {
     var out = [Outfit]()
-    let context = appDelegate.persistentContainer.viewContext
+    //let context = appDelegate.persistentContainer.viewContext
     let articleOutfits = article.articleOufits
     
     for case let articleOutfit as ArticleOutfit in articleOutfits!.allObjects {
@@ -462,11 +488,15 @@ class ViewModel: ObservableObject {
   }
   
   @objc func generateOutfit(style: String, name: String) {
-    let context = appDelegate.persistentContainer.viewContext
+    //let context = appDelegate.persistentContainer.viewContext
     var outfitCreated = false
     let style = fetchStyle(name: style)!
+    print("style: ")
+    print(style)
     var count = 0
     while (!outfitCreated && count <= 500) {
+      count = count + 1
+      print(count)
       //let context = appDelegate.persistentContainer.viewContext
       //let articleStyles = self.generateOutfitStyle.articleStyles
       
@@ -477,10 +507,19 @@ class ViewModel: ObservableObject {
       // randomly select which top to match with
       
       let res_top = tops.randomElement()
+      if res_top == nil {
+        print("not enough items to create outfit")
+        return 
+      }
       var res_bottom: Article? = nil
       var res_footwear: Article? = nil
       
+      print("res top primary color")
+      print(res_top?.primary_color_family)
+      
       for bottom in bottoms {
+        print("bottom primary color family")
+        print(bottom.complimentary_color_family)
         if (bottom.complimentary_color_family == res_top!.primary_color_family || bottom.primary_color_family == res_top!.complimentary_color_family ||
             bottom.secondary_color_family == res_top!.complimentary_color_family ||
             bottom.complimentary_color_family == res_top!.secondary_color_family) {
@@ -489,6 +528,8 @@ class ViewModel: ObservableObject {
       }
       
       for foot in footwear {
+        print("foot primary color family")
+        print(foot.complimentary_color_family)
         if (foot.complimentary_color_family == res_top!.primary_color_family || foot.primary_color_family == res_top!.complimentary_color_family ||
             foot.secondary_color_family == res_top!.complimentary_color_family ||
             foot.complimentary_color_family == res_top!.secondary_color_family) {
@@ -497,8 +538,10 @@ class ViewModel: ObservableObject {
       }
       
       if (res_bottom == nil || res_footwear == nil) {
+        print(res_bottom)
+        print(res_footwear)
         print("cannot find articles to generate outfit")
-        return
+        continue
       }
       
       // check for duplication
@@ -514,17 +557,23 @@ class ViewModel: ObservableObject {
         continue
       }
       
+      print("found a unique outfit")
+      
       // save outfit
       let outfit = self.saveOutfit(name: name)
       
       // save ArticleOutfits
-      self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
-      self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
-      self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
-      
-      NSLog("done generating outfit")
-      outfitCreated = true
-      count = count + 1
+      while outfit == nil {
+        if outfit != nil {
+          print("here")
+          self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: outfit!.objectID)
+          self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: outfit!.objectID)
+          self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: outfit!.objectID)
+          
+          print("done generating outfit")
+          outfitCreated = true
+        }
+      }
     }
   }
   
