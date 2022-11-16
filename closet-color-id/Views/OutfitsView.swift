@@ -26,13 +26,18 @@ struct OutfitsView: View {
       Button(action: {
         // wait 5 seconds to generate outfit
         
-        self.viewModel.generateOutfitStyle = self.dataPopulation.fetchStyle(name: "professional")!
-        self.viewModel.genrateOutfitName = "Professional"
+        //self.viewModel.generateOutfitStyle = self.dataPopulation.fetchStyle(name: "professional")!
+        //self.viewModel.genrateOutfitName = "Professional"
 //        _ = Timer.scheduledTimer(timeInterval: 4, target: self.viewModel, selector: #selector(self.viewModel.generateOutfit(sender:)), userInfo: ["professional", "interview"], repeats: true)
 
         self.viewModel.generateOutfit(style: "professional", name: "Interview")
       }, label: {
           Text("Generate Professional Outfit")
+      })
+      Text("").onAppear(perform: {
+        let _ = print("outfits: ")
+//        let _ = print((self.viewModel.fetchOutfits()!.first!.articleOutfits!.first as! ArticleOutfit).article?.primary_color_family)
+//        let _ = print(self.viewModel.retrieveArticlesForOutfit(outfit: self.viewModel.outfit!))
       })
       ScrollView{
         Text("Tops")
