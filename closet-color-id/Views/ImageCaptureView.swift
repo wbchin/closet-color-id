@@ -43,7 +43,6 @@ struct ImageCaptureView: View {
                           self.calledImagga = true
                           self.imaggaCall.image = self.image
                         self.runImagga()
-                          
                       }
                     }
                     VStack {

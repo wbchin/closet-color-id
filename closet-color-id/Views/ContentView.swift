@@ -49,15 +49,19 @@ struct ContentView: View {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()
           self.viewModel.deleteAllStyles()
+          self.viewModel.deleteAllArticleStyles()
+          self.viewModel.deleteAllOutfits()
+          if self.viewModel.styles.count == 0{
+              self.dataPopulation.populateStyles()
+              self.viewModel.updateStyles()
+          }
+          self.dataPopulation.createArticle()
             self.viewModel.updateArticles()
             self.viewModel.updateStyles()
-            if self.viewModel.styles.count == 0{
-                self.dataPopulation.populateStyles()
-                self.viewModel.updateStyles()
-            }
-          if self.viewModel.arts.count == 0 {
-            self.dataPopulation.createArticle()
-          }
+            
+//          if self.viewModel.arts.count == 0 {
+//            self.dataPopulation.createArticle()
+//          }
             
         })
     }
