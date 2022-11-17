@@ -8,6 +8,15 @@
 import SwiftUI
 import CoreData
 
+//struct ColorString: Hashable{
+//    let primaryHex: String
+//    let primaryName: String
+//    let primaryFamily: String
+//    let r: Int
+//    let g: Int
+//    let b: Int
+//}
+
 struct ArticleView: View {
     var article: Article
     let viewModel: ViewModel
@@ -51,6 +60,16 @@ struct ArticleView: View {
                             .fill(Color(red: Double(article.secondary_r)/255,
                                         green: Double(article.secondary_g)/255,
                                         blue: Double(article.secondary_b)/255))
+                            .frame(width: 100, height: 100)
+                    }
+                    .padding()
+                    .border(.white, width: 4)
+                    VStack {
+                        Text(article.secondary_color_family!)
+                        Rectangle()
+                            .fill(Color(red: Double(article.primary_r)/255,
+                                        green: Double(article.primary_g)/255,
+                                        blue: Double(article.primary_b)/255))
                             .frame(width: 100, height: 100)
                     }
                     .padding()

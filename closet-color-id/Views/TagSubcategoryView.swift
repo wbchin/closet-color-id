@@ -13,18 +13,21 @@ struct TagSubcategoryView: View {
           VStack{
               Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
               ForEach(self.subcats, id: \.self) { sub in
-                Button(action: {
-                  isShowingSubcat = false
-                    viewModel.tagArticleSubcategory(subcategory: sub, article: article)
-                }) {
-                    Text(sub.lowercased())
-                }.frame(maxHeight: .infinity, alignment: .bottom).font(.system(size: 36))
+                  Button(sub.uppercased()) {
+                      isShowingSubcat = false
+                      viewModel.tagArticleSubcategory(subcategory: sub, article: article)
+                  }
+                  .padding(4)
+                  .background(.white)
+                  .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                  .font(.system(size: 20))
               }
               if !isShowingSubcat {
                 NavigationLink (
                   destination: TagStyleView(viewModel: viewModel, article: article),
                   label:{
-                    Text("Done").frame(maxHeight: .infinity, alignment: .bottom).font(.system(size: 36))
+                    Text("Done").font(.system(size: 30))
                   })
           }
           
