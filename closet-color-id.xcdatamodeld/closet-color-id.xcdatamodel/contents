@@ -3,8 +3,11 @@
     <entity name="Article" representedClassName=".Article" syncable="YES" codeGenerationType="class">
         <attribute name="article_id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="complimentary_b" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="complimentary_color_family" optional="YES" attributeType="String"/>
         <attribute name="complimentary_color_name" optional="YES" attributeType="String"/>
+        <attribute name="complimentary_g" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="complimentary_r" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="image_data" optional="YES" attributeType="Binary"/>
         <attribute name="primary_b" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="primary_color_family" optional="YES" attributeType="String"/>

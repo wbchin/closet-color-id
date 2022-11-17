@@ -30,8 +30,5 @@ struct TagSubcategoryView: View {
           
           }
       }.navigationBarBackButtonHidden(true)
-    
-    
-    
   }
 }
