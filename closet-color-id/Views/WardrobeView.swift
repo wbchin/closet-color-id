@@ -96,7 +96,9 @@ struct WardrobeView: View {
                     }
                 }
             }.onAppear(perform: {
-                self.populateCats()
+              self.viewModel.deleteUntaggedArticles(completion: {out in})
+              self.viewModel.deleteUnstyledArticles(completion: {out in})
+              self.populateCats()
             })
             .padding(.horizontal)
             .navigationBarTitle("WARDROBE")

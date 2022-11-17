@@ -20,6 +20,12 @@ import CoreData
 struct ArticleView: View {
     var article: Article
     let viewModel: ViewModel
+    let backgroundColor : Color = Color(red: 141, green: 223, blue: 144)
+    var comp_article: Article? {
+      get {
+        return self.viewModel.findComplimentaryArticle(article: self.article)
+      }
+    }
     var body: some View {
         NavigationView {
             VStack{
@@ -33,12 +39,16 @@ struct ArticleView: View {
                         .background(.white)
                     Text(article.subcategory!)
                         .padding()
-                        .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
-                        .background(.white)
+                        .border(.white, width: 4)
                     Text((articleStyle.style?.name!)!)
                         .padding()
-                        .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
-                        .background(.white)
+                        .border(.white, width: 4)
+                    if comp_article == nil {
+                      Text("no complimentary articles found for this article :(")
+                    } else {
+                      Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                        .accessibilityLabel("Image of complimentary article.")
+                    }
                 }
                 .frame(maxHeight: .infinity, alignment: .bottom)
                 .font(.system(size: 20))

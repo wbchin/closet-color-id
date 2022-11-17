@@ -31,10 +31,11 @@ class DataPopulation: ObservableObject {
     viewModel.tagArticleSubcategory(subcategory: "blouse", article: article!)
     let style = self.fetchStyle(name: "professional")
     viewModel.tagArticleStyle(article_id: article!.objectID, style_id: style!.objectID)
+    viewModel.setComplimentaryColor(article: article!, complimentary_color_family: "blue", complimentary_color_name: "skin", complimentary_r: 0, complimentary_g: 0, complimentary_b: 0)
     
     let article2 = viewModel.saveArticle(image_data: pants.pngData()!, primary_color_name: "navy", primary_color_family: "blue", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "black", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
     
-    viewModel.setComplimentaryColor(article: article2!, complimentary_color_family: "brown", complimentary_color_name: "skin")
+    viewModel.setComplimentaryColor(article: article2!, complimentary_color_family: "red", complimentary_color_name: "skin", complimentary_r: 0, complimentary_g: 0, complimentary_b: 0)
     
     viewModel.tagArticleCategory(category: "bottom", article: article2!)
     viewModel.tagArticleSubcategory(subcategory: "pants", article: article2!)
@@ -42,7 +43,7 @@ class DataPopulation: ObservableObject {
     
     let article3 = viewModel.saveArticle(image_data: shoes.pngData()!, primary_color_name: "black", primary_color_family: "black", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "white", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
     
-    viewModel.setComplimentaryColor(article: article3!, complimentary_color_family: "brown", complimentary_color_name: "skin")
+    viewModel.setComplimentaryColor(article: article3!, complimentary_color_family: "red", complimentary_color_name: "skin", complimentary_r: 0, complimentary_g: 0, complimentary_b: 0)
     
     viewModel.tagArticleCategory(category: "footwear", article: article3!)
     viewModel.tagArticleSubcategory(subcategory: "sneaker", article: article3!)
