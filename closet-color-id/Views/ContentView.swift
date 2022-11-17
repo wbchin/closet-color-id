@@ -13,7 +13,6 @@ struct CustomTab: View {
     }
 }
 struct ContentView: View {
-    @State private var selection = 0
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
 
@@ -30,21 +29,22 @@ struct ContentView: View {
     }
     var body: some View {
         HStack {
-            TabView {
+          TabView() {
                 WardrobeView(viewModel: viewModel)
                     .tabItem{
                         Label("Clothing", systemImage: "tshirt")
-                    }.tag(0)
+                    }
                 ImageCaptureView( viewModel: viewModel, image: nil)
                     .tabItem{
                         Label("Camera", systemImage: "camera")
-                    }.tag(1)
+                    }
               OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
                     .tabItem{
                         Label("Outfits", systemImage: "door.french.closed")
-                    }.tag(2)
+                    }
             }
         }
+        
         .onAppear(perform: {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()

@@ -75,11 +75,11 @@ struct ImageCaptureView: View {
             }
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
             .onDisappear(perform: {
-          self.image = nil
-          self.imaggaCall.image = nil
-          self.article = nil
-          self.calledImagga = false
-                self.viewModel.article = nil //IS THIS GOOD
+              self.image = nil
+              self.imaggaCall.image = nil
+              self.article = nil
+              self.calledImagga = false
+              self.viewModel.article = nil //IS THIS GOOD
         })
         
     }
