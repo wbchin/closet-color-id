@@ -216,12 +216,6 @@ class ViewModel: ObservableObject {
         return out
     }
   
-//  func fetchArticleOutfitArticle(articleOutfit: ArticleOutfit) -> [Article] {
-//      var out = [Article]()
-//      let context = appDelegate.persistentContainer.viewContext
-//      return out
-//  }
-  
   func fetchArticle(article_id: UUID) -> Article? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
@@ -261,6 +255,7 @@ class ViewModel: ObservableObject {
     let color_predicate = NSPredicate(
         format: "complimentary_color_family = %@", article.complimentary_color_family!
     )
+    
     let category_predicate = NSPredicate(
         format: "category != %@", article.category!
     )
@@ -316,10 +311,13 @@ class ViewModel: ObservableObject {
     return ""
   }
   
-  func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String) {
+  func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String, complimentary_r: Int, complimentary_g: Int, complimentary_b: Int) {
     let context = appDelegate.persistentContainer.viewContext
     context.object(with: article.objectID).setValue(complimentary_color_family, forKey: "complimentary_color_family")
     context.object(with: article.objectID).setValue(complimentary_color_name, forKey: "complimentary_color_name")
+    context.object(with: article.objectID).setValue(complimentary_r, forKey: "complimentary_r")
+    context.object(with: article.objectID).setValue(complimentary_g, forKey: "complimentary_g")
+    context.object(with: article.objectID).setValue(complimentary_b, forKey: "complimentary_b")
     do {
       try context.save()
     } catch {

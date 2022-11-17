@@ -13,6 +13,10 @@ class TheColorApiCalls: ObservableObject {
     var name: String?
     var seedHue: Int?
     var seedName: String?
+    var r: Int?
+    var g: Int?
+    var b: Int?
+  
     struct Result: Decodable {
         let mode: String
         let colors: [Color]
@@ -27,11 +31,13 @@ class TheColorApiCalls: ObservableObject {
         let hex: Hex
         let hsv: HSV
         let name: Name
+        let rgb: RGB
         
         enum CodingKeys : String, CodingKey {
             case hex
             case hsv
             case name
+            case rgb
         }
         
     }
@@ -63,6 +69,18 @@ class TheColorApiCalls: ObservableObject {
             case h
             case s
             case v
+        }
+    }
+  
+    struct RGB: Decodable{
+        let r: Int
+        let g: Int
+        let b: Int
+        
+        enum CodingKeys : String, CodingKey {
+            case r
+            case g
+            case b
         }
     }
     
@@ -100,14 +118,21 @@ class TheColorApiCalls: ObservableObject {
                           let seedH = seedHSVArray["h"] as? Int,
                           let nameArray = colors.first!["name"] as? [String: Any?],
                           let hsvArray = colors.first!["hsv"] as? [String: Any?],
+                          let rgbArray = colors.first!["rgb"] as? [String: Any?],
                           let name = nameArray["value"] as? String,//unsure
-                          let h = hsvArray["h"] as? Int
+                          let h = hsvArray["h"] as? Int,
+                          let r = rgbArray["r"] as? Int,
+                          let g = rgbArray["g"] as? Int,
+                          let b = rgbArray["b"] as? Int
                     else{
                         print("fail to read json correctly")
                         return 
                     }
                     self.name = name
                     self.hue = h
+                    self.r = r
+                    self.g = g
+                    self.b = b
                     self.seedName = seedNameValue
                     self.seedHue = seedH
                 }catch {

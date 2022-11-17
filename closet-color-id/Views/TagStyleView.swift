@@ -5,6 +5,9 @@ struct TagStyleView: View {
   let viewModel: ViewModel
   var article: Article
   @State var comp_hue: Int = 0
+  @State var comp_r: Int = 0
+  @State var comp_g: Int = 0
+  @State var comp_b: Int = 0
   @State var comp_name: String?
   @State var isShowingStyle = true
   @State var runColor = false
@@ -19,9 +22,11 @@ struct TagStyleView: View {
   func runColorApi() {
     self.colorApiCall.fetchAlamo(rgb: self.article_rgb, completion: { name in
         if name {
-            
             self.comp_name = colorApiCall.name
             self.comp_hue = colorApiCall.hue!
+            self.comp_r = colorApiCall.r!
+            self.comp_g = colorApiCall.g!
+            self.comp_b = colorApiCall.b!
         }
     })
    
@@ -42,7 +47,7 @@ struct TagStyleView: View {
                 if (self.comp_name != nil){
                     Text("").onAppear{
                         let family = self.viewModel.setColorFamily(hue: self.comp_hue)
-                        viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!)
+                      viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
                     }
                     ForEach(self.viewModel.styles) { style in
                         Button(action: {
