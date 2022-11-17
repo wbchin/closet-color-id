@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage? = UIImage(named: "jeans.png")
+    @State var image: UIImage?
     @State var showUnsavedArticleView: Bool = false
     @State var results = [PhotoColor]()
     let viewModel: ViewModel

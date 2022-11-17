@@ -19,26 +19,27 @@ struct UnsavedArticleView: View {
         NavigationView{
             VStack {
                 // insert image here
-                Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
-                
-                
-                Button(action: {
+                Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().rotationEffect(.degrees(90))
+//                Spacer()
+                Button("SAVE TO WARDROBE") {
                     isShowingSave = false
-                }) {
-                    Text("Save to wardrobe")
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .font(.system(size: 36))
                 }
+                .padding(4)
+                .background(.white)
+                .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                .font(.system(size: 30))
+                    
                 if !isShowingSave {
                     NavigationLink (
                         destination: TagCategoryView(viewModel: viewModel, article: article),
                         label:{
                             Text("Done")
-                                .font(.system(size: 36))
+                                .font(.system(size: 30))
                         })
                 }
             }
         }.navigationBarBackButtonHidden(true)
-        
+//            .padding()
     }
 }

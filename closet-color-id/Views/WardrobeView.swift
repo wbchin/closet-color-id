@@ -23,54 +23,74 @@ struct WardrobeView: View {
     var body: some View {
         NavigationView{
             ScrollView{
-                Text("Tops")
-                LazyVGrid(columns: columns, spacing: 10){
-                    ForEach(self.tops, id: \.self) { top in
-                        NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
-                            Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
-                                .renderingMode(.original)
-                                .resizable()
-                                .scaledToFit()
-                                .font(.system(size: 30))
-                                .frame(width: 80, height: 80)
-                                .cornerRadius(10)
-                                .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                .rotationEffect(.degrees(90))
+//                VStack{
+//                    Text("OUTERWEAR")
+//                    LazyVGrid(columns: columns, spacing: 10){
+//                        ForEach(self.bottoms, id: \.self) { bottom in
+//                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+//                                Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+//                                    .renderingMode(.original)
+//                                    .resizable()
+//                                    .scaledToFit()
+//                                    .font(.system(size: 30))
+//                                    .frame(width: 80, height: 80)
+//                                    .cornerRadius(10)
+//                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
+//                                    .rotationEffect(.degrees(90))
+//                            }
+//                        }
+//                    }
+//                }
+                VStack (alignment: .leading) {
+                    Text("TOPS").bold()
+                    LazyVGrid(columns: columns, spacing: 10){
+                        ForEach(self.tops, id: \.self) { top in
+                            NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
+                                Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .font(.system(size: 30))
+                                    .frame(width: 80, height: 80)
+                                    .cornerRadius(10)
+                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                    .rotationEffect(.degrees(90))
+                            }
                         }
                     }
                 }
-                VStack{
-                    Text("Bottoms")
-                        LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.bottoms, id: \.self) { bottom in
-                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
-                                    Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
-                                        .cornerRadius(10)
-                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                        .rotationEffect(.degrees(90))
-                                }
+                VStack (alignment: .leading) {
+                    Text("BOTTOMS").bold()
+                    LazyVGrid(columns: columns, spacing: 10){
+                        ForEach(self.bottoms, id: \.self) { bottom in
+                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                                Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .font(.system(size: 30))
+                                    .frame(width: 80, height: 80)
+                                    .cornerRadius(10)
+                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                    .rotationEffect(.degrees(90))
                             }
                         }
-                    VStack{
-                        Text("Footwear")
-                        LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.footwear, id: \.self) { foot in
-                                NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
-                                    Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
-                                        .cornerRadius(10)
-                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                        .rotationEffect(.degrees(90))
-                                }
+                    }
+                }
+                VStack (alignment: .leading) {
+                    Text("FOOTWEAR").bold()
+                    LazyVGrid(columns: columns, spacing: 10){
+                        ForEach(self.footwear, id: \.self) { foot in
+                            NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
+                                Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .font(.system(size: 30))
+                                    .frame(width: 80, height: 80)
+                                    .cornerRadius(10)
+                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                    .rotationEffect(.degrees(90))
                             }
                         }
                     }

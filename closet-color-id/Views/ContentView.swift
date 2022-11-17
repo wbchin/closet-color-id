@@ -41,8 +41,8 @@ struct ContentView: View {
               OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
                     .tabItem{
                         Label("Outfits", systemImage: "door.french.closed")
-                    }
-            }
+                    }.tag(2)
+            }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
         }
         
         .onAppear(perform: {
