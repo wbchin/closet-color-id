@@ -11,7 +11,7 @@ class ImaggaCalls: ObservableObject {
     @State var colors: [PhotoColor]?
     let viewModel: ViewModel
     let colorApiCall = TheColorApiCalls()
-    var image: UIImage? = nil
+    var image: UIImage?
     @State var article: Article = Article()
   
   init(viewModel: ViewModel) {
@@ -80,9 +80,9 @@ class ImaggaCalls: ObservableObject {
                                               b: b)
                                       })
                                       self.colors = photoColors
-                                    if photoColors.count == 1 {
+                                      if photoColors.count == 1 && self.image != nil{
                                       self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_r: photoColors.first!.r, primary_g: photoColors.first!.g, primary_b: photoColors.first!.b, secondary_color_name: nil, secondary_color_family: nil, secondary_r: nil, secondary_g: nil, secondary_b: nil)!
-                                    } else {
+                                    } else if (self.image != nil){
                                       self.article = self.viewModel.saveArticle(image_data: self.image!.pngData()!, primary_color_name: photoColors.first!.primaryName, primary_color_family: photoColors.first!.primaryFamily, primary_r: photoColors.first!.r, primary_g: photoColors.first!.g, primary_b: photoColors.first!.b, secondary_color_name: photoColors[1].primaryName, secondary_color_family: photoColors[1].primaryFamily, secondary_r: photoColors[1].r, secondary_g: photoColors[1].g, secondary_b: photoColors[1].b)!
                                     }
                                   } catch{

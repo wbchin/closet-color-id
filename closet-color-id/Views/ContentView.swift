@@ -15,8 +15,7 @@ struct CustomTab: View {
 struct ContentView: View {
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
-
-    @State var capturedImage: UIImage? = nil
+//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     var articles : [Article]? {
@@ -34,7 +33,7 @@ struct ContentView: View {
                     .tabItem{
                         Label("Clothing", systemImage: "tshirt")
                     }
-                ImageCaptureView( viewModel: viewModel, image: nil)
+              ImageCaptureView( viewModel: viewModel, image: nil)
                     .tabItem{
                         Label("Camera", systemImage: "camera")
                     }
