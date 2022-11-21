@@ -42,26 +42,29 @@ struct ImageCaptureView: View {
                             self.runImagga()
                           }
                         }
-                        if viewModel.article != nil {
+                      if self.viewModel.article != nil && self.viewModel.article!.image_data != nil {
                             
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
-                                print(viewModel.article.debugDescription)
+                              print(self.viewModel.article.debugDescription)
 //                                isCustomCameraViewPresented = false
 //                                viewModel.image = nil
                             }
                             Spacer()
+                          
                             Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
                             Spacer()
                             NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
                             Text("Retake picture").font(.system(size: 36)).onTapGesture{
+                                self.viewModel.article = nil
                                 self.image = nil
                                 self.viewModel.image = nil
-                                self.viewModel.article = nil
                                 self.imaggaCall.image = nil
                                 self.calledImagga = false
                                 self.isCustomCameraViewPresented = true
-                            }
+                        
+                          }
+                            
 //                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
                         if image == nil{
@@ -86,11 +89,13 @@ struct ImageCaptureView: View {
             }
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
             .onDisappear(perform: {
+              self.viewModel.article = nil
+              self.viewModel.deleteUntaggedArticles(completion: {out in })
+              self.viewModel.updateArticles()
               self.image = nil
               self.imaggaCall.image = nil
               self.article = nil
               self.calledImagga = false
-              self.viewModel.article = nil
                 self.isCustomCameraViewPresented = false
         })
             .onAppear(perform: {
