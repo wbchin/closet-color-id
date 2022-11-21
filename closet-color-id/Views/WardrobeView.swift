@@ -7,11 +7,13 @@ struct WardrobeView: View {
     @State var tops: [Article] = [Article]()
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()
+    @State var outerwear: [Article] = [Article]()
     func populateCats() {
         //self.viewModel.updateArticles()
         self.tops = self.viewModel.fetchCatArts(category: "top")
         self.bottoms = self.viewModel.fetchCatArts(category: "bottom")
         self.footwear = self.viewModel.fetchCatArts(category: "footwear")
+        self.outerwear = self.viewModel.fetchCatArts(category: "outerwear")
     }
     let columns = [
         GridItem(.flexible()),
@@ -19,82 +21,116 @@ struct WardrobeView: View {
         GridItem(.flexible())
     ]
     let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
-    let dataPopulation: DataPopulation = DataPopulation()
+//    let dataPopulation: DataPopulation = DataPopulation()
     var body: some View {
         NavigationView{
             ScrollView{
-//                VStack{
-//                    Text("OUTERWEAR")
-//                    LazyVGrid(columns: columns, spacing: 10){
-//                        ForEach(self.bottoms, id: \.self) { bottom in
-//                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
-//                                Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
-//                                    .renderingMode(.original)
-//                                    .resizable()
-//                                    .scaledToFit()
-//                                    .font(.system(size: 30))
-//                                    .frame(width: 80, height: 80)
-//                                    .cornerRadius(10)
-//                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
-//                                    .rotationEffect(.degrees(90))
-//                            }
-//                        }
-//                    }
-//                }
-                VStack (alignment: .leading) {
-                    Text("TOPS").bold()
-                    LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.tops, id: \.self) { top in
-                            NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
-                                Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .font(.system(size: 30))
-                                    .frame(width: 80, height: 80)
-                                    .cornerRadius(10)
-                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                    .rotationEffect(.degrees(90))
+                if (self.tops.count > 0){
+                    VStack (alignment: .leading) {
+                        Text("TOPS").bold()
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.tops, id: \.self) { top in
+                                NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
                             }
                         }
                     }
+                } else{
+                    VStack (alignment: .leading) {
+                        Text("TOPS").bold()
+                        Text("No tops in wardrobe.")
+                        LazyVGrid(columns: columns, spacing: 10){}
+                    }
                 }
-                VStack (alignment: .leading) {
-                    Text("BOTTOMS").bold()
-                    LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.bottoms, id: \.self) { bottom in
-                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
-                                Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .font(.system(size: 30))
-                                    .frame(width: 80, height: 80)
-                                    .cornerRadius(10)
-                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                    .rotationEffect(.degrees(90))
+                if(self.bottoms.count > 0){
+                    VStack (alignment: .leading) {
+                        Text("BOTTOMS").bold()
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.bottoms, id: \.self) { bottom in
+                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
                             }
                         }
                     }
+                }else {
+                    VStack (alignment: .leading) {
+                        Text("BOTTOMS").bold()
+                        Text("Not bottoms in wardrobe.")
+                        LazyVGrid(columns: columns, spacing: 10){}
+                    }
                 }
-                VStack (alignment: .leading) {
-                    Text("FOOTWEAR").bold()
-                    LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.footwear, id: \.self) { foot in
-                            NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
-                                Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .font(.system(size: 30))
-                                    .frame(width: 80, height: 80)
-                                    .cornerRadius(10)
-                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                    .rotationEffect(.degrees(90))
+                if (self.footwear.count > 0){
+                    VStack (alignment: .leading) {
+                        Text("FOOTWEAR").bold()
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.footwear, id: \.self) { foot in
+                                NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
                             }
                         }
                     }
+                } else{
+                    VStack (alignment: .leading) {
+                        Text("FOOTWEAR").bold()
+                        Text("Not footwear in wardrobe.")
+                        LazyVGrid(columns: columns, spacing: 10){}
+                    }
                 }
+                
+                if (self.outerwear.count > 0){
+                    VStack (alignment: .leading){
+                    Text("OUTERWEAR").bold()
+                        LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.bottoms, id: \.self) { bottom in
+                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                                    Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                                        .renderingMode(.original)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .font(.system(size: 30))
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(10)
+                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                        .rotationEffect(.degrees(90))
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    VStack (alignment: .leading){
+                        Text("OUTERWEAR").bold()
+                        Text("No outerwear in wardrobe.")
+                        LazyVGrid(columns: columns, spacing: 10){}
+                    }
+                }
+                
             }.onAppear(perform: {
               self.viewModel.deleteUntaggedArticles(completion: {out in})
               self.viewModel.deleteUnstyledArticles(completion: {out in})

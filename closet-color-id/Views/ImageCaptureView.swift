@@ -11,13 +11,9 @@ import CoreData
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var image: UIImage?
-    @State var showUnsavedArticleView: Bool = false
-    @State var results = [PhotoColor]()
     let viewModel: ViewModel
-    @State var isCustomCameraViewPresented = false
+    @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
-    @State var colors: [PhotoColor]?
-    @State var donePressed = false
     @State var article: Article?
     @State var calledImagga: Bool = false
     let appDelegate = AppDelegate()
@@ -37,35 +33,50 @@ struct ImageCaptureView: View {
     var body: some View {
         NavigationView {
                 ZStack {
-                    Text("Take a Picture!")
-                    if self.image != nil && self.calledImagga != true {
-                      Text("").onAppear{
-                          self.calledImagga = true
-                          self.imaggaCall.image = self.image
-                        self.runImagga()
-                      }
-                    }
                     VStack {
-                        Spacer()
+//                        Spacer()
+                        if self.image != nil && self.calledImagga != true {
+                          Text("").onAppear{
+                              self.calledImagga = true
+                              self.imaggaCall.image = self.image
+                            self.runImagga()
+                          }
+                        }
                         if viewModel.article != nil {
+                            
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
                                 print(viewModel.article.debugDescription)
+//                                isCustomCameraViewPresented = false
+//                                viewModel.image = nil
                             }
+                            Spacer()
+                            Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                            Spacer()
                             NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
+                            Text("Retake picture").font(.system(size: 36)).onTapGesture{
+                                self.image = nil
+                                self.viewModel.image = nil
+                                self.viewModel.article = nil
+                                self.imaggaCall.image = nil
+                                self.calledImagga = false
+                                self.isCustomCameraViewPresented = true
+                            }
+//                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
                         if image == nil{
-                            Button(action: {
-                                isCustomCameraViewPresented.toggle()
-                            }, label: {
-                                Image(systemName: "camera.fill")
-                                    .font(.largeTitle)
-                                    .padding()
-                                    .background(Color.black)
-                                    .foregroundColor(.white)
-                                    .clipShape(Circle())
-                            })
-                            .padding(.bottom)
+//                            Button(action: {
+//                                isCustomCameraViewPresented.toggle()
+//                            }, label: {
+//                                Image(systemName: "camera.fill")
+//                                    .font(.largeTitle)
+//                                    .padding()
+//                                    .background(Color.black)
+//                                    .foregroundColor(.white)
+//                                    .clipShape(Circle())
+//                            })
+//                            .padding(.bottom)
+                            Spacer()
                             .sheet(isPresented: $isCustomCameraViewPresented, content: {
                                 CustomCameraView(capturedImage: $image)
                             })
@@ -79,8 +90,13 @@ struct ImageCaptureView: View {
               self.imaggaCall.image = nil
               self.article = nil
               self.calledImagga = false
-              self.viewModel.article = nil //IS THIS GOOD
+              self.viewModel.article = nil
+                self.isCustomCameraViewPresented = false
         })
+            .onAppear(perform: {
+                self.isCustomCameraViewPresented = true
+            })
+        
         
     }
   }

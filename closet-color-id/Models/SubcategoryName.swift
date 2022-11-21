@@ -24,8 +24,15 @@ enum SubcategoryName: String{
     case sandal = "Sandal"
     case heels = "Heels"
     
+    case blazer = "Blazer"
+    case sweatshirt = "Sweatshirt"
+    case windbreaker = "Windbreaker"
+    case winterJacket = "Winter jacket"
+    
+    
     static let subcategoryNamesShirts = ["Long sleeve", "Short sleeve", "Button up", "Blouse", "Sleeveless"]
     static let subcategoryNamesBottoms = ["Pants", "Shorts", "Skirt"]
     static let subcategoryNamesFootwear = ["Sneaker", "Dress shoe", "Sandal", "Heels"]
+    static let subcategoryNamesOuterwear = ["Blazer", "Sweatshirt", "Windbreaker", "Winter jacket"]
     
 }

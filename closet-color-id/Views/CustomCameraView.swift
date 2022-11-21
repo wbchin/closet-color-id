@@ -15,6 +15,7 @@ struct CustomCameraView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
+        let _ = print("CUSTOM CAMERA VIEW")
         ZStack {
             CameraView(cameraService: cameraService) { result in
                 switch result {

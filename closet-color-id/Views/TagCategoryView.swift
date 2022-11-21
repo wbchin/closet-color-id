@@ -17,7 +17,7 @@ struct TagCategoryView: View {
               HStack {
                   Button("OUTERWEAR") {
                       isShowingCat = false
-                      subcats = SubcategoryName.subcategoryNamesBottoms
+                      subcats = SubcategoryName.subcategoryNamesOuterwear
                       viewModel.tagArticleCategory(category: "outerwear", article: article)
                   }
                   .padding(4)
@@ -51,7 +51,7 @@ struct TagCategoryView: View {
                   
                   Button("FOOTWEAR") {
                       isShowingCat = false
-                      subcats = SubcategoryName.subcategoryNamesBottoms
+                      subcats = SubcategoryName.subcategoryNamesFootwear
                       viewModel.tagArticleCategory(category: "footwear", article: article)
                   }
                   .padding(4)
