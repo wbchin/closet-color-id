@@ -23,9 +23,10 @@ struct TagCategoryView: View {
                   .padding(4)
                   .background(.white)
                   .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   .font(.system(size: 20))
-                  
+                  .clipShape(Capsule())
+                  .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+//                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   Button("TOP") {
                       isShowingCat = false
                       subcats = SubcategoryName.subcategoryNamesShirts
@@ -34,8 +35,10 @@ struct TagCategoryView: View {
                   .padding(4)
                   .background(.white)
                   .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   .font(.system(size: 20))
+                  .clipShape(Capsule())
+                  .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+//                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
               }
               HStack {
                   Button("BOTTOM") {
@@ -46,9 +49,10 @@ struct TagCategoryView: View {
                   .padding(4)
                   .background(.white)
                   .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   .font(.system(size: 20))
-                  
+                  .clipShape(Capsule())
+                  .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+//                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   Button("FOOTWEAR") {
                       isShowingCat = false
                       subcats = SubcategoryName.subcategoryNamesFootwear
@@ -57,8 +61,10 @@ struct TagCategoryView: View {
                   .padding(4)
                   .background(.white)
                   .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   .font(.system(size: 20))
+                  .clipShape(Capsule())
+                  .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+//                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
               }
               if !isShowingCat {
                   NavigationLink (

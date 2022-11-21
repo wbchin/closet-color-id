@@ -10,11 +10,12 @@ import SwiftUI
 struct OutfitCardView: View {
     var outfit: Outfit
     var body: some View {
-        NavigationLink (
-            destination: OutfitView(outfit: outfit),
-            label:{
-                //Text(outfit.name!)
-            })
+        Text("wot")
+//        NavigationLink (
+//            destination: OutfitView(outfit: outfit),
+//            label:{
+//                //Text(outfit.name!)
+//            })
     }
 }
 

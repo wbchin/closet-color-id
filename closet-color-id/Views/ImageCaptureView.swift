@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage?
+    @State var image: UIImage? = UIImage(named: "pusheen")
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
