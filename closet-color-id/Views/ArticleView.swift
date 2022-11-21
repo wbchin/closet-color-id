@@ -64,26 +64,29 @@ struct ArticleView: View {
                     }
                     .padding()
                     .border(.white, width: 4)
-                    VStack {
-                        Text(article.secondary_color_name!)
-                        Rectangle()
-                            .fill(Color(red: Double(article.secondary_r)/255,
-                                        green: Double(article.secondary_g)/255,
-                                        blue: Double(article.secondary_b)/255))
-                            .frame(width: 100, height: 100)
+                    if (article.secondary_color_name != nil) {
+                        VStack {
+                            Text(article.secondary_color_name!)
+                            Rectangle()
+                                .fill(Color(red: Double(article.secondary_r)/255,
+                                            green: Double(article.secondary_g)/255,
+                                            blue: Double(article.secondary_b)/255))
+                                .frame(width: 100, height: 100)
+                        }
+                        .padding()
+                        .border(.white, width: 4)
+                        VStack {
+                            Text(article.secondary_color_family!)
+                            Rectangle()
+                                .fill(Color(red: Double(article.primary_r)/255,
+                                            green: Double(article.primary_g)/255,
+                                            blue: Double(article.primary_b)/255))
+                                .frame(width: 100, height: 100)
+                        }
+                        .padding()
+                        .border(.white, width: 4)
                     }
-                    .padding()
-                    .border(.white, width: 4)
-                    VStack {
-                        Text(article.secondary_color_family!)
-                        Rectangle()
-                            .fill(Color(red: Double(article.primary_r)/255,
-                                        green: Double(article.primary_g)/255,
-                                        blue: Double(article.primary_b)/255))
-                            .frame(width: 100, height: 100)
-                    }
-                    .padding()
-                    .border(.white, width: 4)
+                    
                 }
             }//.navigationBarBackButtonHidden(true)
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))

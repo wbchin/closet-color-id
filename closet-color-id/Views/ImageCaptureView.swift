@@ -91,8 +91,11 @@ struct ImageCaptureView: View {
               self.article = nil
               self.calledImagga = false
               self.viewModel.article = nil
-                self.isCustomCameraViewPresented = true
+                self.isCustomCameraViewPresented = false
         })
+            .onAppear(perform: {
+                self.isCustomCameraViewPresented = true
+            })
         
         
     }
