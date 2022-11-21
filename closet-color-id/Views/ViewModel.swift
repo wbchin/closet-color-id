@@ -464,6 +464,17 @@ class ViewModel: ObservableObject {
   }
   
   // MARK: - ArticleStyle Methods
+  func fetchStyleArts(style: Style) -> [Article]? {
+    var out = [Article]()
+    let articleStyles = style.articleStyles
+    
+    for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
+      out.append(articleStyle.article!)
+    }
+    
+    return out
+  }
+  
   func tagArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "ArticleStyle", in: context) {
@@ -622,12 +633,7 @@ class ViewModel: ObservableObject {
   }
   
   func fetchStyleCats(style: Style, category: String) -> [Article]? {
-    print("Style: ----> ")
-    print(style)
-    
     var out = [Article]()
-    
-    //let context = appDelegate.persistentContainer.viewContext
     let articleStyles = style.articleStyles
     
     for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
