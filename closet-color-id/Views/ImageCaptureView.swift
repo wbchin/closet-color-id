@@ -11,13 +11,9 @@ import CoreData
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State var image: UIImage?
-    @State var showUnsavedArticleView: Bool = false
-    @State var results = [PhotoColor]()
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
-    @State var colors: [PhotoColor]?
-    @State var donePressed = false
     @State var article: Article?
     @State var calledImagga: Bool = false
     let appDelegate = AppDelegate()
@@ -47,15 +43,26 @@ struct ImageCaptureView: View {
                           }
                         }
                         if viewModel.article != nil {
+                            
                             Text("").onAppear{
                                 self.viewModel.updateArticles()
                                 print(viewModel.article.debugDescription)
+//                                isCustomCameraViewPresented = false
+//                                viewModel.image = nil
                             }
                             Spacer()
                             Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
                             Spacer()
                             NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
-                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: nil), label: {Text("Retake picture").font(.system(size: 36))})
+                            Text("Retake picture").font(.system(size: 36)).onTapGesture{
+                                self.image = nil
+                                self.viewModel.image = nil
+                                self.isCustomCameraViewPresented = true
+                                self.viewModel.article = nil
+                                self.imaggaCall.image = nil
+                                self.calledImagga = false
+                            }
+//                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
                         if image == nil{
 //                            Button(action: {

@@ -26,6 +26,7 @@ class ViewModel: ObservableObject {
   @Published var styles = [Style]()
   @Published var article: Article?
   @Published var outfit: Outfit?
+    @Published var image: UIImage?
   
   // MARK: - Article Methods
   func fetchArticles() -> [Article]? {
