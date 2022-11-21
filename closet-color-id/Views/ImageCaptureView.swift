@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage?
+    @State var image: UIImage? = UIImage(named: "pusheen.png")
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
@@ -57,7 +57,6 @@ struct ImageCaptureView: View {
                             Text("Retake picture").font(.system(size: 36)).onTapGesture{
                                 self.image = nil
                                 self.viewModel.image = nil
-                                self.isCustomCameraViewPresented = true
                                 self.viewModel.article = nil
                                 self.imaggaCall.image = nil
                                 self.calledImagga = false
@@ -91,7 +90,9 @@ struct ImageCaptureView: View {
               self.article = nil
               self.calledImagga = false
               self.viewModel.article = nil
+                self.isCustomCameraViewPresented = true
         })
+        
         
     }
   }
