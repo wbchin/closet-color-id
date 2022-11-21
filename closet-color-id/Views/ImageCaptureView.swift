@@ -60,6 +60,7 @@ struct ImageCaptureView: View {
                                 self.viewModel.article = nil
                                 self.imaggaCall.image = nil
                                 self.calledImagga = false
+                                self.isCustomCameraViewPresented = true
                             }
 //                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
