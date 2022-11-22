@@ -93,8 +93,12 @@ class ViewModel: ObservableObject {
       newVal.setValue(image_data, forKey: "image_data")
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
       // set the color primary family by hue
-      let hue = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
-      let family = setColorFamily(hue: hue)
+      let color = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
+      let family = setColorFamily(hue: color.0, saturation: color.1, brightness: color.2)
+      print("SATURATION: ")
+      print(color.1)
+      print("BRIGHTNESS: ")
+      print(color.2)
       newVal.setValue(family, forKey: "primary_color_family")
       newVal.setValue(primary_r, forKey: "primary_r")
       newVal.setValue(primary_g, forKey: "primary_g")
@@ -553,29 +557,51 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func setColorFamily(hue: Int) -> String{
-    if (0 <= hue && hue < 55) {
-      return "red"
-    }
-    if (55 <= hue && hue < 110) {
-      return "orange"
-    }
-    if (110 <= hue && hue < 165) {
-      return "yellow"
-    }
-    if (165 <= hue && hue < 220) {
-      return "green"
-    }
-    if (220 <= hue && hue < 275) {
-      return "blue"
-    }
-    if (275 <= hue && hue < 330) {
-      return "indigo"
-    }
-    if (330 <= hue && hue < 360) {
-      return "violet"
-    }
-    return ""
+  func setColorFamily(hue: Int, saturation: CGFloat, brightness: CGFloat) -> String{
+      var family = "other"
+      if (0 <= hue && hue < 30) {
+        family = "red"
+      }
+      if (30 <= hue && hue < 60) {
+        family = "orange"
+      }
+      if (60 <= hue && hue < 90) {
+        family = "yellow"
+      }
+      if (90 <= hue && hue < 120) {
+        family = "chartreuse green"
+      }
+      if (120 <= hue && hue < 150) {
+        family = "green"
+      }
+      if (150 <= hue && hue < 180) {
+        family = "spring green"
+      }
+      if (180 <= hue && hue < 210) {
+        family = "cyan"
+      }
+      if (210 <= hue && hue < 240) {
+        family = "azure"
+      }
+      if (240 <= hue && hue < 270) {
+        family = "blue"
+      }
+      if (270 <= hue && hue < 300) {
+        family = "violet"
+      }
+      if (300 <= hue && hue < 330) {
+        family = "magenta"
+      }
+      if (330 <= hue && hue <= 360) {
+        family = "rose"
+      }
+      if (0.50 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
+        family = "white"
+          }
+      if (0 <= brightness && brightness <= 0.50 && 0 <= saturation && saturation <= 0.30) {
+        family = "black"
+            }
+      return family
   }
   
   func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String, complimentary_r: Int, complimentary_g: Int, complimentary_b: Int) {
@@ -592,7 +618,7 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> Int {
+  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (Int, CGFloat, CGFloat) {
     let minV:CGFloat = CGFloat(min(r, g, b))
     let maxV:CGFloat = CGFloat(max(r, g, b))
     let delta:CGFloat = maxV - minV
@@ -615,7 +641,7 @@ class ViewModel: ObservableObject {
     
     let saturation = maxV == 0 ? 0 : (delta / maxV)
     let brightness = maxV
-    return Int(hue)
+    return (Int(hue), saturation, brightness)
   }
 
   func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
