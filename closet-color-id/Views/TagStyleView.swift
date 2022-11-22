@@ -46,7 +46,7 @@ struct TagStyleView: View {
                 }
                 if (self.comp_name != nil){
                     Text("").onAppear{
-                        let family = self.viewModel.setColorFamily(hue: self.comp_hue)
+                      let family = self.viewModel.setColorFamily(color: self.viewModel.rgbToHue(r: (CGFloat)(Float(self.comp_r)/255.0), g: (CGFloat)(Float(self.comp_g)/255.0), b: (CGFloat)(Float(self.comp_b)/255.0)))
                       viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
                     }
                     ForEach(self.viewModel.styles) { style in
