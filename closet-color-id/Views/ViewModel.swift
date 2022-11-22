@@ -94,9 +94,11 @@ class ViewModel: ObservableObject {
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
       // set the color primary family by hue
       let color = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
-      let family = setColorFamily(color: color)
-      print("PRIMARY COLOR FAMILY: ")
-      print(family)
+      let family = setColorFamily(hue: color.0, saturation: color.1, brightness: color.2)
+      print("SATURATION: ")
+      print(color.1)
+      print("BRIGHTNESS: ")
+      print(color.2)
       newVal.setValue(family, forKey: "primary_color_family")
       newVal.setValue(primary_r, forKey: "primary_r")
       newVal.setValue(primary_g, forKey: "primary_g")
@@ -555,54 +557,51 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func setColorFamily(color: UIColor) -> String{
-    var (h,s,b,a) : (CGFloat, CGFloat, CGFloat, CGFloat) = (0,0,0,0)
-    _ = color.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
-    var colorTitle = ""
-    
-    print("HSB: ")
-    print(h)
-    print(s)
-    print(b)
-    
-    switch (h, s, b) {
-      case (0...0.138, 0.88...1.00, 0.75...1.00):
-        colorTitle = "red"
-        // yellow
-      case (0.139...0.175, 0.30...1.00, 0.80...1.00):
-        colorTitle = "yellow"
-        // green
-      case (0.176...0.422, 0.30...1.00, 0.60...1.00):
-        colorTitle = "green"
-        // teal
-      case (0.423...0.494, 0.30...1.00, 0.54...1.00):
-        colorTitle = "teal"
-        // blue
-      case (0.495...0.667, 0.30...1.00, 0.60...1.00):
-        colorTitle = "blue"
-        // purple
-      case (0...1.00, 0...1.00, 0.40...1.00):
-        colorTitle = "purple"
-        // pink
-      case (0.793...0.977, 0.30...1.00, 0.80...1.00):
-        colorTitle = "pink"
-        // brown
-      case (0...0.097, 0.50...1.00, 0.25...0.58):
-        colorTitle = "brown"
-        // white
-      case (0...1.00, 0...0.05, 0.95...1.00):
-        colorTitle = "white"
-        // grey
-      case (0...1.00, 0...0.13, 0.25...0.94):
-        colorTitle = "grey"
-        // black
-      case (0...1.00, 0...1.00, 0...0.39):
-        colorTitle = "black"
-      default:
-        print("empty def")
-        colorTitle = "Color didn't fit defined ranges..."
+  func setColorFamily(hue: Int, saturation: CGFloat, brightness: CGFloat) -> String{
+      var family = "other"
+      if (0 <= hue && hue < 30) {
+        family = "red"
       }
-    return colorTitle
+      if (30 <= hue && hue < 60) {
+        family = "orange"
+      }
+      if (60 <= hue && hue < 90) {
+        family = "yellow"
+      }
+      if (90 <= hue && hue < 120) {
+        family = "chartreuse green"
+      }
+      if (120 <= hue && hue < 150) {
+        family = "green"
+      }
+      if (150 <= hue && hue < 180) {
+        family = "spring green"
+      }
+      if (180 <= hue && hue < 210) {
+        family = "cyan"
+      }
+      if (210 <= hue && hue < 240) {
+        family = "azure"
+      }
+      if (240 <= hue && hue < 270) {
+        family = "blue"
+      }
+      if (270 <= hue && hue < 300) {
+        family = "violet"
+      }
+      if (300 <= hue && hue < 330) {
+        family = "magenta"
+      }
+      if (330 <= hue && hue <= 360) {
+        family = "rose"
+      }
+      if (0.50 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
+        family = "white"
+          }
+      if (0 <= brightness && brightness <= 0.50 && 0 <= saturation && saturation <= 0.30) {
+        family = "black"
+            }
+      return family
   }
   
   func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String, complimentary_r: Int, complimentary_g: Int, complimentary_b: Int) {
@@ -619,7 +618,7 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> UIColor {
+  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (Int, CGFloat, CGFloat) {
     let minV:CGFloat = CGFloat(min(r, g, b))
     let maxV:CGFloat = CGFloat(max(r, g, b))
     let delta:CGFloat = maxV - minV
@@ -642,7 +641,7 @@ class ViewModel: ObservableObject {
     
     let saturation = maxV == 0 ? 0 : (delta / maxV)
     let brightness = maxV
-    return UIColor(hue: hue/360, saturation: saturation, brightness: brightness, alpha: 1)
+    return (Int(hue), saturation, brightness)
   }
 
   func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
