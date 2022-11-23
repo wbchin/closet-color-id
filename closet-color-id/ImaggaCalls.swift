@@ -12,6 +12,7 @@ class ImaggaCalls: ObservableObject {
     let viewModel: ViewModel
     let colorApiCall = TheColorApiCalls()
     var image: UIImage?
+    var imageCropped: UIImage?
     @State var article: Article = Article()
   
   init(viewModel: ViewModel) {
