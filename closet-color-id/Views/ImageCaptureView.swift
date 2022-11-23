@@ -23,7 +23,8 @@ struct ImageCaptureView: View {
       self.imaggaCall = ImaggaCalls(viewModel: viewModel)
     }
     func runImagga() {
-        self.imaggaCall.image = UIImage(cgImage: centerCrop())
+        self.imaggaCall.imageCropped = UIImage(cgImage: centerCrop())
+        self.imaggaCall.image = image!
       self.imaggaCall.uploadImage(completion: { article in
         self.article = article
       })
@@ -37,22 +38,22 @@ struct ImageCaptureView: View {
             sourceImage!.size.width,
             sourceImage!.size.height
         )
-        print("MIN")
-        print(sideLength)
 
         // Determines the x,y coordinate of a centered
         // sideLength by sideLength square
         let sourceSize = sourceImage!.size
-        let xOffset = (sourceSize.width - sideLength/4) / 2.0
-        let yOffset = (sourceSize.height - sideLength/4) / 2.0
-
+        let xOffset = (sourceSize.width - sideLength/2) / 2.0
+        let yOffset = (sourceSize.height - sideLength/2) / 2.0
+        print(yOffset)
+        print(xOffset)
+        print(sideLength/2)
         // The cropRect is the rect of the image to keep,
         // in this case centered
         let cropRect = CGRect(
             x: xOffset,
             y: yOffset,
-            width: sideLength/4,
-            height: sideLength/4
+            width: sideLength/2,
+            height: sideLength/2
         ).integral
 
         // Center crop the image

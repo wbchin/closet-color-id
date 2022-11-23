@@ -62,36 +62,34 @@ struct ArticleView: View {
 //        }
     
     func centerCrop() -> CGImage {
-        let sourceImage = UIImage(
-            data: article.image_data!
-        )!
+        let sourceImage = UIImage(data:article.image_data!)
 
         // The shortest side
         let sideLength = min(
-            sourceImage.size.width,
-            sourceImage.size.height
+            sourceImage!.size.width,
+            sourceImage!.size.height
         )
-        print("MIN")
-        print(sideLength)
 
         // Determines the x,y coordinate of a centered
         // sideLength by sideLength square
-        let sourceSize = sourceImage.size
-        let xOffset = (sourceSize.width - sideLength/4) / 2.0
-        let yOffset = (sourceSize.height - sideLength/4) / 2.0
-
+        let sourceSize = sourceImage!.size
+        let xOffset = (sourceSize.width - sideLength/2) / 2.0
+        let yOffset = (sourceSize.height - sideLength/2) / 2.0
+        print(yOffset)
+        print(xOffset)
+        print(sideLength/2)
         // The cropRect is the rect of the image to keep,
         // in this case centered
         let cropRect = CGRect(
             x: xOffset,
             y: yOffset,
-            width: sideLength/4,
-            height: sideLength/4
+            width: sideLength/2,
+            height: sideLength/2
         ).integral
 
         // Center crop the image
-        let sourceCGImage = sourceImage.cgImage!
-        let croppedCGImage = sourceCGImage.cropping(
+        let sourceCGImage = sourceImage?.cgImage!
+        let croppedCGImage = sourceCGImage!.cropping(
             to: cropRect
         )!
         return croppedCGImage
