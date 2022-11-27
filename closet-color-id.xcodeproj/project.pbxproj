@@ -474,7 +474,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"closet-color-id/Preview Content\"";
-				DEVELOPMENT_TEAM = MJYH26FHKK;
+				DEVELOPMENT_TEAM = 268947WGKQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "closet-color-id/Info.plist";
