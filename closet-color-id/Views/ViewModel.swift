@@ -14,19 +14,19 @@ import UIKit
 
 class ViewModel: ObservableObject {
   let appDelegate: AppDelegate = AppDelegate()
-//  for testing without deploying:
-//  let image: UIImage = UIImage(named: "pusheen.png")!
-//  var image_data : Data {
-//    get {
-//      return image.pngData()!
-//    }
-//  }
+  //  for testing without deploying:
+  //  let image: UIImage = UIImage(named: "pusheen.png")!
+  //  var image_data : Data {
+  //    get {
+  //      return image.pngData()!
+  //    }
+  //  }
   
   @Published var arts = [Article]()
   @Published var styles = [Style]()
   @Published var article: Article?
   @Published var outfit: Outfit?
-    @Published var image: UIImage?
+  @Published var image: UIImage?
   
   // MARK: - Article Methods
   func fetchArticles() -> [Article]? {
@@ -48,25 +48,25 @@ class ViewModel: ObservableObject {
   }
   
   func fetchCatArts(category: String) -> [Article] {
-      var out = [Article]()
-      let context = appDelegate.persistentContainer.viewContext
-      for article in self.arts {
-          if context.object(with: article.objectID).value(forKey: "category") as! String == category{
-              out.append(article)
-          }
+    var out = [Article]()
+    let context = appDelegate.persistentContainer.viewContext
+    for article in self.arts {
+      if context.object(with: article.objectID).value(forKey: "category") as! String == category{
+        out.append(article)
       }
-      return out
+    }
+    return out
   }
   
   func fetchSubcatArts(subcategory: String) -> [Article] {
-      var out = [Article]()
-      let context = appDelegate.persistentContainer.viewContext
-      for article in self.arts {
-          if context.object(with: article.objectID).value(forKey: "subcategory") as! String == subcategory{
-              out.append(article)
-          }
+    var out = [Article]()
+    let context = appDelegate.persistentContainer.viewContext
+    for article in self.arts {
+      if context.object(with: article.objectID).value(forKey: "subcategory") as! String == subcategory{
+        out.append(article)
       }
-      return out
+    }
+    return out
   }
   
   func fetchArticle(article_id: UUID) -> Article? {
@@ -92,19 +92,22 @@ class ViewModel: ObservableObject {
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       newVal.setValue(image_data, forKey: "image_data")
       newVal.setValue(primary_color_name, forKey: "primary_color_name")
-      // set the color primary family by hue
-      let color = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
-      let family = setColorFamily(hue: color.0, saturation: color.1, brightness: color.2)
-      print("SATURATION: ")
-      print(color.1)
-      print("BRIGHTNESS: ")
-      print(color.2)
-      newVal.setValue(family, forKey: "primary_color_family")
+      // set the color primary family
+      let primary_color = rgbToHue(r: (CGFloat)(Float(primary_r)/255.0), g: (CGFloat)(Float(primary_g)/255.0), b: (CGFloat)(Float(primary_b)/255.0))
+      let primary_family = setColorFamily(hue: primary_color.0, saturation: primary_color.1, brightness: primary_color.2)
+      newVal.setValue(primary_family, forKey: "primary_color_family")
       newVal.setValue(primary_r, forKey: "primary_r")
       newVal.setValue(primary_g, forKey: "primary_g")
       newVal.setValue(primary_b, forKey: "primary_b")
       newVal.setValue(secondary_color_name, forKey: "secondary_color_name")
-      newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
+      // set the color secondary family only if there is a secondary color
+      if (secondary_r != nil && secondary_b != nil && secondary_g != nil) {
+        let secondary_color = rgbToHue(r: (CGFloat)(Float(secondary_r!)/255.0), g: (CGFloat)(Float(secondary_g!)/255.0), b: (CGFloat)(Float(secondary_b!)/255.0))
+        let secondary_family = setColorFamily(hue: secondary_color.0, saturation: secondary_color.1, brightness: secondary_color.2)
+        newVal.setValue(secondary_family, forKey: "secondary_color_family")
+      } else {
+        newVal.setValue(secondary_color_family, forKey: "secondary_color_family")
+      }
       newVal.setValue(secondary_r, forKey: "secondary_r")
       newVal.setValue(secondary_g, forKey: "secondary_g")
       newVal.setValue(secondary_b, forKey: "secondary_b")
@@ -113,7 +116,7 @@ class ViewModel: ObservableObject {
         try context.save()
         let returnVal = context.object(with:newVal.objectID) as? Article
         arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
-          self.article = returnVal
+        self.article = returnVal
         return returnVal
         
       } catch {
@@ -174,7 +177,7 @@ class ViewModel: ObservableObject {
         context.delete(data)
       }
       try context.save()
-     
+      
     } catch {
       print("Error")
     }
@@ -194,7 +197,7 @@ class ViewModel: ObservableObject {
     let myGroup = DispatchGroup()
     myGroup.enter()
     let context = appDelegate.persistentContainer.viewContext
-
+    
     for art in self.arts {
       if art.articleStyles!.count == 0 {
         context.delete(context.object(with: art.objectID))
@@ -222,17 +225,17 @@ class ViewModel: ObservableObject {
     fetchRequest = Article.fetchRequest()
     
     let cat_predicate = NSPredicate(
-        format: "category = nil"
+      format: "category = nil"
     )
     let subcat_predicate = NSPredicate(
-        format: "subcategory = nil"
+      format: "subcategory = nil"
     )
     
     fetchRequest.predicate = NSCompoundPredicate(
-        orPredicateWithSubpredicates: [
-          cat_predicate,
-          subcat_predicate
-        ]
+      orPredicateWithSubpredicates: [
+        cat_predicate,
+        subcat_predicate
+      ]
     )
     do {
       let objects = try context.fetch(fetchRequest)
@@ -271,7 +274,7 @@ class ViewModel: ObservableObject {
     myGroup.enter()
     let context = appDelegate.persistentContainer.viewContext
     context.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
-
+    
     if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
       let newVal = NSManagedObject(entity: entity, insertInto: context)
       newVal.setValue(name, forKey: "name")
@@ -279,11 +282,11 @@ class ViewModel: ObservableObject {
         try context.save()
         self.outfit = newVal as! Outfit
         NSLog("Outfit saved")
-       // return newVal as? Outfit
+        // return newVal as? Outfit
         myGroup.leave()
         myGroup.notify(queue: DispatchQueue.global(qos: .background)) {
           completion(self.outfit!)
-             }
+        }
         
       } catch {
         NSLog("ERROR: Failed to save Outfit to CoreData")
@@ -359,7 +362,7 @@ class ViewModel: ObservableObject {
         print("this outfit is a duplicate")
         continue
       }
-    
+      
       self.saveOutfit(name: name, completion: {out in })
       
       // save ArticleOutfits
@@ -369,7 +372,7 @@ class ViewModel: ObservableObject {
         self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: self.outfit!.objectID)
         print("done generating outfit")
         outfitCreated = true
-        }
+      }
     }
   }
   
@@ -387,10 +390,10 @@ class ViewModel: ObservableObject {
         context.delete(data)
       }
       try context.save()
-     
+      
     } catch {
       print("Error")
-   
+      
     }
   }
   
@@ -429,23 +432,23 @@ class ViewModel: ObservableObject {
   func fetchStyle(name: String) -> Style?{
     let context = appDelegate.persistentContainer.viewContext
     let fetchRequest: NSFetchRequest<Style>
-     fetchRequest = Style.fetchRequest()
-     fetchRequest.predicate = NSPredicate(format: "name == %@", name)
- 
-     do {
-       let objects = try context.fetch(fetchRequest)
-       return objects.first
-     } catch {
-       print("Error")
-       return nil
-     }
+    fetchRequest = Style.fetchRequest()
+    fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+    
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
   }
   
   func updateStyles() {
     styles.removeAll()
     fetchStyles()
   }
-
+  
   func deleteAllStyles() {
     // Initialize Fetch Request
     let fetchRequest: NSFetchRequest<Style>
@@ -460,10 +463,10 @@ class ViewModel: ObservableObject {
         context.delete(data)
       }
       try context.save()
-     
+      
     } catch {
       print("Error")
-   
+      
     }
   }
   
@@ -507,7 +510,7 @@ class ViewModel: ObservableObject {
         context.delete(data)
       }
       try context.save()
-     
+      
     } catch {
       print("Error")
     }
@@ -529,27 +532,75 @@ class ViewModel: ObservableObject {
   }
   
   // MARK: - Complimentary Article and Color Generation
-  func findComplimentaryArticle(article: Article) -> Article? {
+  func findBlackOrWhiteArticle(article: Article) -> Article? {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
-    fetchRequest.predicate = NSPredicate(
-      format: "complimentary_color_family = %@", article.complimentary_color_family!
+    let white_color_predicate = NSPredicate(
+        format: "complimentary_color_family = %@", "white"
     )
-    let color_predicate = NSPredicate(
-        format: "complimentary_color_family = %@", article.complimentary_color_family!
+    let black_color_predicate = NSPredicate(
+        format: "complimentary_color_family = %@", "black"
     )
     let category_predicate = NSPredicate(
         format: "category != %@", article.category!
     )
     fetchRequest.predicate = NSCompoundPredicate(
-        andPredicateWithSubpredicates: [
-          color_predicate,
+        orPredicateWithSubpredicates: [
+          white_color_predicate,
+          black_color_predicate,
           category_predicate
         ]
     )
     let context = appDelegate.persistentContainer.viewContext
     do {
       let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
+    }
+  }
+  
+  func findComplimentaryArticle(article: Article) -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    let color_predicate1 = NSPredicate(
+        format: "complimentary_color_family = %@", article.complimentary_color_family!
+    )
+    let color_predicate2 = NSPredicate(
+        format: "complimentary_color_family = %@", article.primary_color_family!
+    )
+    let color_predicate3 = NSPredicate(
+        format: "complimentary_color_family = %@", article.secondary_color_family!
+    )
+    let color_predicate4 = NSPredicate(
+        format: "primary_color_family = %@", article.complimentary_color_family!
+    )
+    let color_predicate5 = NSPredicate(
+        format: "secondary_color_family = %@", article.complimentary_color_family!
+    )
+    let category_predicate = NSPredicate(
+        format: "category != %@", article.category!
+    )
+    fetchRequest.predicate = NSCompoundPredicate(
+        andPredicateWithSubpredicates: [
+          NSCompoundPredicate(orPredicateWithSubpredicates: [
+            color_predicate1,
+            color_predicate2,
+            color_predicate3,
+            color_predicate4,
+            color_predicate5
+            ]),
+          category_predicate
+        ]
+    )
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      // return black or white for no complimentary colors
+      if objects.first == nil {
+        return findBlackOrWhiteArticle(article: article)
+      }
       return objects.first
     } catch {
       print("Error")
