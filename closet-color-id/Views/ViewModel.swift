@@ -721,5 +721,53 @@ class ViewModel: ObservableObject {
     
     return out
   }
+    
+    enum ColorFamily {
+        case red
+        case orange
+        case chartreuse
+        case green
+        case springGreen
+        case cyan
+        case azure
+        case blue
+        case violet
+        case magenta
+        case rose
+        case white
+        case black
+        
+
+        var rgb: (r: Double, g: Double, b: Double) {
+            switch self {
+            case .red:
+                return (0.0, 0.0, 0.0)
+            case .orange:
+                return (0.0, 0.0, 0.0)
+            case .chartreuse:
+                return (0.0, 0.0, 0.0)
+            case .green:
+                return (0.0, 0.0, 0.0)
+            case .springGreen:
+                return (0.0, 0.0, 0.0)
+            case .cyan:
+                return (0.0, 0.0, 0.0)
+            case .azure:
+                return (0.0, 0.0, 0.0)
+            case .blue:
+                return (0.0, 0.0, 0.0)
+            case .violet:
+                return (0.0, 0.0, 0.0)
+            case .magenta:
+                return (0.0, 0.0, 0.0)
+            case .rose:
+                return (0.0, 0.0, 0.0)
+            case .white:
+                return (0.0, 0.0, 0.0)
+            case .black:
+                return (0.0, 0.0, 0.0)
+            }
+        }
+    }
   
 }
