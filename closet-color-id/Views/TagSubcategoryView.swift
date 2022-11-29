@@ -11,7 +11,7 @@ struct TagSubcategoryView: View {
   var body: some View {
       NavigationView{
           VStack{
-              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+              Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
               ForEach(self.subcats, id: \.self) { sub in
                   Button(sub.uppercased()) {
                       isShowingSubcat = false
@@ -20,8 +20,9 @@ struct TagSubcategoryView: View {
                   .padding(4)
                   .background(.white)
                   .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                  .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                   .font(.system(size: 20))
+                  .clipShape(Capsule())
+                  .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
               }
               if !isShowingSubcat {
                 NavigationLink (

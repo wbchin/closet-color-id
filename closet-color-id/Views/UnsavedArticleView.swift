@@ -19,7 +19,7 @@ struct UnsavedArticleView: View {
         NavigationView{
             VStack {
                 // insert image here
-                Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit().rotationEffect(.degrees(90))
+                Image(uiImage: UIImage(data:article.image_data!)!).resizable().scaledToFit()
 //                Spacer()
                 Button("SAVE TO WARDROBE") {
                     isShowingSave = false

@@ -24,7 +24,7 @@ struct ImageCaptureView: View {
     }
     func runImagga() {
         self.imaggaCall.imageCropped = UIImage(cgImage: centerCrop())
-        self.imaggaCall.image = image!
+        self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: image!)
       self.imaggaCall.uploadImage(completion: { article in
         self.article = article
       })
@@ -64,6 +64,27 @@ struct ImageCaptureView: View {
         return croppedCGImage
     }
     
+    func rotate(radians: Float, image: UIImage) -> UIImage? {
+            var newSize = CGRect(origin: CGPoint.zero, size: image.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+            // Trim off the extremely small float value to prevent core graphics from rounding it up
+            newSize.width = floor(newSize.width)
+            newSize.height = floor(newSize.height)
+
+            UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale)
+            let context = UIGraphicsGetCurrentContext()!
+
+            // Move origin to middle
+            context.translateBy(x: newSize.width/2, y: newSize.height/2)
+            // Rotate around middle
+            context.rotate(by: CGFloat(radians))
+            // Draw the image at its center
+            image.draw(in: CGRect(x: -image.size.width/2, y: -image.size.height/2, width: image.size.width, height: image.size.height))
+
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            return newImage
+        }
     
     var body: some View {
         NavigationView {
@@ -73,7 +94,7 @@ struct ImageCaptureView: View {
                         if self.image != nil && self.calledImagga != true {
                           Text("").onAppear{
                               self.calledImagga = true
-                              self.imaggaCall.image = self.image
+                              self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: self.image!)
                             self.runImagga()
                           }
                         }
@@ -87,9 +108,15 @@ struct ImageCaptureView: View {
                             }
                             Spacer()
                           
-                            Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                            Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().padding()
                             Spacer()
-                            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
+                          NavigationLink (
+                            destination: TagCategoryView(viewModel: viewModel, article: self.viewModel.article!),
+                              label:{
+                                  Text("Done")
+                                      .font(.system(size: 30))
+                              })
+//                            NavigationLink(destination: UnsavedArticleView(viewModel: viewModel, article: self.viewModel.article!), label: { Text("View saved article").font(.system(size: 36))})
                             Text("Retake picture").font(.system(size: 36)).onTapGesture{
                                 self.viewModel.article = nil
                                 self.image = nil

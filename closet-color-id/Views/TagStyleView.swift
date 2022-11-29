@@ -38,7 +38,7 @@ struct TagStyleView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                 Text("Styles").font(.system(size: 36))
                 if !runColor{
                     Text("").onAppear{
@@ -52,13 +52,16 @@ struct TagStyleView: View {
                       viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
                     }
                     ForEach(self.viewModel.styles) { style in
-                        Button(action: {
-                            
+                        Button(style.name!.uppercased()) {
                             viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
                             isShowingStyle = false
-                        }) {
-                            Text(style.name!).frame(maxHeight: 50, alignment: .bottom).font(.system(size: 36))
                         }
+                        .padding(4)
+                        .background(.white)
+                        .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                        .font(.system(size: 20))
+                        .clipShape(Capsule())
+                        .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                     }
                     if !isShowingStyle {
                         NavigationLink (
@@ -68,7 +71,7 @@ struct TagStyleView: View {
                             })//UNSAFE
                     }
                 }
-            }.navigationBarBackButtonHidden(true)
-        }
+            }
+        }.navigationBarBackButtonHidden(true)
     }
 }
