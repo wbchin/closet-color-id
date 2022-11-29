@@ -57,7 +57,6 @@ struct OutfitsView: View {
                                           .frame(width: 80, height: 80)
                                           .cornerRadius(10)
                                           .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                          .rotationEffect(.degrees(90))
                                       
                                   }
                               }.background(Color.red) //TINA CHANGE TO THE COLOR U WANT

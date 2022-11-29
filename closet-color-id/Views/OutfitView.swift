@@ -61,7 +61,7 @@ struct OutfitView: View {
 //                Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray()))
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
-                        Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                        Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                             //.accessibilityLabel("Image of article. See below for article information.")
 
                     }

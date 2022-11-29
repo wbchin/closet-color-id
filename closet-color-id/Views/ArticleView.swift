@@ -65,7 +65,7 @@ struct ArticleView: View {
         NavigationView {
             VStack{
                 let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
-                Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                     .accessibilityLabel("Image of article. See below for article information.")
                 //FOR TESTING CROP
 //                Image(uiImage: UIImage(cgImage: centerCrop())).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
@@ -83,7 +83,7 @@ struct ArticleView: View {
                     if comp_article == nil {
                       Text("no complimentary articles found for this article :(")
                     } else {
-                      Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().padding().rotationEffect(.degrees(90))
+                      Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().padding()
                         .accessibilityLabel("Image of complimentary article.")
                     }
                 }
