@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage? = UIImage(named: "pusheen")
+    @State var image: UIImage? //= UIImage(named: "pusheen")
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
@@ -24,7 +24,7 @@ struct ImageCaptureView: View {
     }
     func runImagga() {
         self.imaggaCall.imageCropped = UIImage(cgImage: centerCrop())
-        self.imaggaCall.image = image!
+        self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: image!)
       self.imaggaCall.uploadImage(completion: { article in
         self.article = article
       })
@@ -94,7 +94,7 @@ struct ImageCaptureView: View {
                         if self.image != nil && self.calledImagga != true {
                           Text("").onAppear{
                               self.calledImagga = true
-                              self.imaggaCall.image = self.rotate(radians: .pi/2, image: self.image!)
+                              self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: self.image!)
                             self.runImagga()
                           }
                         }
