@@ -115,7 +115,8 @@ class ViewModel: ObservableObject {
       do {
         try context.save()
         let returnVal = context.object(with:newVal.objectID) as? Article
-        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
+        arts.append(returnVal!)
+//        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)
         self.article = returnVal
         return returnVal
         

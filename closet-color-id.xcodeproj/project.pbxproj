@@ -36,6 +36,7 @@
 		E64D62DD29195D9F009A1FA7 /* pusheen.png in Resources */ = {isa = PBXBuildFile; fileRef = E64D62DC29195D9F009A1FA7 /* pusheen.png */; };
 		E69827D42937B97400E9A748 /* closet_color_idTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69827D32937B97400E9A748 /* closet_color_idTests.swift */; };
 		E69827DF2937BAA400E9A748 /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69827DE2937BAA300E9A748 /* ViewModelTests.swift */; };
+		E69827E129392BE300E9A748 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69827E029392BE300E9A748 /* TestCoreDataStack.swift */; };
 		E6A25C3B291B0B1A0080834B /* UnsavedArticleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3A291B0B1A0080834B /* UnsavedArticleView.swift */; };
 		E6A25C3D291B2EA20080834B /* StyleName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3C291B2EA10080834B /* StyleName.swift */; };
 		E6A25C3F291B32AC0080834B /* TagCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C3E291B32AC0080834B /* TagCategoryView.swift */; };
@@ -95,6 +96,7 @@
 		E69827D12937B97400E9A748 /* closet-color-idTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "closet-color-idTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E69827D32937B97400E9A748 /* closet_color_idTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closet_color_idTests.swift; sourceTree = "<group>"; };
 		E69827DE2937BAA300E9A748 /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
+		E69827E029392BE300E9A748 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		E6A25C3A291B0B1A0080834B /* UnsavedArticleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedArticleView.swift; sourceTree = "<group>"; };
 		E6A25C3C291B2EA10080834B /* StyleName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleName.swift; sourceTree = "<group>"; };
 		E6A25C3E291B32AC0080834B /* TagCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCategoryView.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			children = (
 				E69827D32937B97400E9A748 /* closet_color_idTests.swift */,
 				E69827DE2937BAA300E9A748 /* ViewModelTests.swift */,
+				E69827E029392BE300E9A748 /* TestCoreDataStack.swift */,
 			);
 			path = "closet-color-idTests";
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 			files = (
 				E69827DF2937BAA400E9A748 /* ViewModelTests.swift in Sources */,
 				E69827D42937B97400E9A748 /* closet_color_idTests.swift in Sources */,
+				E69827E129392BE300E9A748 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
