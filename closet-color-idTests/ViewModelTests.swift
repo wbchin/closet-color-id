@@ -13,10 +13,16 @@ final class ViewModelTests: XCTestCase {
     let viewModel = ViewModel()
     override func setUp() {
         //expectation = expectation(description: "Able to perform viewmodel function")
-        self.dataPopulation.createArticle()
-        self.viewModel.updateArticles()
+        self.viewModel.deleteAllArticles()
+        self.viewModel.deleteAllStyles()
+        self.viewModel.deleteAllOutfits()
+        
+        
         self.dataPopulation.populateStyles()
         self.viewModel.updateStyles()
+        self.dataPopulation.createArticle()
+        self.viewModel.updateArticles()
+        
     }
 
     override func tearDown() {
@@ -47,9 +53,9 @@ final class ViewModelTests: XCTestCase {
         XCTAssertEqual(sneakers[0].primary_color_name!, "black")
     }
     
-    func testFetchArticle() {
-        let article = self.viewModel.fetchArticle
-    }
+//    func testFetchArticle() {
+//        let article = self.viewModel.fetchArticle
+//    }
     
     func testSaveArticle() {
         let image_data = UIImage(named: "pusheen.png")
@@ -58,33 +64,47 @@ final class ViewModelTests: XCTestCase {
         // test that the article has been updated
         self.viewModel.updateArticles()
         XCTAssertEqual(self.viewModel.article!.primary_r, 100)
+        self.viewModel.deleteArticle(article_id: self.viewModel.article!.objectID)
     }
     
     func testTagArticleCategory() {
+        let image_data = UIImage(named: "pusheen.png")
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        
         self.viewModel.tagArticleCategory(category: "top", article: self.viewModel.article!)
         
         // test that the article category has been updated
         self.viewModel.updateArticles()
         XCTAssertEqual(self.viewModel.article!.category, "top")
+        self.viewModel.deleteArticle(article_id: self.viewModel.article!.objectID)
     }
     
     func testTagArticleSubcategory() {
+        let image_data = UIImage(named: "pusheen.png")
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        
         self.viewModel.tagArticleSubcategory(subcategory: "Long sleeve", article: self.viewModel.article!)
         
         // test that the article subcategory has been updated
         self.viewModel.updateArticles()
         XCTAssertEqual(self.viewModel.article!.subcategory, "Long sleeve")
+        self.viewModel.deleteArticle(article_id: self.viewModel.article!.objectID)
     }
     
-    func testRetrieveOutfitsForArticle() { // come back and cmplete this
-        let outfits = self.viewModel.retrieveOutfitsForArticle(article: self.viewModel.article!)
-        
-        XCTAssertEqual(self.viewModel.article!.subcategory, "Long sleeve")
-    }
+//    func testRetrieveOutfitsForArticle() { // come back and cmplete this
+//        let outfits = self.viewModel.retrieveOutfitsForArticle(article: self.viewModel.article!)
+//        
+//        XCTAssertEqual(self.viewModel.article!.subcategory, "Long sleeve")
+//    }
     
     // update articles is tested in save article
     
     func testDeleteArticle() {
+        let image_data = UIImage(named: "pusheen.png")
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
         self.viewModel.deleteArticle(article_id: self.viewModel.article!.objectID)
         
         self.viewModel.updateArticles()
@@ -166,13 +186,14 @@ final class ViewModelTests: XCTestCase {
         
         let outfits = self.viewModel.fetchOutfits()
         XCTAssertEqual(outfits!.count, 1)
+        //self.viewModel.delet
     }
     
-    func testFetchOutfits() {
-        let outfits = self.viewModel.fetchOutfits()
-        
-        XCTAssertEqual(outfits!.count, 1)
-    }
+//    func testFetchOutfits() {
+//        let outfits = self.viewModel.fetchOutfits()
+//
+//        XCTAssertEqual(outfits!.count, 1)
+//    }
     
     func testGenerateOutfit() {
         self.viewModel.generateOutfit(style: "professional", name: "interview outfit")
@@ -182,7 +203,7 @@ final class ViewModelTests: XCTestCase {
         
         // test styleoutfit save
         
-        XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 2)
+        XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 1)
         XCTAssertEqual(articles!.count, 3)
         XCTAssertEqual(outfits!.count, 1)
         XCTAssertEqual(outfits!.first!.name, "interview outfit")
@@ -190,7 +211,7 @@ final class ViewModelTests: XCTestCase {
         // ensuret that duplicate cannot be made
         self.viewModel.generateOutfit(style: "professional", name: "interview outfit")
         
-        XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 2) //count has not been increased
+        XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 1) //count has not been increased
     }
     
 
@@ -204,12 +225,20 @@ final class ViewModelTests: XCTestCase {
         XCTAssertEqual(arts!.count, 1)
     }
     
+    func testFindBlackOrWhiteArticle() {
+        let image_data = UIImage(named: "pusheen.png")
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        self.viewModel.tagArticleCategory(category: "top", article: self.viewModel.article!)
+        let comp_article = self.viewModel.findBlackOrWhiteArticle(article: self.viewModel.article!)
+    }
+    
     func testRgbToHue() {
-        let hsb = self.viewModel.rgbToHue(r: 100.0, g: 100.0, b: 200.0)
+        let hsb = self.viewModel.rgbToHue(r: 100.0/255.0, g: 100.0/255.0, b: 200.0/255.0)
         
         XCTAssertEqual(hsb.0, 240)
-        XCTAssertEqual(hsb.1, 50)
-        XCTAssertEqual(hsb.2, 78)
+        XCTAssertEqual(hsb.1, 0.50)
+        XCTAssertEqual(hsb.2, 0.7843137254901961)
     }
     
     func testSaveComplimentaryArticle() {
