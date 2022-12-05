@@ -7,10 +7,12 @@
 
 import XCTest
 @testable import closet_color_id
+import CoreData
 
 final class ViewModelTests: XCTestCase {
     let dataPopulation = DataPopulation()
     let viewModel = ViewModel()
+    let appDelegate = AppDelegate()
     override func setUp() {
         //expectation = expectation(description: "Able to perform viewmodel function")
         self.viewModel.deleteAllArticles()
@@ -133,6 +135,21 @@ final class ViewModelTests: XCTestCase {
         XCTAssertEqual(self.viewModel.arts.count, 3)
     }
     
+    func testDeleteAllArticles() {
+        self.viewModel.deleteAllArticles()
+        self.viewModel.updateArticles()
+        
+        XCTAssertEqual(self.viewModel.arts.count, 0)
+    }
+    
+    // MARK: - Test Style Methods
+    
+    func testDeleteAllStyles() {
+        self.viewModel.deleteAllStyles()
+        
+        XCTAssertEqual(self.viewModel.fetchStyles()!.count, 0)
+    }
+    
     // MARK: - Test ArticleStyle Methods
     
     func testFetchStyleArts() {
@@ -141,6 +158,22 @@ final class ViewModelTests: XCTestCase {
         
         XCTAssertEqual(articles!.count, 3)
         XCTAssertEqual(articles!.first?.primary_r, 111)
+    }
+    
+    func testDeleteAllArticleStyles() {
+        self.viewModel.deleteAllArticleStyles()
+        
+        let fetchRequest: NSFetchRequest<ArticleStyle>
+        fetchRequest = ArticleStyle.fetchRequest()
+        
+        // Get a reference to a NSManagedObjectContext
+        let context = self.appDelegate.persistentContainer.viewContext
+        do {
+          let objects = try context.fetch(fetchRequest)
+            XCTAssertEqual(objects.count, 0)
+        } catch {
+          print("Error")
+        }
     }
     
     func testTagArticleStyle() {
@@ -211,7 +244,45 @@ final class ViewModelTests: XCTestCase {
         // ensuret that duplicate cannot be made
         self.viewModel.generateOutfit(style: "professional", name: "interview outfit")
         
+        // ensure that outfit with no articles cannot be creted
+        self.viewModel.generateOutfit(style: "casual", name: "school outfit")
+        
+        // ensure that outfit with no footwear articles cannot be creted
+        let image_data = UIImage(named: "pusheen.png")
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        self.viewModel.tagArticleCategory(category: "top", article: self.viewModel.article!)
+        let casual = self.viewModel.fetchStyle(name: "casual")
+        self.viewModel.tagArticleStyle(article_id: self.viewModel.article!.objectID, style_id: casual!.objectID)
+        
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "brown", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        self.viewModel.tagArticleCategory(category: "bottom", article: self.viewModel.article!)
+        self.viewModel.tagArticleStyle(article_id: self.viewModel.article!.objectID, style_id: casual!.objectID)
+        
+        self.viewModel.generateOutfit(style: "casual", name: "school outfit")
+        
+        // ensure that nil botttom works
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "white", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        self.viewModel.tagArticleCategory(category: "top", article: self.viewModel.article!)
+        let athletic = self.viewModel.fetchStyle(name: "athletic")
+        self.viewModel.tagArticleStyle(article_id: self.viewModel.article!.objectID, style_id: athletic!.objectID)
+
+        self.viewModel.saveArticle(image_data: image_data!.pngData()!, primary_color_name: "beige", primary_color_family: "brown", primary_r: 100, primary_g: 100, primary_b: 100, secondary_color_name: "beige", secondary_color_family: "white", secondary_r: 100, secondary_g: 100, secondary_b: 100)
+        self.viewModel.updateArticles()
+        self.viewModel.tagArticleCategory(category: "footwear", article: self.viewModel.article!)
+        self.viewModel.tagArticleStyle(article_id: self.viewModel.article!.objectID, style_id: athletic!.objectID)
+        
+        self.viewModel.generateOutfit(style: "athletic", name: "gym outfit")
+        
         XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 1) //count has not been increased
+    }
+    
+    func testDeleteAllOutfits() {
+        self.viewModel.deleteAllOutfits()
+        
+        XCTAssertEqual(self.viewModel.fetchOutfits()!.count, 0)
     }
     
 
