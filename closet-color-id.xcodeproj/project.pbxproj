@@ -50,6 +50,12 @@
 		E6D7FFDF29132F2500BF24CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFDE29132F2500BF24CA /* AppDelegate.swift */; };
 		E6D7FFE12913304300BF24CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFE02913304300BF24CA /* SceneDelegate.swift */; };
 		E6D7FFE7291411D000BF24CA /* AnyGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7FFE6291411D000BF24CA /* AnyGestureRecognizer.swift */; };
+		E6DA7876293FCD1F00200AAA /* TutorialStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA7875293FCD1F00200AAA /* TutorialStartView.swift */; };
+		E6DA7878293FDC9900200AAA /* WardrobeTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA7877293FDC9900200AAA /* WardrobeTutorialView.swift */; };
+		E6DA787A293FDCC300200AAA /* OutfitTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA7879293FDCC300200AAA /* OutfitTutorialView.swift */; };
+		E6DA787C293FDCCB00200AAA /* CameraTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA787B293FDCCB00200AAA /* CameraTutorialView.swift */; };
+		E6DA787E293FDCDC00200AAA /* TutorialEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA787D293FDCDC00200AAA /* TutorialEndView.swift */; };
+		E6DA7880293FE3A800200AAA /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DA787F293FE3A800200AAA /* UserSettings.swift */; };
 		E6E854472919D6DD000A4805 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E854462919D6DD000A4805 /* Persistence.swift */; };
 		E6E8544C2919DF6B000A4805 /* DataPopulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E8544B2919DF6B000A4805 /* DataPopulation.swift */; };
 /* End PBXBuildFile section */
@@ -110,6 +116,12 @@
 		E6D7FFDE29132F2500BF24CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6D7FFE02913304300BF24CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E6D7FFE6291411D000BF24CA /* AnyGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGestureRecognizer.swift; sourceTree = "<group>"; };
+		E6DA7875293FCD1F00200AAA /* TutorialStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStartView.swift; sourceTree = "<group>"; };
+		E6DA7877293FDC9900200AAA /* WardrobeTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeTutorialView.swift; sourceTree = "<group>"; };
+		E6DA7879293FDCC300200AAA /* OutfitTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitTutorialView.swift; sourceTree = "<group>"; };
+		E6DA787B293FDCCB00200AAA /* CameraTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTutorialView.swift; sourceTree = "<group>"; };
+		E6DA787D293FDCDC00200AAA /* TutorialEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialEndView.swift; sourceTree = "<group>"; };
+		E6DA787F293FE3A800200AAA /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		E6E854462919D6DD000A4805 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E6E8544B2919DF6B000A4805 /* DataPopulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPopulation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +152,7 @@
 				6380383A2912FD58008F2157 /* SubcategoryName.swift */,
 				E6A25C3C291B2EA10080834B /* StyleName.swift */,
 				E64B53B1291DBAC800A4799E /* PhotoColor.swift */,
+				E6DA787F293FE3A800200AAA /* UserSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +232,7 @@
 				E6E854462919D6DD000A4805 /* Persistence.swift */,
 				6344FF04291B572300C75BE5 /* ImaggaCalls.swift */,
 				E6A25C44291C90500080834B /* TheColorApiCalls.swift */,
+				E6DA786E293FC99300200AAA /* Tutorial */,
 			);
 			path = "closet-color-id";
 			sourceTree = "<group>";
@@ -256,6 +270,18 @@
 				E6D7FFDE29132F2500BF24CA /* AppDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		E6DA786E293FC99300200AAA /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				E6DA7875293FCD1F00200AAA /* TutorialStartView.swift */,
+				E6DA7877293FDC9900200AAA /* WardrobeTutorialView.swift */,
+				E6DA7879293FDCC300200AAA /* OutfitTutorialView.swift */,
+				E6DA787B293FDCCB00200AAA /* CameraTutorialView.swift */,
+				E6DA787D293FDCDC00200AAA /* TutorialEndView.swift */,
+			);
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		E6E8544A2919DF58000A4805 /* DataPopulation */ = {
@@ -382,6 +408,7 @@
 				63C8C87428F25954009D30B1 /* ContentView.swift in Sources */,
 				63108EB42912A07400808888 /* ImageCaptureView.swift in Sources */,
 				6344FF05291B572300C75BE5 /* ImaggaCalls.swift in Sources */,
+				E6DA7880293FE3A800200AAA /* UserSettings.swift in Sources */,
 				63108EAC2912A03100808888 /* ArticleView.swift in Sources */,
 				E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */,
 				63A2700429141DC40023F366 /* CustomCameraView.swift in Sources */,
@@ -402,10 +429,15 @@
 				E6E854472919D6DD000A4805 /* Persistence.swift in Sources */,
 				E6D7FFDD291322ED00BF24CA /* closet-color-id.xcdatamodeld in Sources */,
 				E6D7FFE7291411D000BF24CA /* AnyGestureRecognizer.swift in Sources */,
+				E6DA787C293FDCCB00200AAA /* CameraTutorialView.swift in Sources */,
 				638AF4F729158762007EC47D /* ActionSheet+Modifier.swift in Sources */,
+				E6DA787E293FDCDC00200AAA /* TutorialEndView.swift in Sources */,
 				E6D7FFE12913304300BF24CA /* SceneDelegate.swift in Sources */,
+				E6DA7878293FDC9900200AAA /* WardrobeTutorialView.swift in Sources */,
 				6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */,
 				E6A25C43291B34870080834B /* TagStyleView.swift in Sources */,
+				E6DA787A293FDCC300200AAA /* OutfitTutorialView.swift in Sources */,
+				E6DA7876293FCD1F00200AAA /* TutorialStartView.swift in Sources */,
 				63C8C87228F25954009D30B1 /* closet_color_idApp.swift in Sources */,
 				E64B53B2291DBAC800A4799E /* PhotoColor.swift in Sources */,
 				E6A25C3D291B2EA20080834B /* StyleName.swift in Sources */,
