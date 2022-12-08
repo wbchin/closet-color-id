@@ -146,8 +146,9 @@ final class ViewModelTests: XCTestCase {
     
     func testDeleteAllStyles() {
         self.viewModel.deleteAllStyles()
+        self.viewModel.updateStyles()
         
-        XCTAssertEqual(self.viewModel.fetchStyles()!.count, 0)
+        XCTAssertEqual(self.viewModel.styles.count, 0)
     }
     
     // MARK: - Test ArticleStyle Methods
