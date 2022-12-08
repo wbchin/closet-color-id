@@ -69,23 +69,6 @@ class ViewModel: ObservableObject {
     return out
   }
   
-//  func fetchArticle(article_id: UUID) -> Article? {
-//    let fetchRequest: NSFetchRequest<Article>
-//    fetchRequest = Article.fetchRequest()
-//    fetchRequest.predicate = NSPredicate(
-//      format: "article_id = %@", article_id.uuidString
-//    )
-//    // Get a reference to a NSManagedObjectContext
-//    let context = appDelegate.persistentContainer.viewContext
-//    do {
-//      let objects = try context.fetch(fetchRequest)
-//      return objects.first
-//    } catch {
-//      print("Error")
-//      return nil
-//    }
-//  }
-  
   func saveArticle(image_data: Data, primary_color_name: String, primary_color_family: String, primary_r: Int, primary_g: Int, primary_b: Int, secondary_color_name: String?, secondary_color_family: String?,  secondary_r: Int?, secondary_g: Int?, secondary_b: Int?) -> Article?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
@@ -399,7 +382,7 @@ class ViewModel: ObservableObject {
   }
   
   // MARK: - Style Methods
-  func fetchStyles() -> [Style]? {
+  func fetchStyles() {
     let fetchRequest: NSFetchRequest<Style>
     fetchRequest = Style.fetchRequest()
     
@@ -410,10 +393,8 @@ class ViewModel: ObservableObject {
       for data in objects {
         styles.append(data)
       }
-      return objects
     } catch {
       print("Error")
-      return nil
     }
   }
   

@@ -14,7 +14,7 @@ struct CustomTab: View {
 }
 struct ContentView: View {
     @ObservedObject var userSettings = UserSettings()
-    @State private var isTutorial: Bool = false
+    @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
 //    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")

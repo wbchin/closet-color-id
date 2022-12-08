@@ -1,5 +1,21 @@
 import SwiftUI
 
+struct ArrowShape: Shape{
+    
+    func path(in rect: CGRect) -> Path {
+        
+        let delta = rect.height / 2  // height of arrow tip legs
+        
+        return Path{ path in
+            path.move(to: CGPoint(x: 0, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+            
+            path.move(to: CGPoint(x: rect.maxX - delta, y: rect.midY - delta))
+            path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+            path.addLine(to: CGPoint(x: rect.maxX - delta, y: rect.midY + delta))
+        }
+    }
+}
 
 struct TutorialStartView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -23,6 +39,23 @@ struct TutorialStartView: View {
     ]
     let backgroundColor : Color = Color(red: 162/255, green: 159/255, blue: 149/255)
     
+    private func arrowPath() -> Path {
+        // Doing it rightwards
+        Path { path in
+            path.move(to: .zero)
+            path.addLine(to: .init(x: -10.0, y: 5.0))
+            path.addLine(to: .init(x: -10.0, y: -5.0))
+            path.closeSubpath()
+        }
+    }
+        
+    private func arrowTransform(lastPoint: CGPoint, previousPoint: CGPoint) -> CGAffineTransform {
+        let translation = CGAffineTransform(translationX: lastPoint.x, y: lastPoint.y)
+        let angle = atan2(lastPoint.y-previousPoint.y, lastPoint.x-previousPoint.x)
+        let rotation = CGAffineTransform(rotationAngle: angle)
+        return rotation.concatenating(translation)
+    }
+    
     private var tutorialOverlay: some View {
         VStack {
             Text("Begin Tutorial?")
@@ -35,7 +68,6 @@ struct TutorialStartView: View {
             }.simultaneousGesture(TapGesture().onEnded{
                 isTutorial = false
             })
-              
         }.background(
             Circle()
                 .frame(width: 300, height: 300)

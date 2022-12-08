@@ -24,25 +24,37 @@ struct CameraTutorialView: View {
     let backgroundColor : Color = Color(red: 162/255, green: 159/255, blue: 149/255)
     
     private var tutorialOverlay: some View {
-        VStack {
-            Text("Take pictures of your clothes here")
-              .padding()
-            NavigationLink(destination: TutorialEndView(viewModel: viewModel, isTutorial: isTutorial)) {
-                Text("Continue")
-            }
-            NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
-                Text("Skip")
-            }.simultaneousGesture(TapGesture().onEnded{
-                isTutorial = false
-            })
-              
-        }.background(
-            CircleShape()
-                //.trim(from: 0.5, to: 1)
-                .aspectRatio(1.5, contentMode: .fit)
-                .frame(width: 300, height: 300)
-                .foregroundColor(.white)
-          )
+        ZStack {
+            VStack {
+                Text("Take pictures of your clothes here")
+                  .padding()
+                
+                HStack {
+                    NavigationLink(destination: TutorialEndView(viewModel: viewModel, isTutorial: isTutorial)) {
+                        Text("Continue")
+                    }
+                    NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                        Text("Skip")
+                    }.simultaneousGesture(TapGesture().onEnded{
+                        isTutorial = false
+                    })
+                }
+            }.background(
+                CircleShape()
+                    //.trim(from: 0.5, to: 1)
+                    .aspectRatio(1.5, contentMode: .fit)
+                    .frame(width: 300, height: 300)
+                    .foregroundColor(.white)
+              )
+            ArrowShape()
+                .stroke(lineWidth: 2)
+                .rotationEffect(Angle(degrees: 90))
+                .position(
+                    x: CGFloat(35),
+                    y:  CGFloat(0)
+                )
+                .frame(width: 80, height: 15)
+        }
     }
     
     var body: some View {
