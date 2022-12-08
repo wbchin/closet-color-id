@@ -122,6 +122,7 @@
 		E6DA787B293FDCCB00200AAA /* CameraTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTutorialView.swift; sourceTree = "<group>"; };
 		E6DA787D293FDCDC00200AAA /* TutorialEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialEndView.swift; sourceTree = "<group>"; };
 		E6DA787F293FE3A800200AAA /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		E6DA78822942390700200AAA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E6E854462919D6DD000A4805 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E6E8544B2919DF6B000A4805 /* DataPopulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPopulation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -233,6 +234,7 @@
 				6344FF04291B572300C75BE5 /* ImaggaCalls.swift */,
 				E6A25C44291C90500080834B /* TheColorApiCalls.swift */,
 				E6DA786E293FC99300200AAA /* Tutorial */,
+				E6DA78822942390700200AAA /* README.md */,
 			);
 			path = "closet-color-id";
 			sourceTree = "<group>";
