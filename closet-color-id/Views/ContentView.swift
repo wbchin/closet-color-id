@@ -13,6 +13,8 @@ struct CustomTab: View {
     }
 }
 struct ContentView: View {
+    @ObservedObject var userSettings = UserSettings()
+    @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
 //    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
@@ -27,21 +29,47 @@ struct ContentView: View {
         UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
     }
     var body: some View {
-        HStack {
-          TabView() {
-                WardrobeView(viewModel: viewModel)
-                    .tabItem{
-                        Label("Clothing", systemImage: "tshirt")
+        Button(action: {
+            self.isTutorial = true
+        }) {
+            Text("Tutorial")
+        }
+        ZStack {
+            HStack {
+                TabView() {
+                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    } else {
+                        WardrobeView(viewModel: viewModel)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
                     }
-              ImageCaptureView( viewModel: viewModel, image: nil)
-                    .tabItem{
-                        Label("Camera", systemImage: "camera")
+                    ImageCaptureView( viewModel: viewModel, image: nil)
+                        .tabItem{
+                            Label("Camera", systemImage: "camera")
+                        }
+                    OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
+                        .tabItem{
+                            Label("Outfits", systemImage: "door.french.closed")
+                        }.tag(2)
+                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+            }
+            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                VStack {
+                    Spacer()
+                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                        Rectangle()
+                            .fill(Color.white.opacity(0.001))
+                            .frame(width: .infinity, height: 50.0)
+                            
                     }
-              OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
-                    .tabItem{
-                        Label("Outfits", systemImage: "door.french.closed")
-                    }.tag(2)
-            }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                }
+            }
+            
         }
         
         .onAppear(perform: {
@@ -57,10 +85,6 @@ struct ContentView: View {
           self.dataPopulation.createArticle()
             self.viewModel.updateArticles()
             self.viewModel.updateStyles()
-            
-//          if self.viewModel.arts.count == 0 {
-//            self.dataPopulation.createArticle()
-//          }
             
         })
     }
