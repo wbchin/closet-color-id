@@ -252,6 +252,20 @@ class ViewModel: ObservableObject {
       return nil
     }
   }
+    
+    func renameOutfit(outfit: Outfit, name: String) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
+          let newVal = NSManagedObject(entity: entity, insertInto: context)
+          newVal.setValue(name, forKey: "name")
+          do {
+            try context.save()
+            self.outfit = newVal as! Outfit
+          } catch {
+            NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
+          }
+        }
+    }
   
   func saveOutfit(name: String, completion: @escaping((Outfit) -> ())) {
     let myGroup = DispatchGroup()
@@ -518,11 +532,17 @@ class ViewModel: ObservableObject {
     let fetchRequest: NSFetchRequest<Article>
     fetchRequest = Article.fetchRequest()
     let white_color_predicate = NSPredicate(
-        format: "complimentary_color_family = %@", "white"
+        format: "primary_color_family = %@", "white"
     )
     let black_color_predicate = NSPredicate(
-        format: "complimentary_color_family = %@", "black"
+        format: "primary_color_family = %@", "black"
     )
+  let white_color_predicate_secondary = NSPredicate(
+      format: "secondary_color_family = %@", "white"
+  )
+  let black_color_predicate_secondary = NSPredicate(
+      format: "secondary_color_family = %@", "black"
+  )
     let category_predicate = NSPredicate(
         format: "category != %@", article.category!
     )
@@ -530,6 +550,8 @@ class ViewModel: ObservableObject {
         orPredicateWithSubpredicates: [
           white_color_predicate,
           black_color_predicate,
+          white_color_predicate_secondary,
+          black_color_predicate_secondary,
           category_predicate
         ]
     )
