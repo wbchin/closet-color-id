@@ -635,10 +635,10 @@ class ViewModel: ObservableObject {
             if (300 <= hue && hue < 330) {
                 family = "magenta"
             }
-            if (0.50 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
+            if (0.70 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
                 family = "white"
             }
-            if (0 <= brightness && brightness <= 0.50 && 0 <= saturation && saturation <= 0.30) {
+            if (0 <= brightness && brightness <= 0.30 && 0 <= saturation && saturation <= 0.30) {
                 family = "black"
             }
             return family

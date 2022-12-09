@@ -17,7 +17,7 @@ struct WardrobeCardView: View {
         Text("Delete")
       }
         NavigationLink (
-          destination: ArticleView(article: article, viewModel: viewModel),
+          destination: WardrobeArticleView(article: article, viewModel: viewModel),
             label:{
               Text(article.primary_color_family!)
             })
