@@ -14,11 +14,12 @@ struct CustomTab: View {
 }
 struct ContentView: View {
     @ObservedObject var userSettings = UserSettings()
-    @State private var isTutorial: Bool = false
+    @State private var isTutorial: Bool = UserDefaults.standard.bool(forKey: "didLaunchBefore")
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
+    
     var articles : [Article]? {
         get {
             return viewModel.fetchArticles()
@@ -42,13 +43,12 @@ struct ContentView: View {
             }) {
                 Image(systemName: "info.circle")
             }
-            .padding(5)
         }
         .background(Color(red: 0.96, green: 0.94, blue: 0.91))
         ZStack {
             HStack {
                 TabView() {
-                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                    if (self.isTutorial) {
                         TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
                             .tabItem{
                                 Label("Clothing", systemImage: "tshirt")
@@ -63,21 +63,26 @@ struct ContentView: View {
                         .tabItem{
                             Label("Camera", systemImage: "camera")
                         }
-                    OutfitsView(viewModel: viewModel)
-                        .tabItem{
-                            Label("Outfits", systemImage: "door.french.closed")
-                        }.tag(2)
+                    if (self.isTutorial) {
+                        TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    } else {
+                        OutfitsView(viewModel: viewModel)
+                            .tabItem{
+                                Label("Outfits", systemImage: "door.french.closed")
+                            }.tag(2)
+                    }
                 }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
 
             }
-            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+            if (self.isTutorial) {
                 VStack {
-                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-                        Spacer()
-                        Rectangle()
-                        .fill(Color.white.opacity(0.001))
-                        .frame(width: .infinity, height: 50)
-                    }
+                    Spacer()
+                    Rectangle()
+                    .fill(Color.white.opacity(0.001))
+                    .frame(width: .infinity, height: 50)
                 }
             }
         }

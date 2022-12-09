@@ -537,24 +537,40 @@ class ViewModel: ObservableObject {
         let black_color_predicate = NSPredicate(
             format: "primary_color_family = %@", "black"
         )
-        let white_color_predicate_secondary = NSPredicate(
-            format: "secondary_color_family = %@", "white"
-        )
-        let black_color_predicate_secondary = NSPredicate(
-            format: "secondary_color_family = %@", "black"
-        )
         let category_predicate = NSPredicate(
             format: "category != %@", article.category!
         )
-        fetchRequest.predicate = NSCompoundPredicate(
-            orPredicateWithSubpredicates: [
-                white_color_predicate,
-                black_color_predicate,
-                white_color_predicate_secondary,
-                black_color_predicate_secondary,
-                category_predicate
-            ]
-        )
+        
+        if (article.secondary_color_family != nil) {
+            let white_color_predicate_secondary = NSPredicate(
+                format: "secondary_color_family = %@", "white"
+            )
+            let black_color_predicate_secondary = NSPredicate(
+                format: "secondary_color_family = %@", "black"
+            )
+            
+            fetchRequest.predicate = NSCompoundPredicate(
+                andPredicateWithSubpredicates: [
+                    NSCompoundPredicate(orPredicateWithSubpredicates: [
+                        white_color_predicate,
+                        black_color_predicate,
+                        white_color_predicate_secondary,
+                        black_color_predicate_secondary,
+                    ]),
+                    category_predicate
+                ]
+            )
+        } else {
+            fetchRequest.predicate = NSCompoundPredicate(
+                andPredicateWithSubpredicates: [
+                    NSCompoundPredicate(orPredicateWithSubpredicates: [
+                        white_color_predicate,
+                        black_color_predicate,
+                    ]),
+                    category_predicate
+                ]
+            )
+        }
         let context = appDelegate.persistentContainer.viewContext
         do {
             let objects = try context.fetch(fetchRequest)
@@ -580,24 +596,42 @@ class ViewModel: ObservableObject {
             let color_predicate4 = NSPredicate(
                 format: "primary_color_family = %@", article.complimentary_color_family!
             )
-            let color_predicate5 = NSPredicate(
-                format: "secondary_color_family = %@", article.complimentary_color_family!
-            )
+            
             let category_predicate = NSPredicate(
                 format: "category != %@", article.category!
             )
-            fetchRequest.predicate = NSCompoundPredicate(
-                andPredicateWithSubpredicates: [
-                    NSCompoundPredicate(orPredicateWithSubpredicates: [
-                        color_predicate1,
-                        color_predicate2,
-                        color_predicate3,
-                        color_predicate4,
-                        color_predicate5
-                    ]),
-                    category_predicate
-                ]
-            )
+            
+            if (article.secondary_color_family != nil) {
+                let color_predicate5 = NSPredicate(
+                    format: "secondary_color_family = %@", article.complimentary_color_family!
+                )
+                
+                fetchRequest.predicate = NSCompoundPredicate(
+                    andPredicateWithSubpredicates: [
+                        NSCompoundPredicate(orPredicateWithSubpredicates: [
+                            color_predicate1,
+                            color_predicate2,
+                            color_predicate3,
+                            color_predicate4,
+                            color_predicate5
+                        ]),
+                        category_predicate
+                    ]
+                )
+            } else {
+                fetchRequest.predicate = NSCompoundPredicate(
+                    andPredicateWithSubpredicates: [
+                        NSCompoundPredicate(orPredicateWithSubpredicates: [
+                            color_predicate1,
+                            color_predicate2,
+                            color_predicate3,
+                            color_predicate4
+                        ]),
+                        category_predicate
+                    ]
+                )
+            }
+            
             let context = appDelegate.persistentContainer.viewContext
             do {
                 let objects = try context.fetch(fetchRequest)
