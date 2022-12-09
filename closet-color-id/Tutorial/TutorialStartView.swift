@@ -25,7 +25,7 @@ struct TutorialStartView: View {
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()
     @State var outerwear: [Article] = [Article]()
-    @State var isTutorial: Bool
+    @Binding var isTutorial: Bool
     func populateCats() {
         self.tops = self.viewModel.fetchCatArts(category: "top")
         self.bottoms = self.viewModel.fetchCatArts(category: "bottom")
@@ -60,14 +60,24 @@ struct TutorialStartView: View {
         VStack {
             Text("Begin Tutorial?")
               .padding()
-            NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: isTutorial)) {
+            NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
                 Text("OK!")
             }
             NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
                 Text("Skip")
             }.simultaneousGesture(TapGesture().onEnded{
-                isTutorial = false
+                //isTutorial = false
+                self.isTutorial.toggle()
             })
+//            Button(action: {
+//                self.isTutorial.toggle()
+//            }, label: {
+//                if self.isTutorial {
+//                    Text("continue tutorial")
+//                }else {
+//                    Text("skip tutorial")
+//                }
+//            })
         }.background(
             Circle()
                 .frame(width: 300, height: 300)
