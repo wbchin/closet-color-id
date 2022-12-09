@@ -105,7 +105,7 @@ struct WardrobeView: View {
                     VStack (alignment: .leading){
                     Text("OUTERWEAR").bold()
                         LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.bottoms, id: \.self) { bottom in
+                            ForEach(self.outerwear, id: \.self) { bottom in
                                 NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
                                     Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
                                         .renderingMode(.original)
@@ -133,7 +133,7 @@ struct WardrobeView: View {
               self.populateCats()
             })
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
+//            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
 //            .toolbarBackground(Color(red: 0.74, green: 0.64, blue: 0.55), for: .navigationBar)

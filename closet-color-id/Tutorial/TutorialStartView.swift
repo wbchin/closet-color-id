@@ -191,7 +191,7 @@ struct TutorialStartView: View {
             .scrollDisabled(true)
             .brightness(-0.5)
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
+//            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
             .overlay(tutorialOverlay, alignment: .center)
