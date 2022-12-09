@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  closet-color-id
-//
-//  Created by Waverly Chin on 10/8/22.
-//
-
 import SwiftUI
 struct CustomTab: View {
     @Binding var capturedImage: UIImage?
@@ -17,6 +10,7 @@ struct ContentView: View {
     @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
+//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     var articles : [Article]? {
@@ -33,45 +27,126 @@ struct ContentView: View {
     @State private var wardrobe = UUID()
     @State private var cam = UUID()
     @State private var outfits = UUID()
+    var handler: Binding<Int> { Binding(
+                        get: { self.tabSelection },
+                        set: {
+                            if $0 == self.tabSelection {
+                                // Lands here if user tapped more than once
+                                tappedTwice = true
+                            }
+                            self.tabSelection = $0
+                        }
+                )}
     
     var body: some View {
-        HStack{
-            Spacer()
-            Button(action: {
-                self.isTutorial = true
-            }) {
-                Image(systemName: "info.circle")
-            }
-            .padding(5)
-        }
-        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-        ZStack {
-            HStack {
-                TabView() {
-//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                        TutorialStartView(viewModel: viewModel, isTutorial: true)
-//                            .tabItem{
-//                                Label("Clothing", systemImage: "tshirt")
-//                            }
-//                    } else {
-                        WardrobeView(viewModel: viewModel)
-                            .tabItem{
-                                Label("Clothing", systemImage: "tshirt")
-                            }
-//                    }
-                    ImageCaptureView( viewModel: viewModel, image: nil)
-                        .tabItem{
-                            Label("Camera", systemImage: "camera")
-                        }
+        
+
+        ZStack{
+            return TabView(selection: handler) {
+                NavigationView {
+                    WardrobeView(viewModel: viewModel)
+                        .id(wardrobe)
+                        .onChange(of: tappedTwice, perform: { tappedTwice in
+                            self.viewModel.deleteUntaggedArticles(completion: {out in })
+                            self.viewModel.updateArticles()
+                            guard tappedTwice else { return }
+                            wardrobe = UUID()
+                            self.tappedTwice = false
+                        })
+                }
+                .tabItem {
+                    Image(systemName: "tshirt")
+                    Text("Wardrobe")
+                }
+                .tag(1)
+                
+                NavigationView {
+                    ImageCaptureView(viewModel: viewModel, image: viewModel.image)
+                        .id(cam)
+                        .onChange(of: tappedTwice, perform: { tappedTwice in
+                            
+                            guard tappedTwice else { return }
+                            cam = UUID()
+                            self.tappedTwice = false
+                            viewModel.image = nil
+                            self.viewModel.deleteUntaggedArticles(completion: {out in })
+                            self.viewModel.updateArticles()
+                            self.viewModel.article = nil
+                        })
+                }
+                .tabItem {
+                    Image(systemName: "camera")
+                    Text("Camera")
+                }
+                .tag(2)
+                NavigationView {
                     OutfitsView(viewModel: viewModel)
-                        .tabItem{
-                            Label("Outfits", systemImage: "door.french.closed")
-                        }.tag(2)
-                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-
+                        .id(outfits)
+                        .onChange(of: tappedTwice, perform: { tappedTwice in
+                            guard tappedTwice else { return }
+                            outfits = UUID()
+                            self.tappedTwice = false
+                        })
+                }
+                .tabItem {
+                    Image(systemName: "door.french.closed")
+                    Text("Outfits")
+                }
+                .tag(3)
+                //                 }
+                //        HStack{
+                //            Spacer()
+                //            Button(action: {
+                //                self.isTutorial = true
+                //            }) {
+                //                Image(systemName: "info.circle")
+                //            }
+                //            .padding(5)
+                //        }
+                //        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+                //        ZStack {
+                //            HStack {
+                //                TabView() {
+                //                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                //                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+                //                            .tabItem{
+                //                                Label("Clothing", systemImage: "tshirt")
+                //                            }
+                //                    } else {
+                //                        WardrobeView(viewModel: viewModel)
+                //                            .tabItem{
+                //                                Label("Clothing", systemImage: "tshirt")
+                //                            }
+                //                    }
+                //                    ImageCaptureView( viewModel: viewModel, image: nil)
+                //                        .tabItem{
+                //                            Label("Camera", systemImage: "camera")
+                //                        }
+                //                    OutfitsView(viewModel: viewModel)
+                //                        .tabItem{
+                //                            Label("Outfits", systemImage: "door.french.closed")
+                //                        }.tag(2)
+                //                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                //
+                //            }
+                //            .navigationBarItems(trailing: Button(action: {
+                //                self.isTutorial = true
+                //              }) {
+                //                Image(systemName: "info.circle")
+                //              })
+                //            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                //                VStack {
+                //                    Spacer()
+                //                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                //                        Rectangle()
+                //                            .fill(Color.white.opacity(0.001))
+                //                            .frame(width: .infinity, height: 50.0)
+                //
+                //                    }
+                //                }
+                //            }
             }
         }
-
         .onAppear(perform: {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()
@@ -88,11 +163,5 @@ struct ContentView: View {
 
         })
         .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-    }
-}
-  
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
