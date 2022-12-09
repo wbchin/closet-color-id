@@ -14,7 +14,7 @@ struct CustomTab: View {
 }
 struct ContentView: View {
     @ObservedObject var userSettings = UserSettings()
-    @State private var isTutorial: Bool = false
+    @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
     @ObservedObject var dataPopulation = DataPopulation()
@@ -48,17 +48,17 @@ struct ContentView: View {
         ZStack {
             HStack {
                 TabView() {
-                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-                        TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
-                            .tabItem{
-                                Label("Clothing", systemImage: "tshirt")
-                            }
-                    } else {
+//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+//                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+//                            .tabItem{
+//                                Label("Clothing", systemImage: "tshirt")
+//                            }
+//                    } else {
                         WardrobeView(viewModel: viewModel)
                             .tabItem{
                                 Label("Clothing", systemImage: "tshirt")
                             }
-                    }
+//                    }
                     ImageCaptureView( viewModel: viewModel, image: nil)
                         .tabItem{
                             Label("Camera", systemImage: "camera")
@@ -70,16 +70,6 @@ struct ContentView: View {
                 }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
 
             }
-//            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                VStack {
-//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                        Spacer()
-//                        Rectangle()
-//                        .fill(Color.white.opacity(0.001))
-//                        .frame(width: .infinity, height: 50)
-//                    }
-//                }
-//            }
         }
 
         .onAppear(perform: {
