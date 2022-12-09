@@ -133,7 +133,7 @@ struct WardrobeView: View {
               self.populateCats()
             })
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
+//            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
 //            .toolbarBackground(Color(red: 0.74, green: 0.64, blue: 0.55), for: .navigationBar)

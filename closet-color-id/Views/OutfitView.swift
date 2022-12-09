@@ -12,9 +12,6 @@ struct OutfitView: View {
     let viewModel: ViewModel
     var images = [UIImage]()
     let columns = [
-  //    GridItem(.flexible()),
-  //    GridItem(.flexible()),
-//      GridItem(.flexible()),
       GridItem(.flexible())
     ]
     func imageArray() -> [UIImage]{
