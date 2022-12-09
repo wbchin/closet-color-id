@@ -69,23 +69,6 @@ class ViewModel: ObservableObject {
     return out
   }
   
-  func fetchArticle(article_id: UUID) -> Article? {
-    let fetchRequest: NSFetchRequest<Article>
-    fetchRequest = Article.fetchRequest()
-    fetchRequest.predicate = NSPredicate(
-      format: "article_id = %@", article_id.uuidString
-    )
-    // Get a reference to a NSManagedObjectContext
-    let context = appDelegate.persistentContainer.viewContext
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
-    }
-  }
-  
   func saveArticle(image_data: Data, primary_color_name: String, primary_color_family: String, primary_r: Int, primary_g: Int, primary_b: Int, secondary_color_name: String?, secondary_color_family: String?,  secondary_r: Int?, secondary_g: Int?, secondary_b: Int?) -> Article?{
     let context = appDelegate.persistentContainer.viewContext
     if let entity = NSEntityDescription.entity(forEntityName: "Article", in: context) {
@@ -115,7 +98,8 @@ class ViewModel: ObservableObject {
       do {
         try context.save()
         let returnVal = context.object(with:newVal.objectID) as? Article
-        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)//UNSAFE
+        arts.append(returnVal!)
+//        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)
         self.article = returnVal
         return returnVal
         
@@ -268,6 +252,20 @@ class ViewModel: ObservableObject {
       return nil
     }
   }
+    
+    func renameOutfit(outfit: Outfit, name: String) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
+          let newVal = NSManagedObject(entity: entity, insertInto: context)
+          newVal.setValue(name, forKey: "name")
+          do {
+            try context.save()
+            self.outfit = newVal as! Outfit
+          } catch {
+            NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
+          }
+        }
+    }
   
   func saveOutfit(name: String, completion: @escaping((Outfit) -> ())) {
     let myGroup = DispatchGroup()
@@ -398,7 +396,7 @@ class ViewModel: ObservableObject {
   }
   
   // MARK: - Style Methods
-  func fetchStyles() -> [Style]? {
+  func fetchStyles() {
     let fetchRequest: NSFetchRequest<Style>
     fetchRequest = Style.fetchRequest()
     
@@ -409,10 +407,8 @@ class ViewModel: ObservableObject {
       for data in objects {
         styles.append(data)
       }
-      return objects
     } catch {
       print("Error")
-      return nil
     }
   }
   
@@ -517,18 +513,55 @@ class ViewModel: ObservableObject {
     }
   
   // MARK: - ArticleOutfit Methods
-    func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
-        let context = appDelegate.persistentContainer.viewContext
-        if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
-            let newVal = NSManagedObject(entity: entity, insertInto: context)
-            newVal.setValue(context.object(with: article_id), forKey: "article")
-            newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
-            do {
-                try context.save()
-            } catch {
-                NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
-            }
-        }
+  func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
+    let context = appDelegate.persistentContainer.viewContext
+    if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
+      let newVal = NSManagedObject(entity: entity, insertInto: context)
+      newVal.setValue(context.object(with: article_id), forKey: "article")
+      newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
+      do {
+        try context.save()
+      } catch {
+        NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
+      }
+    }
+  }
+  
+  // MARK: - Complimentary Article and Color Generation
+  func findBlackOrWhiteArticle(article: Article) -> Article? {
+    let fetchRequest: NSFetchRequest<Article>
+    fetchRequest = Article.fetchRequest()
+    let white_color_predicate = NSPredicate(
+        format: "primary_color_family = %@", "white"
+    )
+    let black_color_predicate = NSPredicate(
+        format: "primary_color_family = %@", "black"
+    )
+  let white_color_predicate_secondary = NSPredicate(
+      format: "secondary_color_family = %@", "white"
+  )
+  let black_color_predicate_secondary = NSPredicate(
+      format: "secondary_color_family = %@", "black"
+  )
+    let category_predicate = NSPredicate(
+        format: "category != %@", article.category!
+    )
+    fetchRequest.predicate = NSCompoundPredicate(
+        orPredicateWithSubpredicates: [
+          white_color_predicate,
+          black_color_predicate,
+          white_color_predicate_secondary,
+          black_color_predicate_secondary,
+          category_predicate
+        ]
+    )
+    let context = appDelegate.persistentContainer.viewContext
+    do {
+      let objects = try context.fetch(fetchRequest)
+      return objects.first
+    } catch {
+      print("Error")
+      return nil
     }
   
     // MARK: - Complimentary Article and Color Generation

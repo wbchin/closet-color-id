@@ -13,6 +13,8 @@ struct CustomTab: View {
     }
 }
 struct ContentView: View {
+    @ObservedObject var userSettings = UserSettings()
+    @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
     @ObservedObject var dataPopulation = DataPopulation()
@@ -25,24 +27,51 @@ struct ContentView: View {
     init() {
         UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
     }
+    @State private var tabSelection = 1
+    @State private var tappedTwice: Bool = false
+
+    @State private var wardrobe = UUID()
+    @State private var cam = UUID()
+    @State private var outfits = UUID()
+    
     var body: some View {
-        HStack {
-          TabView() {
-                WardrobeView(viewModel: viewModel)
-                    .tabItem{
-                        Label("Clothing", systemImage: "tshirt")
-                    }
-              ImageCaptureView( viewModel: viewModel, image: nil)
-                    .tabItem{
-                        Label("Camera", systemImage: "camera")
-                    }
-              OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
-                    .tabItem{
-                        Label("Outfits", systemImage: "door.french.closed")
-                    }
+        HStack{
+            Spacer()
+            Button(action: {
+                self.isTutorial = true
+            }) {
+                Image(systemName: "info.circle")
             }
-          .accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+            .padding(5)
         }
+        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+        ZStack {
+            HStack {
+                TabView() {
+                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    } else {
+                        WardrobeView(viewModel: viewModel)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    }
+                    ImageCaptureView( viewModel: viewModel, image: nil)
+                        .tabItem{
+                            Label("Camera", systemImage: "camera")
+                        }
+                    OutfitsView(viewModel: viewModel)
+                        .tabItem{
+                            Label("Outfits", systemImage: "door.french.closed")
+                        }.tag(2)
+                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+
+            }
+        }
+
         .onAppear(perform: {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()
@@ -56,12 +85,9 @@ struct ContentView: View {
           self.dataPopulation.createArticle()
             self.viewModel.updateArticles()
             self.viewModel.updateStyles()
-            
-//          if self.viewModel.arts.count == 0 {
-//            self.dataPopulation.createArticle()
-//          }
-            
+
         })
+        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
     }
 }
   

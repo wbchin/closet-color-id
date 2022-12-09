@@ -133,9 +133,8 @@ struct ImageCaptureView: View {
                                     self.isCustomCameraViewPresented = true
                                 }
                         }
-                    }
-                    if image == nil{
-                        Spacer()
+                        if self.image == nil{
+                            Spacer()
                             .sheet(isPresented: $isCustomCameraViewPresented, content: {
                                 CustomCameraView(capturedImage: $image)
                             })
