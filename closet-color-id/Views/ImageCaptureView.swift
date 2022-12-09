@@ -129,7 +129,8 @@ struct ImageCaptureView: View {
                             
 //                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
-                        if viewModel.image == nil{
+                        if self.image == nil{
+//                            let _ = print("VM IMAGE NIL")
 //                            Button(action: {
 //                                isCustomCameraViewPresented.toggle()
 //                            }, label: {
@@ -151,6 +152,7 @@ struct ImageCaptureView: View {
             }
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
             .onDisappear(perform: {
+//                let _ = print("LEAVING")
               self.viewModel.article = nil
               self.viewModel.deleteUntaggedArticles(completion: {out in })
               self.viewModel.updateArticles()
@@ -161,6 +163,7 @@ struct ImageCaptureView: View {
                 self.isCustomCameraViewPresented = false
         })
             .onAppear(perform: {
+                
                 self.isCustomCameraViewPresented = true
             })
         

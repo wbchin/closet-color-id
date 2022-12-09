@@ -37,97 +37,97 @@ struct ContentView: View {
     
     var body: some View {
         
-        var handler: Binding<Int> { Binding(
-                            get: { self.tabSelection },
-                            set: {
-                                if $0 == self.tabSelection {
-                                    // Lands here if user tapped more than once
-                                    tappedTwice = true
-                                }
-                                self.tabSelection = $0
-                            }
-                    )}
-        return TabView(selection: handler) {
-                 NavigationView {
-                     WardrobeView(viewModel: viewModel)
-                         .id(wardrobe)
-                         .onChange(of: tappedTwice, perform: { tappedTwice in
-                                                 guard tappedTwice else { return }
-                                                 wardrobe = UUID()
-                             self.tappedTwice = false
-                                         })
-             }
-             .tabItem {
-                     Image(systemName: "tshirt")
-                     Text("Wardrobe")
-             }
-             .tag(1)
-
-              NavigationView {
-                  ImageCaptureView(viewModel: viewModel, image: viewModel.image)
-                      .id(cam)
-                          .onChange(of: tappedTwice, perform: { tappedTwice in
-                              viewModel.image = nil
-                                                     guard tappedTwice else { return }
-                                                     cam = UUID()
-                              self.tappedTwice = false
-                                             })
-              }
-              .tabItem {
-                      Image(systemName: "camera")
-                  Text("Camera")
-              }
-              .tag(2)
-            NavigationView {
-                OutfitsView(viewModel: viewModel)
-                    .id(outfits)
-                        .onChange(of: tappedTwice, perform: { tappedTwice in
-                                                   guard tappedTwice else { return }
-                                                   outfits = UUID()
-                            self.tappedTwice = false
-                                           })
-            }
-            .tabItem {
-                    Image(systemName: "door.french.closed")
-                Text("Outfits")
-            }
-            .tag(3)
-//                 }
-//        HStack{
-//            Spacer()
-//            Button(action: {
-//                self.isTutorial = true
-//            }) {
-//                Image(systemName: "info.circle")
-//            }
-//            .padding(5)
-//        }
-//        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-//        ZStack {
-//            HStack {
-//                TabView() {
-//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                        TutorialStartView(viewModel: viewModel, isTutorial: true)
-//                            .tabItem{
-//                                Label("Clothing", systemImage: "tshirt")
+//        var handler: Binding<Int> { Binding(
+//                            get: { self.tabSelection },
+//                            set: {
+//                                if $0 == self.tabSelection {
+//                                    // Lands here if user tapped more than once
+//                                    tappedTwice = true
+//                                }
+//                                self.tabSelection = $0
 //                            }
-//                    } else {
-//                        WardrobeView(viewModel: viewModel)
-//                            .tabItem{
-//                                Label("Clothing", systemImage: "tshirt")
-//                            }
-//                    }
-//                    ImageCaptureView( viewModel: viewModel, image: nil)
-//                        .tabItem{
-//                            Label("Camera", systemImage: "camera")
-//                        }
-//                    OutfitsView(viewModel: viewModel)
-//                        .tabItem{
-//                            Label("Outfits", systemImage: "door.french.closed")
-//                        }.tag(2)
-//                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+//                    )}
+//        return TabView(selection: handler) {
+//                 NavigationView {
+//                     WardrobeView(viewModel: viewModel)
+//                         .id(wardrobe)
+//                         .onChange(of: tappedTwice, perform: { tappedTwice in
+//                                                 guard tappedTwice else { return }
+//                                                 wardrobe = UUID()
+//                             self.tappedTwice = false
+//                                         })
+//             }
+//             .tabItem {
+//                     Image(systemName: "tshirt")
+//                     Text("Wardrobe")
+//             }
+//             .tag(1)
 //
+//              NavigationView {
+//                  ImageCaptureView(viewModel: viewModel, image: viewModel.image)
+//                      .id(cam)
+//                          .onChange(of: tappedTwice, perform: { tappedTwice in
+//                              viewModel.image = nil
+//                                                     guard tappedTwice else { return }
+//                                                     cam = UUID()
+//                              self.tappedTwice = false
+//                                             })
+//              }
+//              .tabItem {
+//                      Image(systemName: "camera")
+//                  Text("Camera")
+//              }
+//              .tag(2)
+//            NavigationView {
+//                OutfitsView(viewModel: viewModel)
+//                    .id(outfits)
+//                        .onChange(of: tappedTwice, perform: { tappedTwice in
+//                                                   guard tappedTwice else { return }
+//                                                   outfits = UUID()
+//                            self.tappedTwice = false
+//                                           })
 //            }
+//            .tabItem {
+//                    Image(systemName: "door.french.closed")
+//                Text("Outfits")
+//            }
+//            .tag(3)
+//                 }
+        HStack{
+            Spacer()
+            Button(action: {
+                self.isTutorial = true
+            }) {
+                Image(systemName: "info.circle")
+            }
+            .padding(5)
+        }
+        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+        ZStack {
+            HStack {
+                TabView() {
+                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    } else {
+                        WardrobeView(viewModel: viewModel)
+                            .tabItem{
+                                Label("Clothing", systemImage: "tshirt")
+                            }
+                    }
+                    ImageCaptureView( viewModel: viewModel, image: nil)
+                        .tabItem{
+                            Label("Camera", systemImage: "camera")
+                        }
+                    OutfitsView(viewModel: viewModel)
+                        .tabItem{
+                            Label("Outfits", systemImage: "door.french.closed")
+                        }.tag(2)
+                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+
+            }
 //            .navigationBarItems(trailing: Button(action: {
 //                self.isTutorial = true
 //              }) {
