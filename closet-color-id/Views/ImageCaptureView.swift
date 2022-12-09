@@ -108,7 +108,7 @@ struct ImageCaptureView: View {
                                 print(self.viewModel.article.debugDescription)
                             }
                             
-                            Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().cornerRadius(10).padding()
+                            Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().cornerRadius(10).frame(width: geometry.size.width)
                             NavigationLink (
                                 destination: TagCategoryView(viewModel: viewModel, article: self.viewModel.article!),
                                 label:{

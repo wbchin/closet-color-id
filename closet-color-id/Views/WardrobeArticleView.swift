@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ArticleView: View {
+struct WardrobeArticleView: View {
     var article: Article
     let viewModel: ViewModel
     let backgroundColor : Color = Color(red: 141, green: 223, blue: 144)
@@ -58,7 +58,7 @@ struct ArticleView: View {
                 ScrollView{
                     VStack{
                         let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
-                        Spacer()
+//                        Spacer(minLength: 10)
                         Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
                             .accessibilityLabel("Image of article. See below for article information.").frame(width: geometry.size.width * 0.75)
                         Text("clothing tags").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -149,7 +149,7 @@ struct ArticleView: View {
                     .textCase(.uppercase)
                     .background(Color(red: 0.96, green: 0.94, blue: 0.91))
                 }
-            }.navigationBarBackButtonHidden(true)
+            }
         }
     }
 }

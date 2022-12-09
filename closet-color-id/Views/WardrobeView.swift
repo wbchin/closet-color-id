@@ -28,7 +28,7 @@ struct WardrobeView: View {
                     Text("TOPS").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.tops, id: \.self) { top in
-                            NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
+                            NavigationLink(destination: WardrobeArticleView(article: top, viewModel: viewModel)) {
                                 Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
                                     .renderingMode(.original)
                                     .resizable()
@@ -41,19 +41,13 @@ struct WardrobeView: View {
                         }
                     }
                 }
-            } else{
-                VStack (alignment: .leading) {
-                    Text("TOPS").bold()
-                    Text("No tops in wardrobe.")
-                    LazyVGrid(columns: columns, spacing: 10){}
-                }
             }
             if(self.bottoms.count > 0){
                 VStack (alignment: .leading) {
                     Text("BOTTOMS").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.bottoms, id: \.self) { bottom in
-                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                            NavigationLink(destination: WardrobeArticleView(article: bottom, viewModel: viewModel)) {
                                 Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
                                     .renderingMode(.original)
                                     .resizable()
@@ -66,19 +60,13 @@ struct WardrobeView: View {
                         }
                     }
                 }
-            }else {
-                VStack (alignment: .leading) {
-                    Text("BOTTOMS").bold()
-                    Text("Not bottoms in wardrobe.")
-                    LazyVGrid(columns: columns, spacing: 10){}
-                }
             }
             if (self.footwear.count > 0){
                 VStack (alignment: .leading) {
                     Text("FOOTWEAR").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.footwear, id: \.self) { foot in
-                            NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
+                            NavigationLink(destination: WardrobeArticleView(article: foot, viewModel: viewModel)) {
                                 Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
                                     .renderingMode(.original)
                                     .resizable()
@@ -91,20 +79,20 @@ struct WardrobeView: View {
                         }
                     }
                 }
-            } else{
-                VStack (alignment: .leading) {
-                    Text("FOOTWEAR").bold()
-                    Text("Not footwear in wardrobe.")
-                    LazyVGrid(columns: columns, spacing: 10){}
-                }
+        } else{
+            VStack (alignment: .leading) {
+                Text("FOOTWEAR").bold()
+                Text("Not footwear in wardrobe.")
+                LazyVGrid(columns: columns, spacing: 10){}
             }
-            
-            if (self.outerwear.count > 0){
-                VStack (alignment: .leading){
+        }
+        
+        if (self.outerwear.count > 0){
+            VStack (alignment: .leading){
                 Text("OUTERWEAR").bold()
                     LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.outerwear, id: \.self) { bottom in
-                            NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                        ForEach(self.bottoms, id: \.self) { bottom in
+                            NavigationLink(destination: WardrobeArticleView(article: bottom, viewModel: viewModel)) {
                                 Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
                                     .renderingMode(.original)
                                     .resizable()
@@ -125,16 +113,17 @@ struct WardrobeView: View {
                 }
             }
         }.onAppear(perform: {
-          self.viewModel.deleteUntaggedArticles(completion: {out in})
-          self.viewModel.deleteUnstyledArticles(completion: {out in})
-          self.populateCats()
-        })
-        .padding(.horizontal)
-//            .navigationBarTitle("WARDROBE")
-        .frame(alignment: .leading)
-        .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+            self.viewModel.deleteUntaggedArticles(completion: {out in})
+            self.viewModel.deleteUnstyledArticles(completion: {out in})
+            self.populateCats()
+          })
+          .padding(.horizontal)
+      //            .navigationBarTitle("WARDROBE")
+          .frame(alignment: .leading)
+          .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+    }
 //            .toolbarBackground(Color(red: 0.74, green: 0.64, blue: 0.55), for: .navigationBar)
-    }//.navigationBarBackButtonHidden(true)
-    
-}
+}//.navigationBarBackButtonHidden(true)
+
+
 

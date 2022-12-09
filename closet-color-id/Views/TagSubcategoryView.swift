@@ -15,7 +15,7 @@ struct TagSubcategoryView: View {
       NavigationView{
           GeometryReader { geometry in
               VStack {
-                  Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding().cornerRadius(10)
+                  Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
                   LazyVGrid(columns: columns) {
                       ForEach(self.subcats, id: \.self) { sub in
                           Button(sub.uppercased()) {
