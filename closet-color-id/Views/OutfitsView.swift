@@ -50,7 +50,6 @@ struct OutfitsView: View {
               if(self.outfits.count > 0){
                   VStack{
                       
-                      Text("OUTFITS").bold()
                       LazyVGrid(columns: columns, spacing: 10){
                       ForEach(self.outfits, id: \.self) { outfit in
                           NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
@@ -80,7 +79,6 @@ struct OutfitsView: View {
                   }
               } else {
                   VStack (alignment: .leading) {
-                      Text("OUTFITS").bold()
                       Text("No outfits.")
                       LazyVGrid(columns: columns, spacing: 10){}
                   }
