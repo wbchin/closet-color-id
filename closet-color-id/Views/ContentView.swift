@@ -17,7 +17,6 @@ struct ContentView: View {
     @State private var isTutorial: Bool = true
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
-//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     var articles : [Article]? {
@@ -36,63 +35,6 @@ struct ContentView: View {
     @State private var outfits = UUID()
     
     var body: some View {
-        
-//        var handler: Binding<Int> { Binding(
-//                            get: { self.tabSelection },
-//                            set: {
-//                                if $0 == self.tabSelection {
-//                                    // Lands here if user tapped more than once
-//                                    tappedTwice = true
-//                                }
-//                                self.tabSelection = $0
-//                            }
-//                    )}
-//        return TabView(selection: handler) {
-//                 NavigationView {
-//                     WardrobeView(viewModel: viewModel)
-//                         .id(wardrobe)
-//                         .onChange(of: tappedTwice, perform: { tappedTwice in
-//                                                 guard tappedTwice else { return }
-//                                                 wardrobe = UUID()
-//                             self.tappedTwice = false
-//                                         })
-//             }
-//             .tabItem {
-//                     Image(systemName: "tshirt")
-//                     Text("Wardrobe")
-//             }
-//             .tag(1)
-//
-//              NavigationView {
-//                  ImageCaptureView(viewModel: viewModel, image: viewModel.image)
-//                      .id(cam)
-//                          .onChange(of: tappedTwice, perform: { tappedTwice in
-//                              viewModel.image = nil
-//                                                     guard tappedTwice else { return }
-//                                                     cam = UUID()
-//                              self.tappedTwice = false
-//                                             })
-//              }
-//              .tabItem {
-//                      Image(systemName: "camera")
-//                  Text("Camera")
-//              }
-//              .tag(2)
-//            NavigationView {
-//                OutfitsView(viewModel: viewModel)
-//                    .id(outfits)
-//                        .onChange(of: tappedTwice, perform: { tappedTwice in
-//                                                   guard tappedTwice else { return }
-//                                                   outfits = UUID()
-//                            self.tappedTwice = false
-//                                           })
-//            }
-//            .tabItem {
-//                    Image(systemName: "door.french.closed")
-//                Text("Outfits")
-//            }
-//            .tag(3)
-//                 }
         HStack{
             Spacer()
             Button(action: {
@@ -128,23 +70,6 @@ struct ContentView: View {
                 }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
 
             }
-//            .navigationBarItems(trailing: Button(action: {
-//                self.isTutorial = true
-//              }) {
-//                Image(systemName: "info.circle")
-//              })
-//            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                VStack {
-//                    Spacer()
-//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-//                        Rectangle()
-//                            .fill(Color.white.opacity(0.001))
-//                            .frame(width: .infinity, height: 50.0)
-//
-//                    }
-//                }
-//            }
-
         }
 
         .onAppear(perform: {
