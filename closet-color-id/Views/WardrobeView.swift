@@ -30,7 +30,7 @@ struct WardrobeView: View {
                         Text("TOPS").bold()
                         LazyVGrid(columns: columns, spacing: 10){
                             ForEach(self.tops, id: \.self) { top in
-                                NavigationLink(destination: ArticleView(article: top, viewModel: viewModel)) {
+                                NavigationLink(destination: WardrobeArticleView(article: top, viewModel: viewModel)) {
                                     Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
                                         .renderingMode(.original)
                                         .resizable()
@@ -55,7 +55,7 @@ struct WardrobeView: View {
                         Text("BOTTOMS").bold()
                         LazyVGrid(columns: columns, spacing: 10){
                             ForEach(self.bottoms, id: \.self) { bottom in
-                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                                NavigationLink(destination: WardrobeArticleView(article: bottom, viewModel: viewModel)) {
                                     Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
                                         .renderingMode(.original)
                                         .resizable()
@@ -80,7 +80,7 @@ struct WardrobeView: View {
                         Text("FOOTWEAR").bold()
                         LazyVGrid(columns: columns, spacing: 10){
                             ForEach(self.footwear, id: \.self) { foot in
-                                NavigationLink(destination: ArticleView(article: foot, viewModel: viewModel)) {
+                                NavigationLink(destination: WardrobeArticleView(article: foot, viewModel: viewModel)) {
                                     Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
                                         .renderingMode(.original)
                                         .resizable()
@@ -105,8 +105,8 @@ struct WardrobeView: View {
                     VStack (alignment: .leading){
                     Text("OUTERWEAR").bold()
                         LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.outerwear, id: \.self) { bottom in
-                                NavigationLink(destination: ArticleView(article: bottom, viewModel: viewModel)) {
+                            ForEach(self.bottoms, id: \.self) { bottom in
+                                NavigationLink(destination: WardrobeArticleView(article: bottom, viewModel: viewModel)) {
                                     Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
                                         .renderingMode(.original)
                                         .resizable()

@@ -12,8 +12,11 @@ struct TagCategoryView: View {
   var body: some View {
       NavigationView{
           GeometryReader { geometry in
-              VStack {
+              VStack (spacing: 10){
                   Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
+                  Spacer()
+                  Text("What type of clothing is this?").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00)).font(.system(size: 20)).bold()
+                      .textCase(.uppercase)
                   HStack(spacing: 20) {
                       Button("OUTERWEAR") {
                           isShowingCat = false
@@ -64,6 +67,7 @@ struct TagCategoryView: View {
                       .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                   }
                   if !isShowingCat {
+                      Spacer(minLength: 5)
                       NavigationLink (
                         destination: TagSubcategoryView(viewModel: viewModel, subcats: subcats, article: article),
                         label:{

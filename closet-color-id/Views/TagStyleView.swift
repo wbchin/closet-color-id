@@ -50,12 +50,14 @@ struct TagStyleView: View {
                             runColor = true
                         }
                     }
+                    if (self.comp_name != nil){
+                        Text("").onAppear{
+                            let family = self.viewModel.setColorFamily(hue: self.comp_col.0, saturation: self.comp_col.1, brightness: self.comp_col.2)
+                            viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
+                        }
+                    }
                     LazyVGrid(columns: columns) {
                         if (self.comp_name != nil){
-                            Text("").onAppear{
-                                let family = self.viewModel.setColorFamily(hue: self.comp_col.0, saturation: self.comp_col.1, brightness: self.comp_col.2)
-                                viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
-                            }
                             ForEach(self.viewModel.styles) { style in
                                 Button(style.name!.uppercased()) {
                                     viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
@@ -68,18 +70,30 @@ struct TagStyleView: View {
                                 .clipShape(Capsule())
                                 .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                             }
-                            if !isShowingStyle {
-                                NavigationLink (
-                                    destination: ArticleView(article: article, viewModel: viewModel),
-                                    label:{
-                                        Text("Done").font(.system(size: 36))
-                                    })//UNSAFE
-                            }
+                                    //                            if !isShowingStyle {
+                                    //                                NavigationLink (
+                                    //                                    destination: ArticleView(article: article, viewModel: viewModel),
+                                    //                                    label:{
+                                    //                                        Text("Done").font(.system(size: 36))
+                                    //                                    })//UNSAFE
+                                    //                            }
+//                            }
                         }
                     }
+                    if !isShowingStyle {
+                        NavigationLink (
+                            destination: ArticleView(article: article, viewModel: viewModel),
+                            label:{
+                                Text("Done").font(.system(size: 36))
+                            })//UNSAFE
+                    }
                 }
-                .font(.system(size: 20))
                 .padding()
+                .frame(width: geometry.size.width)
+                .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                .font(.system(size: 20))
+                .textCase(.uppercase)
+                .background(Color(red: 0.96, green: 0.94, blue: 0.91))
             }
         }.navigationBarBackButtonHidden(true)
     }
