@@ -416,324 +416,305 @@ class ViewModel: ObservableObject {
     }
   }
   
-  func saveStyle(name: String) {
-    let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(name, forKey: "name")
-      do {
-        try context.save()
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save Style to CoreData")
-      }
+    func saveStyle(name: String) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
+            let newVal = NSManagedObject(entity: entity, insertInto: context)
+            newVal.setValue(name, forKey: "name")
+            do {
+                try context.save()
+            } catch {
+                NSLog("[Contacts] ERROR: Failed to save Style to CoreData")
+            }
+        }
     }
-  }
   
-  func fetchStyle(name: String) -> Style?{
-    let context = appDelegate.persistentContainer.viewContext
-    let fetchRequest: NSFetchRequest<Style>
-    fetchRequest = Style.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-    
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
+    func fetchStyle(name: String) -> Style?{
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<Style>
+        fetchRequest = Style.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        do {
+            let objects = try context.fetch(fetchRequest)
+            return objects.first
+        } catch {
+            print("Error")
+            return nil
+        }
     }
-  }
   
-  func updateStyles() {
-    styles.removeAll()
-    fetchStyles()
-  }
-  
-  func deleteAllStyles() {
-    // Initialize Fetch Request
-    let fetchRequest: NSFetchRequest<Style>
-    fetchRequest = Style.fetchRequest()
-    
-    // Get a reference to a NSManagedObjectContext
-    let context = appDelegate.persistentContainer.viewContext
-    context.reset()
-    do {
-      let objects = try context.fetch(fetchRequest)
-      for data in objects as [NSManagedObject] {
-        context.delete(data)
-      }
-      try context.save()
-      
-    } catch {
-      print("Error")
-      
+    func updateStyles() {
+        styles.removeAll()
+        fetchStyles()
     }
-  }
+  
+    func deleteAllStyles() {
+        // Initialize Fetch Request
+        let fetchRequest: NSFetchRequest<Style>
+        fetchRequest = Style.fetchRequest()
+        
+        // Get a reference to a NSManagedObjectContext
+        let context = appDelegate.persistentContainer.viewContext
+        context.reset()
+        do {
+            let objects = try context.fetch(fetchRequest)
+            for data in objects as [NSManagedObject] {
+                context.delete(data)
+            }
+            try context.save()
+            
+        } catch {
+            print("Error")
+            
+        }
+    }
   
   // MARK: - ArticleStyle Methods
-  func fetchStyleArts(style: Style) -> [Article]? {
-    var out = [Article]()
-    let articleStyles = style.articleStyles
-    
-    for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
-      out.append(articleStyle.article!)
+    func fetchStyleArts(style: Style) -> [Article]? {
+        var out = [Article]()
+        let articleStyles = style.articleStyles
+        
+        for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
+            out.append(articleStyle.article!)
+        }
+        
+        return out
     }
-    
-    return out
-  }
   
-  func tagArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
-    let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "ArticleStyle", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(context.object(with: article_id), forKey: "article")
-      newVal.setValue(context.object(with: style_id), forKey: "style")
-      do {
-        try context.save()
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
-      }
+    func tagArticleStyle(article_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "ArticleStyle", in: context) {
+            let newVal = NSManagedObject(entity: entity, insertInto: context)
+            newVal.setValue(context.object(with: article_id), forKey: "article")
+            newVal.setValue(context.object(with: style_id), forKey: "style")
+            do {
+                try context.save()
+            } catch {
+                NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
+            }
+        }
     }
-  }
   
-  func deleteAllArticleStyles() {
-    // Initialize Fetch Request
-    let fetchRequest: NSFetchRequest<ArticleStyle>
-    fetchRequest = ArticleStyle.fetchRequest()
-    
-    // Get a reference to a NSManagedObjectContext
-    let context = appDelegate.persistentContainer.viewContext
-    context.reset()
-    do {
-      let objects = try context.fetch(fetchRequest)
-      for data in objects as [NSManagedObject] {
-        context.delete(data)
-      }
-      try context.save()
-      
-    } catch {
-      print("Error")
+    func deleteAllArticleStyles() {
+        // Initialize Fetch Request
+        let fetchRequest: NSFetchRequest<ArticleStyle>
+        fetchRequest = ArticleStyle.fetchRequest()
+        
+        // Get a reference to a NSManagedObjectContext
+        let context = appDelegate.persistentContainer.viewContext
+        context.reset()
+        do {
+            let objects = try context.fetch(fetchRequest)
+            for data in objects as [NSManagedObject] {
+                context.delete(data)
+            }
+            try context.save()
+            
+        } catch {
+            print("Error")
+        }
     }
-  }
   
   // MARK: - ArticleOutfit Methods
-  func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
-    let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(context.object(with: article_id), forKey: "article")
-      newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
-      do {
-        try context.save()
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
-      }
-    }
-  }
-  
-  // MARK: - Complimentary Article and Color Generation
-  func findBlackOrWhiteArticle(article: Article) -> Article? {
-    let fetchRequest: NSFetchRequest<Article>
-    fetchRequest = Article.fetchRequest()
-    let white_color_predicate = NSPredicate(
-        format: "complimentary_color_family = %@", "white"
-    )
-    let black_color_predicate = NSPredicate(
-        format: "complimentary_color_family = %@", "black"
-    )
-    let category_predicate = NSPredicate(
-        format: "category != %@", article.category!
-    )
-    fetchRequest.predicate = NSCompoundPredicate(
-        orPredicateWithSubpredicates: [
-          white_color_predicate,
-          black_color_predicate,
-          category_predicate
-        ]
-    )
-    let context = appDelegate.persistentContainer.viewContext
-    do {
-      let objects = try context.fetch(fetchRequest)
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
-    }
-  }
-  
-  func findComplimentaryArticle(article: Article) -> Article? {
-    let fetchRequest: NSFetchRequest<Article>
-    fetchRequest = Article.fetchRequest()
-    let color_predicate1 = NSPredicate(
-        format: "complimentary_color_family = %@", article.complimentary_color_family!
-    )
-    let color_predicate2 = NSPredicate(
-        format: "complimentary_color_family = %@", article.primary_color_family!
-    )
-    let color_predicate3 = NSPredicate(
-        format: "complimentary_color_family = %@", article.secondary_color_family!
-    )
-    let color_predicate4 = NSPredicate(
-        format: "primary_color_family = %@", article.complimentary_color_family!
-    )
-    let color_predicate5 = NSPredicate(
-        format: "secondary_color_family = %@", article.complimentary_color_family!
-    )
-    let category_predicate = NSPredicate(
-        format: "category != %@", article.category!
-    )
-    fetchRequest.predicate = NSCompoundPredicate(
-        andPredicateWithSubpredicates: [
-          NSCompoundPredicate(orPredicateWithSubpredicates: [
-            color_predicate1,
-            color_predicate2,
-            color_predicate3,
-            color_predicate4,
-            color_predicate5
-            ]),
-          category_predicate
-        ]
-    )
-    let context = appDelegate.persistentContainer.viewContext
-    do {
-      let objects = try context.fetch(fetchRequest)
-      // return black or white for no complimentary colors
-      if objects.first == nil {
-        return findBlackOrWhiteArticle(article: article)
-      }
-      return objects.first
-    } catch {
-      print("Error")
-      return nil
-    }
-  }
-  
-  func setColorFamily(hue: Int, saturation: CGFloat, brightness: CGFloat) -> String{
-      var family = "other"
-      if (0 <= hue && hue < 30) {
-        family = "red"
-      }
-      if (30 <= hue && hue < 60) {
-        family = "orange"
-      }
-      if (60 <= hue && hue < 90) {
-        family = "yellow"
-      }
-      if (90 <= hue && hue < 120) {
-        family = "chartreuse green"
-      }
-      if (120 <= hue && hue < 150) {
-        family = "green"
-      }
-      if (150 <= hue && hue < 180) {
-        family = "spring green"
-      }
-      if (180 <= hue && hue < 210) {
-        family = "cyan"
-      }
-      if (210 <= hue && hue < 240) {
-        family = "azure"
-      }
-      if (240 <= hue && hue < 270) {
-        family = "blue"
-      }
-      if (270 <= hue && hue < 300) {
-        family = "violet"
-      }
-      if (300 <= hue && hue < 330) {
-        family = "magenta"
-      }
-      if (330 <= hue && hue <= 360) {
-        family = "rose"
-      }
-      if (0.50 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
-        family = "white"
-          }
-      if (0 <= brightness && brightness <= 0.50 && 0 <= saturation && saturation <= 0.30) {
-        family = "black"
+    func saveArticleOutfit(article_id: NSManagedObjectID, outfit_id: NSManagedObjectID) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "ArticleOutfit", in: context) {
+            let newVal = NSManagedObject(entity: entity, insertInto: context)
+            newVal.setValue(context.object(with: article_id), forKey: "article")
+            newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
+            do {
+                try context.save()
+            } catch {
+                NSLog("[Contacts] ERROR: Failed to save ArticleOutfit to CoreData")
             }
-      return family
-  }
-  
-  func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String, complimentary_r: Int, complimentary_g: Int, complimentary_b: Int) {
-    let context = appDelegate.persistentContainer.viewContext
-    context.object(with: article.objectID).setValue(complimentary_color_family, forKey: "complimentary_color_family")
-    context.object(with: article.objectID).setValue(complimentary_color_name, forKey: "complimentary_color_name")
-    context.object(with: article.objectID).setValue(complimentary_r, forKey: "complimentary_r")
-    context.object(with: article.objectID).setValue(complimentary_g, forKey: "complimentary_g")
-    context.object(with: article.objectID).setValue(complimentary_b, forKey: "complimentary_b")
-    do {
-      try context.save()
-    } catch {
-      NSLog("[Contacts] ERROR: Failed to complimentary color saved")
+        }
     }
-  }
   
-  func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (Int, CGFloat, CGFloat) {
-    let minV:CGFloat = CGFloat(min(r, g, b))
-    let maxV:CGFloat = CGFloat(max(r, g, b))
-    let delta:CGFloat = maxV - minV
-    var hue:CGFloat = 0
-    if delta != 0 {
-      if r == maxV {
-         hue = (g - b) / delta
-      }
-      else if g == maxV {
-         hue = 2 + (b - r) / delta
-      }
-      else {
-         hue = 4 + (r - g) / delta
-      }
-      hue *= 60
-      if hue < 0 {
-         hue += 360
-      }
+    // MARK: - Complimentary Article and Color Generation
+    func findBlackOrWhiteArticle(article: Article) -> Article? {
+        let fetchRequest: NSFetchRequest<Article>
+        fetchRequest = Article.fetchRequest()
+        let white_color_predicate = NSPredicate(
+            format: "complimentary_color_family = %@", "white"
+        )
+        let black_color_predicate = NSPredicate(
+            format: "complimentary_color_family = %@", "black"
+        )
+        let category_predicate = NSPredicate(
+            format: "category != %@", article.category!
+        )
+        fetchRequest.predicate = NSCompoundPredicate(
+            orPredicateWithSubpredicates: [
+                white_color_predicate,
+                black_color_predicate,
+                category_predicate
+            ]
+        )
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+            let objects = try context.fetch(fetchRequest)
+            return objects.first
+        } catch {
+            print("Error")
+            return nil
+        }
     }
-    
-    let saturation = maxV == 0 ? 0 : (delta / maxV)
-    let brightness = maxV
-    return (Int(hue), saturation, brightness)
-  }
+  
+    func findComplimentaryArticle(article: Article) -> Article? {
+        let fetchRequest: NSFetchRequest<Article>
+        fetchRequest = Article.fetchRequest()
+        let color_predicate1 = NSPredicate(
+            format: "complimentary_color_family = %@", article.complimentary_color_family!
+        )
+        let color_predicate2 = NSPredicate(
+            format: "complimentary_color_family = %@", article.primary_color_family!
+        )
+        let color_predicate3 = NSPredicate(
+            format: "complimentary_color_family = %@", article.secondary_color_family!
+        )
+        let color_predicate4 = NSPredicate(
+            format: "primary_color_family = %@", article.complimentary_color_family!
+        )
+        let color_predicate5 = NSPredicate(
+            format: "secondary_color_family = %@", article.complimentary_color_family!
+        )
+        let category_predicate = NSPredicate(
+            format: "category != %@", article.category!
+        )
+        fetchRequest.predicate = NSCompoundPredicate(
+            andPredicateWithSubpredicates: [
+                NSCompoundPredicate(orPredicateWithSubpredicates: [
+                    color_predicate1,
+                    color_predicate2,
+                    color_predicate3,
+                    color_predicate4,
+                    color_predicate5
+                ]),
+                category_predicate
+            ]
+        )
+        let context = appDelegate.persistentContainer.viewContext
+        do {
+            let objects = try context.fetch(fetchRequest)
+            // return black or white for no complimentary colors
+            if objects.first == nil {
+                return findBlackOrWhiteArticle(article: article)
+            }
+            return objects.first
+        } catch {
+            print("Error")
+            return nil
+        }
+    }
 
-  func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
-    let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "StyleOutfit", in: context) {
-      let newVal = NSManagedObject(entity: entity, insertInto: context)
-      newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
-      newVal.setValue(context.object(with: style_id), forKey: "style")
-      do {
-        try context.save()
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
-      }
+    func setColorFamily(hue: Int, saturation: CGFloat, brightness: CGFloat) -> String{
+        var family = "other"
+        if (0 <= hue && hue < 30 || 330 <= hue && hue <= 360) {
+            family = "red"
+        }
+        if (30 <= hue && hue < 60) {
+            family = "orange"
+        }
+        if (60 <= hue && hue < 90) {
+            family = "yellow"
+        }
+        if (90 <= hue && hue < 180) {
+            family = "green"
+        }
+        if (180 <= hue && hue < 270) {
+            family = "blue"
+        }
+        if (270 <= hue && hue < 300) {
+            family = "violet"
+        }
+        if (300 <= hue && hue < 330) {
+            family = "magenta"
+        }
+        if (0.50 < brightness && brightness <= 1.0 && 0 <= saturation && saturation <= 0.20) {
+            family = "white"
+        }
+        if (0 <= brightness && brightness <= 0.50 && 0 <= saturation && saturation <= 0.30) {
+            family = "black"
+        }
+        return family
     }
-  }
+    
+    func setComplimentaryColor(article: Article, complimentary_color_family: String, complimentary_color_name: String, complimentary_r: Int, complimentary_g: Int, complimentary_b: Int) {
+        let context = appDelegate.persistentContainer.viewContext
+        context.object(with: article.objectID).setValue(complimentary_color_family, forKey: "complimentary_color_family")
+        context.object(with: article.objectID).setValue(complimentary_color_name, forKey: "complimentary_color_name")
+        context.object(with: article.objectID).setValue(complimentary_r, forKey: "complimentary_r")
+        context.object(with: article.objectID).setValue(complimentary_g, forKey: "complimentary_g")
+        context.object(with: article.objectID).setValue(complimentary_b, forKey: "complimentary_b")
+        do {
+            try context.save()
+        } catch {
+            NSLog("[Contacts] ERROR: Failed to complimentary color saved")
+        }
+    }
   
-  func fetchStyleCats(style: Style, category: String) -> [Article]? {
-    var out = [Article]()
-    let articleStyles = style.articleStyles
-    
-    for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
-      if (articleStyle.article!.category! == category) {
-        out.append(articleStyle.article!)
-      }
+    func rgbToHue(r:CGFloat,g:CGFloat,b:CGFloat) -> (Int, CGFloat, CGFloat) {
+        let minV:CGFloat = CGFloat(min(r, g, b))
+        let maxV:CGFloat = CGFloat(max(r, g, b))
+        let delta:CGFloat = maxV - minV
+        var hue:CGFloat = 0
+        if delta != 0 {
+            if r == maxV {
+                hue = (g - b) / delta
+            }
+            else if g == maxV {
+                hue = 2 + (b - r) / delta
+            }
+            else {
+                hue = 4 + (r - g) / delta
+            }
+            hue *= 60
+            if hue < 0 {
+                hue += 360
+            }
+        }
+        
+        let saturation = maxV == 0 ? 0 : (delta / maxV)
+        let brightness = maxV
+        return (Int(hue), saturation, brightness)
     }
-    
-    return out
-  }
-    
+
+    func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "StyleOutfit", in: context) {
+            let newVal = NSManagedObject(entity: entity, insertInto: context)
+            newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
+            newVal.setValue(context.object(with: style_id), forKey: "style")
+            do {
+                try context.save()
+            } catch {
+                NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
+            }
+        }
+    }
+  
+    func fetchStyleCats(style: Style, category: String) -> [Article]? {
+        var out = [Article]()
+        let articleStyles = style.articleStyles
+        
+        for case let articleStyle as ArticleStyle in articleStyles!.allObjects {
+            if (articleStyle.article!.category! == category) {
+                out.append(articleStyle.article!)
+            }
+        }
+        
+        return out
+    }
+
     enum ColorFamily {
         case red
         case orange
-        case chartreuse
+        case yellow
         case green
-        case springGreen
-        case cyan
-        case azure
         case blue
         case violet
         case magenta
-        case rose
         case white
         case black
         
@@ -741,33 +722,54 @@ class ViewModel: ObservableObject {
         var rgb: (r: Double, g: Double, b: Double) {
             switch self {
             case .red:
-                return (0.0, 0.0, 0.0)
+                return (1.0, 0.12, 0.12)
             case .orange:
-                return (0.0, 0.0, 0.0)
-            case .chartreuse:
-                return (0.0, 0.0, 0.0)
+                return (0.93, 0.47, 0.05)
+            case .yellow:
+                return (1.0, 0.84, 0.0)
             case .green:
-                return (0.0, 0.0, 0.0)
-            case .springGreen:
-                return (0.0, 0.0, 0.0)
-            case .cyan:
-                return (0.0, 0.0, 0.0)
-            case .azure:
-                return (0.0, 0.0, 0.0)
+                return (0.14, 1.0, 0.13)
             case .blue:
-                return (0.0, 0.0, 0.0)
+                return (0.0, 0.28, 1.0)
             case .violet:
-                return (0.0, 0.0, 0.0)
+                return (0.51, 0.08, 0.94)
             case .magenta:
-                return (0.0, 0.0, 0.0)
-            case .rose:
-                return (0.0, 0.0, 0.0)
+                return (0.96, 0.04, 0.96)
             case .white:
-                return (0.0, 0.0, 0.0)
+                return (1.0, 1.0, 1.0)
             case .black:
                 return (0.0, 0.0, 0.0)
             }
         }
     }
-  
+    func rgbColorFamily (color: String) -> (Double, Double, Double) {
+        if color == "red" {
+            return (1.0, 0.12, 0.12)
+        }
+        if color == "orange" {
+            return (0.93, 0.47, 0.05)
+        }
+        if color == "yellow" {
+            return (1.0, 0.84, 0.0)
+        }
+        if color == "green" {
+            return (0.14, 1.0, 0.13)
+        }
+        if color == "blue" {
+            return (0.0, 0.28, 1.0)
+        }
+        if color == "violet" {
+            return (0.51, 0.08, 0.94)
+        }
+        if color == "magenta" {
+            return (0.96, 0.04, 0.96)
+        }
+        if color == "white" {
+            return (1.0, 1.0, 1.0)
+        }
+        if color == "black" {
+            return (0.0, 0.0, 0.0)
+        }
+        return (0.0, 0.0, 0.0)
+    }
 }

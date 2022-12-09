@@ -15,7 +15,6 @@ struct CustomTab: View {
 struct ContentView: View {
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
-//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     var articles : [Article]? {
@@ -40,10 +39,10 @@ struct ContentView: View {
               OutfitsView(viewModel: viewModel, dataPopulation: dataPopulation)
                     .tabItem{
                         Label("Outfits", systemImage: "door.french.closed")
-                    }.tag(2)
-            }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                    }
+            }
+          .accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
         }
-        
         .onAppear(perform: {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()

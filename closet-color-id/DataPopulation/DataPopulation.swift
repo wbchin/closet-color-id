@@ -24,6 +24,7 @@ class DataPopulation: ObservableObject {
     var shirt: UIImage? = UIImage(named: "shirt.png") ?? nil
     var pants: UIImage? = UIImage(named: "jeans.png") ?? nil
     var shoes: UIImage? = UIImage(named: "converse.png") ?? nil
+    var jacket: UIImage? = UIImage(named: "converse.png") ?? nil
 
   func createArticle() {
       let style = self.fetchStyle(name: "professional")
@@ -59,7 +60,17 @@ class DataPopulation: ObservableObject {
       } else {
           print("Error: article 3 image to data failed")
       }
-    
+      if jacket != nil {
+          let article3 = viewModel.saveArticle(image_data: shoes!.pngData()!, primary_color_name: "black", primary_color_family: "black", primary_r: 111, primary_g: 78, primary_b: 55, secondary_color_name: "white", secondary_color_family: "black", secondary_r: nil, secondary_g: nil, secondary_b: nil)
+          
+          viewModel.setComplimentaryColor(article: article3!, complimentary_color_family: "red", complimentary_color_name: "skin", complimentary_r: 0, complimentary_g: 0, complimentary_b: 0)
+          
+          viewModel.tagArticleCategory(category: "footwear", article: article3!)
+          viewModel.tagArticleSubcategory(subcategory: "sneaker", article: article3!)
+          viewModel.tagArticleStyle(article_id: article3!.objectID, style_id: style!.objectID)
+      } else {
+          print("Error: article 4 image to data failed")
+      }
     
 
   }
@@ -80,23 +91,23 @@ class DataPopulation: ObservableObject {
   }
 
   // ["Professional", "Casual", "Night Out", "Athletic"]
-  func populateStyles() {
-    let context = appDelegate.persistentContainer.viewContext
-    if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
-      let prof = NSManagedObject(entity: entity, insertInto: context)
-      prof.setValue("professional", forKey: "name")
-      let casual = NSManagedObject(entity: entity, insertInto: context)
-      casual.setValue("casual", forKey: "name")
-      let night = NSManagedObject(entity: entity, insertInto: context)
-      night.setValue("night", forKey: "name")
-      let athletic = NSManagedObject(entity: entity, insertInto: context)
-      athletic.setValue("athletic", forKey: "name")
-
-      do {
-        try context.save()
-      } catch {
-        NSLog("[Contacts] ERROR: Failed to save Styles to CoreData")
-      }
+    func populateStyles() {
+        let context = appDelegate.persistentContainer.viewContext
+        if let entity = NSEntityDescription.entity(forEntityName: "Style", in: context) {
+            let prof = NSManagedObject(entity: entity, insertInto: context)
+            prof.setValue("professional", forKey: "name")
+            let casual = NSManagedObject(entity: entity, insertInto: context)
+            casual.setValue("casual", forKey: "name")
+            let night = NSManagedObject(entity: entity, insertInto: context)
+            night.setValue("night", forKey: "name")
+            let athletic = NSManagedObject(entity: entity, insertInto: context)
+            athletic.setValue("athletic", forKey: "name")
+            
+            do {
+                try context.save()
+            } catch {
+                NSLog("[Contacts] ERROR: Failed to save Styles to CoreData")
+            }
+        }
     }
-  }
 }
