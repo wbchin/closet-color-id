@@ -75,7 +75,10 @@ struct OutfitView: View {
             }
             
         }.navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: OutfitsView(viewModel:viewModel))
+            .navigationBarItems(leading: NavigationLink(destination: OutfitsView(viewModel: viewModel), label: {
+                Label("Back", systemImage:  "arrow.backward")
+            }))
+        //NavigationLink(destination: OutfitsView(viewModel: viewModel), label: Label("Back", systemImage:  "arrow.backward")))
         //.navigationTitle(outfit.name!)
 //        .onAppear(perform: {
 //            self.images = self.imageArray()

@@ -136,6 +136,7 @@ struct OutfitsView: View {
 //        self.viewModel.deleteUntaggedArticles()
 //        self.viewModel.updateArticles()
       })
+      .navigationBarBackButtonHidden(true)
       .navigationBarItems(trailing: Button(action: {
           GenerateOutfitView(viewModel: viewModel)
         }) {
