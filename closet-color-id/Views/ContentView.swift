@@ -14,7 +14,7 @@ struct CustomTab: View {
 }
 struct ContentView: View {
     @ObservedObject var userSettings = UserSettings()
-    @State private var isTutorial: Bool = true
+    @State private var isTutorial: Bool = false
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
     @ObservedObject var dataPopulation = DataPopulation()
@@ -49,7 +49,7 @@ struct ContentView: View {
             HStack {
                 TabView() {
                     if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-                        TutorialStartView(viewModel: viewModel, isTutorial: true)
+                        TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
                             .tabItem{
                                 Label("Clothing", systemImage: "tshirt")
                             }
@@ -69,6 +69,16 @@ struct ContentView: View {
                         }.tag(2)
                 }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
 
+            }
+            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                VStack {
+                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+                        Spacer()
+                        Rectangle()
+                        .fill(Color.white.opacity(0.001))
+                        .frame(width: .infinity, height: 50)
+                    }
+                }
             }
         }
 
