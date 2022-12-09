@@ -10,7 +10,7 @@ import CoreData
 
 struct ImageCaptureView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State var image: UIImage? //= UIImage(named: "pusheen")
+    @State var image: UIImage? = UIImage(named: "pusheen")
     let viewModel: ViewModel
     @State var isCustomCameraViewPresented = true
     @ObservedObject var imaggaCall: ImaggaCalls
@@ -129,7 +129,7 @@ struct ImageCaptureView: View {
                             
 //                            NavigationLink(destination: ImageCaptureView( viewModel: viewModel, image: viewModel.image), )
                         }
-                        if image == nil{
+                        if viewModel.image == nil{
 //                            Button(action: {
 //                                isCustomCameraViewPresented.toggle()
 //                            }, label: {

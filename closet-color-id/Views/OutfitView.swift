@@ -66,14 +66,17 @@ struct OutfitView: View {
 
                     }
                 }
-                .background(Color.red)
+                .background(Color(red: 0.30, green: 0.11, blue: 0.00))
                 .cornerRadius(15)
+                .padding(25)
                 ShareLink(item: Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray())), preview: SharePreview("Outfit", image: Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray())))){
                     Label("Share outfit", systemImage:  "square.and.arrow.up")
                 }
             }
             
-        }
+        }.navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: OutfitsView(viewModel:viewModel))
+        //.navigationTitle(outfit.name!)
 //        .onAppear(perform: {
 //            self.images = self.imageArray()
 //        })

@@ -10,7 +10,7 @@ import SwiftUI
 struct OutfitsView: View {
   //    let viewController: ViewController
   var viewModel: ViewModel
-  var dataPopulation: DataPopulation
+//  var dataPopulation: DataPopulation
   let columns = [
 //    GridItem(.flexible()),
 //    GridItem(.flexible()),
@@ -41,10 +41,17 @@ struct OutfitsView: View {
     var body: some View {
       NavigationView {
           ScrollView{
+              NavigationLink {
+                  GenerateOutfitView(viewModel: viewModel)
+              } label: {
+                  Text("Generate Outfit")
+              }
+
               if(self.outfits.count > 0){
                   VStack{
+                      
                       Text("OUTFITS").bold()
-//                      LazyVGrid(columns: columns, spacing: 10){
+                      LazyVGrid(columns: columns, spacing: 10){
                       ForEach(self.outfits, id: \.self) { outfit in
                           NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
                               LazyVGrid(columns: columns){
@@ -57,14 +64,19 @@ struct OutfitsView: View {
                                           .frame(width: 80, height: 80)
                                           .cornerRadius(10)
                                           .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                          .padding(5)
                                       
                                   }
-                              }.background(Color.red) //TINA CHANGE TO THE COLOR U WANT
+                              }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
+//                                  .frame(width: 300, height: 300)
                                   .cornerRadius(15)
+                                  .padding(5)
+                              
+                              
                               
                           }
                       }
-//                      }
+                      }
                   }
               } else {
                   VStack (alignment: .leading) {
@@ -116,7 +128,7 @@ struct OutfitsView: View {
         
       }
       .onAppear(perform: {
-          self.viewModel.generateOutfit(style: "professional", name: "Interview")
+//          self.viewModel.generateOutfit(style: "professional", name: "Interview")
           self.popStyles()
           self.outfits = viewModel.fetchOutfits()!
 //        self.viewModel.deleteUnstyledArticles()
@@ -125,7 +137,7 @@ struct OutfitsView: View {
 //        self.viewModel.updateArticles()
       })
       .navigationBarItems(trailing: Button(action: {
-          // this needs it's own view
+          GenerateOutfitView(viewModel: viewModel)
         }) {
           Image(systemName: "plus")
         })
