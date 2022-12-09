@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  closet-color-id
-//
-//  Created by Waverly Chin on 10/8/22.
-//
-
 import SwiftUI
 struct CustomTab: View {
     @Binding var capturedImage: UIImage?
@@ -17,6 +10,7 @@ struct ContentView: View {
     @State private var isTutorial: Bool = UserDefaults.standard.bool(forKey: "didLaunchBefore")
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
+//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     
@@ -34,6 +28,16 @@ struct ContentView: View {
     @State private var wardrobe = UUID()
     @State private var cam = UUID()
     @State private var outfits = UUID()
+    var handler: Binding<Int> { Binding(
+                        get: { self.tabSelection },
+                        set: {
+                            if $0 == self.tabSelection {
+                                // Lands here if user tapped more than once
+                                tappedTwice = true
+                            }
+                            self.tabSelection = $0
+                        }
+                )}
     
     var body: some View {
         HStack{
@@ -45,48 +49,104 @@ struct ContentView: View {
             }
         }
         .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-        ZStack {
-            HStack {
-                TabView() {
-                    if (self.isTutorial) {
+        ZStack{
+            TabView(selection: handler) {
+                if (self.isTutorial) {
+                    NavigationView {
                         TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
-                            .tabItem{
-                                Label("Clothing", systemImage: "tshirt")
-                            }
-                    } else {
+                            .id(wardrobe)
+                            .onChange(of: tappedTwice, perform: { tappedTwice in
+                                self.viewModel.deleteUntaggedArticles(completion: {out in })
+                                self.viewModel.updateArticles()
+                                guard tappedTwice else { return }
+                                wardrobe = UUID()
+                                self.tappedTwice = false
+                            })
+                    }.tabItem {
+                        Image(systemName: "tshirt")
+                        Text("Wardrobe")
+                    }
+                    .tag(1)
+                } else {
+                    NavigationView {
                         WardrobeView(viewModel: viewModel)
-                            .tabItem{
-                                Label("Clothing", systemImage: "tshirt")
-                            }
+                            .id(wardrobe)
+                            .onChange(of: tappedTwice, perform: { tappedTwice in
+                                self.viewModel.deleteUntaggedArticles(completion: {out in })
+                                self.viewModel.updateArticles()
+                                guard tappedTwice else { return }
+                                wardrobe = UUID()
+                                self.tappedTwice = false
+                            })
+                    }.tabItem {
+                        Image(systemName: "tshirt")
+                        Text("Wardrobe")
                     }
-                    ImageCaptureView( viewModel: viewModel, image: nil)
-                        .tabItem{
-                            Label("Camera", systemImage: "camera")
-                        }
-                    if (self.isTutorial) {
+                    .tag(1)
+                }
+                
+                NavigationView {
+                    ImageCaptureView(viewModel: viewModel, image: viewModel.image)
+                        .id(cam)
+                        .onChange(of: tappedTwice, perform: { tappedTwice in
+                            
+                            guard tappedTwice else { return }
+                            cam = UUID()
+                            self.tappedTwice = false
+                            viewModel.image = nil
+                            self.viewModel.deleteUntaggedArticles(completion: {out in })
+                            self.viewModel.updateArticles()
+                            self.viewModel.article = nil
+                        })
+                }
+                .tabItem {
+                    Image(systemName: "camera")
+                    Text("Camera")
+                }
+                .tag(2)
+                
+                if (self.isTutorial) {
+                    NavigationView {
                         TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
-                            .tabItem{
-                                Label("Clothing", systemImage: "tshirt")
-                            }
-                    } else {
-                        OutfitsView(viewModel: viewModel)
-                            .tabItem{
-                                Label("Outfits", systemImage: "door.french.closed")
-                            }.tag(2)
+                            .id(wardrobe)
+                            .onChange(of: tappedTwice, perform: { tappedTwice in
+                                self.viewModel.deleteUntaggedArticles(completion: {out in })
+                                self.viewModel.updateArticles()
+                                guard tappedTwice else { return }
+                                wardrobe = UUID()
+                                self.tappedTwice = false
+                            })
+                    }.tabItem {
+                        Image(systemName: "tshirt")
+                        Text("Wardrobe")
                     }
-                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-
+                    .tag(1)
+                } else {
+                    NavigationView {
+                        OutfitsView(viewModel: viewModel)
+                            .id(outfits)
+                            .onChange(of: tappedTwice, perform: { tappedTwice in
+                                guard tappedTwice else { return }
+                                outfits = UUID()
+                                self.tappedTwice = false
+                            })
+                    }
+                    .tabItem {
+                        Image(systemName: "door.french.closed")
+                        Text("Outfits")
+                    }
+                    .tag(3)
+                }
             }
             if (self.isTutorial) {
                 VStack {
                     Spacer()
                     Rectangle()
-                    .fill(Color.white.opacity(0.001))
-                    .frame(width: .infinity, height: 50)
+                        .fill(Color.white.opacity(0.001))
+                        .frame(width: .infinity, height: 50)
                 }
             }
         }
-
         .onAppear(perform: {
             self.viewModel.deleteAllArticles()
           self.viewModel.deleteAllArticleStyles()
@@ -103,11 +163,5 @@ struct ContentView: View {
 
         })
         .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-    }
-}
-  
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

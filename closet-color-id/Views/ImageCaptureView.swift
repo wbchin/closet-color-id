@@ -17,28 +17,28 @@ struct ImageCaptureView: View {
     @State var article: Article?
     @State var calledImagga: Bool = false
     let appDelegate = AppDelegate()
-    
+  
     init(viewModel: ViewModel, image: UIImage?){
-        self.viewModel = viewModel
-        self.imaggaCall = ImaggaCalls(viewModel: viewModel)
+      self.viewModel = viewModel
+      self.imaggaCall = ImaggaCalls(viewModel: viewModel)
     }
     func runImagga() {
         self.imaggaCall.imageCropped = UIImage(cgImage: centerCrop())
         self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: image!)
-        self.imaggaCall.uploadImage(completion: { article in
-            self.article = article
-        })
+      self.imaggaCall.uploadImage(completion: { article in
+        self.article = article
+      })
     }
     
     func centerCrop() -> CGImage {
         let sourceImage = image
-        
+
         // The shortest side
         let sideLength = min(
             sourceImage!.size.width,
             sourceImage!.size.height
         )
-        
+
         // Determines the x,y coordinate of a centered
         // sideLength by sideLength square
         let sourceSize = sourceImage!.size
@@ -55,7 +55,7 @@ struct ImageCaptureView: View {
             width: sideLength/2,
             height: sideLength/2
         ).integral
-        
+
         // Center crop the image
         let sourceCGImage = sourceImage?.cgImage!
         let croppedCGImage = sourceCGImage!.cropping(
@@ -65,32 +65,36 @@ struct ImageCaptureView: View {
     }
     
     func rotate(radians: Float, image: UIImage) -> UIImage? {
-        var newSize = CGRect(origin: CGPoint.zero, size: image.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
-        // Trim off the extremely small float value to prevent core graphics from rounding it up
-        newSize.width = floor(newSize.width)
-        newSize.height = floor(newSize.height)
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale)
-        let context = UIGraphicsGetCurrentContext()!
-        
-        // Move origin to middle
-        context.translateBy(x: newSize.width/2, y: newSize.height/2)
-        // Rotate around middle
-        context.rotate(by: CGFloat(radians))
-        // Draw the image at its center
-        image.draw(in: CGRect(x: -image.size.width/2, y: -image.size.height/2, width: image.size.width, height: image.size.height))
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
+            var newSize = CGRect(origin: CGPoint.zero, size: image.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+            // Trim off the extremely small float value to prevent core graphics from rounding it up
+            newSize.width = floor(newSize.width)
+            newSize.height = floor(newSize.height)
+
+            UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale)
+            let context = UIGraphicsGetCurrentContext()!
+
+            // Move origin to middle
+            context.translateBy(x: newSize.width/2, y: newSize.height/2)
+            // Rotate around middle
+            context.rotate(by: CGFloat(radians))
+            // Draw the image at its center
+            image.draw(in: CGRect(x: -image.size.width/2, y: -image.size.height/2, width: image.size.width, height: image.size.height))
+
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+
+            return newImage
+        }
     
     var body: some View {
         NavigationView {
             ZStack {
                 GeometryReader { geometry in
                     VStack (spacing: 20){
+                        VStack{
+                            Text("Want to save another article?")
+                            Text("Tap the camera to take another photo.")
+                        }
                         if self.image != nil && self.calledImagga != true {
                             Text("").onAppear{
                                 self.calledImagga = true
@@ -133,44 +137,47 @@ struct ImageCaptureView: View {
                                     self.isCustomCameraViewPresented = true
                                 }
                         }
-                        if self.image == nil{
-                            Spacer()
-                                .sheet(isPresented: $isCustomCameraViewPresented, content: {
-                                    CustomCameraView(capturedImage: $image)
-                                })
-                        }
+                    }
+                    if viewModel.image == nil{
+                        Spacer()
+                            .sheet(isPresented: $isCustomCameraViewPresented, content: {
+                                CustomCameraView(capturedImage: $image)
+                            })
                     }
                 }
-                .padding()
-                .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-                .textCase(.uppercase)
             }
-            .onDisappear(perform: {
-                self.viewModel.article = nil
-                self.viewModel.deleteUntaggedArticles(completion: {out in })
-                self.viewModel.updateArticles()
-                self.image = nil
-                self.imaggaCall.image = nil
-                self.article = nil
-                self.calledImagga = false
-                self.isCustomCameraViewPresented = false
-            })
-            .onAppear(perform: {
-                self.isCustomCameraViewPresented = true
-            })
+            .padding()
+            .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+            .textCase(.uppercase)
         }
+        .onDisappear(perform: {
+            self.image = nil
+            self.imaggaCall.image = nil
+            self.isCustomCameraViewPresented = false
+            self.calledImagga = false
+        })
+        .onAppear(perform: {
+            let _ = print("appear")
+//            self.isCustomCameraViewPresented = true
+            self.viewModel.deleteUntaggedArticles(completion: {out in })
+            self.viewModel.updateArticles()
+            self.viewModel.article = nil
+            self.image = nil
+            self.imaggaCall.image = nil
+            self.article = nil
+            self.calledImagga = false
+        })
+    }
         
-    }
-    
-    private enum Localization {
-        static let addPhotoTitle = NSLocalizedString("Add Photo", comment: "Button title for Add Photo")
-    }
-    
-    
-    //struct ImageCaptureView_Previews: PgitreviewProvider {
-    //    static var previews: some View {
-    //        ImageCaptureView()
-    //    }
-    //}
-    
 }
+  
+private enum Localization {
+    static let addPhotoTitle = NSLocalizedString("Add Photo", comment: "Button title for Add Photo")
+}
+  
+  
+  //struct ImageCaptureView_Previews: PgitreviewProvider {
+  //    static var previews: some View {
+  //        ImageCaptureView()
+  //    }
+  //}
