@@ -18,7 +18,7 @@ struct TagCategoryView: View {
                       Button("OUTERWEAR") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesOuterwear
-                          viewModel.tagArticleCategory(category: "outerwear", article: article)
+                          self.viewModel.tagArticleCategory(category: "outerwear", article: article)
                       }
                       .frame(width: geometry.size.width * 0.35)
                       .padding(5)
@@ -29,7 +29,7 @@ struct TagCategoryView: View {
                       Button("TOP") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesShirts
-                          viewModel.tagArticleCategory(category: "top", article: article)
+                          self.viewModel.tagArticleCategory(category: "top", article: article)
                       }
                       .frame(width: geometry.size.width * 0.35)
                       .padding(5)
@@ -43,7 +43,7 @@ struct TagCategoryView: View {
                       Button("BOTTOM") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesBottoms
-                          viewModel.tagArticleCategory(category: "bottom", article: article)
+                          self.viewModel.tagArticleCategory(category: "bottom", article: article)
                       }
                       .frame(width: geometry.size.width * 0.35)
                       .padding(5)

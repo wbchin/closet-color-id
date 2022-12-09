@@ -20,7 +20,7 @@ struct TagSubcategoryView: View {
                       ForEach(self.subcats, id: \.self) { sub in
                           Button(sub.uppercased()) {
                               isShowingSubcat = false
-                              viewModel.tagArticleSubcategory(subcategory: sub, article: article)
+                              self.viewModel.tagArticleSubcategory(subcategory: sub, article: article)
                           }
                           .frame(width: geometry.size.width * 0.4)
                           .padding(5)
