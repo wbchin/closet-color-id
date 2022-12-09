@@ -70,16 +70,16 @@ struct ContentView: View {
                 }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
 
             }
-            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-                VStack {
-                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
-                        Spacer()
-                        Rectangle()
-                        .fill(Color.white.opacity(0.001))
-                        .frame(width: .infinity, height: 50)
-                    }
-                }
-            }
+//            if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+//                VStack {
+//                    if ($userSettings.isFirstTimeUser.wrappedValue || self.isTutorial) {
+//                        Spacer()
+//                        Rectangle()
+//                        .fill(Color.white.opacity(0.001))
+//                        .frame(width: .infinity, height: 50)
+//                    }
+//                }
+//            }
         }
 
         .onAppear(perform: {
