@@ -59,17 +59,21 @@ struct TutorialStartView: View {
     
     private var tutorialOverlay: some View {
         VStack {
-            Text("Begin Tutorial?")
+            Text("Welcome to MCLOSET, your mobile closet. Let’s start out with a tour.")
+                .frame(width: 250, alignment: .center)
               .padding()
-            NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                Text("OK!")
+            
+            HStack {
+                NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
+                    Text("BEGIN").bold()
+                }
+                NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                    Text("SKIP")
+                }.simultaneousGesture(TapGesture().onEnded{
+                    //isTutorial = false
+                    self.isTutorial.toggle()
+                })
             }
-            NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
-                Text("Skip")
-            }.simultaneousGesture(TapGesture().onEnded{
-                //isTutorial = false
-                self.isTutorial.toggle()
-            })
 //            Button(action: {
 //                self.isTutorial.toggle()
 //            }, label: {

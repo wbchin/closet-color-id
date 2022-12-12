@@ -122,7 +122,7 @@ struct ContentView: View {
                                 })
                                 .navigationBarTitle("WARDROBE")
                         }.tabItem {
-                            Image(systemName: "tshirt").background(.red)
+                            Image(systemName: "door.french.closed").background(.red)
                             Text("Wardrobe").background(.red)
                         }
                         .tag(1)

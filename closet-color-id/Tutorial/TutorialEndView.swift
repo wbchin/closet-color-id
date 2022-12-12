@@ -27,6 +27,7 @@ struct TutorialEndView: View {
     private var tutorialOverlay: some View {
         VStack {
             Text("That’s all! Go and make some amazing outfit pairings.")
+                .frame(width: 250, alignment: .center)
               .padding()
             NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
                 Text("Begin")
@@ -154,7 +155,7 @@ struct TutorialEndView: View {
             .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
-            .overlay(tutorialOverlay, alignment: .bottom)
+            .overlay(tutorialOverlay, alignment: .center)
         }.navigationBarBackButtonHidden(true)
     }
 }

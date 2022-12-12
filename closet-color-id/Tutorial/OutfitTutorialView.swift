@@ -28,6 +28,7 @@ struct OutfitTutorialView: View {
         ZStack {
             VStack {
                 Text("All your generated outfits go here")
+                  .frame(width: 250, alignment: .center)
                   .padding()
                 
                 HStack {

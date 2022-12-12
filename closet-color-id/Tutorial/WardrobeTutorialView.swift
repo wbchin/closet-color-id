@@ -39,6 +39,7 @@ struct WardrobeTutorialView: View {
         ZStack {
             VStack {
                 Text("All your individual clothes go here")
+                    .frame(width: 250, alignment: .center)
                     .padding()
                 
                 HStack {
