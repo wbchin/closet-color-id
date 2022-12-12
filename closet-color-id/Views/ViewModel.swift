@@ -617,9 +617,7 @@ class ViewModel: ObservableObject {
             let color_predicate2 = NSPredicate(
                 format: "complimentary_color_family = %@", article.primary_color_family!
             )
-            let color_predicate3 = NSPredicate(
-                format: "complimentary_color_family = %@", article.secondary_color_family!
-            )
+            
             let color_predicate4 = NSPredicate(
                 format: "primary_color_family = %@", article.complimentary_color_family!
             )
@@ -629,6 +627,9 @@ class ViewModel: ObservableObject {
             )
             
             if (article.secondary_color_family != nil) {
+                let color_predicate3 = NSPredicate(
+                    format: "complimentary_color_family = %@", article.secondary_color_family!
+                )
                 let color_predicate5 = NSPredicate(
                     format: "secondary_color_family = %@", article.complimentary_color_family!
                 )
@@ -651,7 +652,6 @@ class ViewModel: ObservableObject {
                         NSCompoundPredicate(orPredicateWithSubpredicates: [
                             color_predicate1,
                             color_predicate2,
-                            color_predicate3,
                             color_predicate4
                         ]),
                         category_predicate
