@@ -63,7 +63,7 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-                                .navigationBarTitle("WARDROBE")
+//                                .navigationBarTitle("WARDROBE")
                         }
                         .tabItem {
                             Image(systemName: "tshirt").background(.red)
@@ -85,7 +85,7 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-                                .navigationBarTitle("WARDROBE")
+//                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "tshirt").background(.red)
                             Text("Wardrobe").background(.red)
@@ -132,9 +132,9 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-                                .navigationBarTitle("WARDROBE")
+//                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
-                            Image(systemName: "tshirt").background(.red)
+                            Image(systemName: "door.french.closed").background(.red)
                             Text("Wardrobe").background(.red)
                         }
                         .tag(1)

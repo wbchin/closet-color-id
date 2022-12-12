@@ -27,6 +27,7 @@ struct TutorialEndView: View {
     private var tutorialOverlay: some View {
         VStack {
             Text("That’s all! Go and make some amazing outfit pairings.")
+                .frame(width: 250, alignment: .center)
               .padding()
             NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
                 Text("Begin")
@@ -50,6 +51,11 @@ struct TutorialEndView: View {
     var body: some View {
         NavigationView {
             ScrollView{
+                Spacer()
+                Text("WARDROBE")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding()
                 if (self.tops.count > 0){
                     VStack (alignment: .leading) {
                         Text("TOPS").bold()
@@ -151,10 +157,9 @@ struct TutorialEndView: View {
             .scrollDisabled(true)
             .brightness(-0.5)
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
-            .overlay(tutorialOverlay, alignment: .bottom)
+            .overlay(tutorialOverlay, alignment: .center)
         }.navigationBarBackButtonHidden(true)
     }
 }

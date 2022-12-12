@@ -22,7 +22,13 @@ struct WardrobeView: View {
     ]
     let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
     var body: some View {
+        
         ScrollView{
+            Spacer()
+            Text("WARDROBE")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding()
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()
@@ -91,9 +97,9 @@ struct WardrobeView: View {
             VStack (alignment: .leading){
                 Text("OUTERWEAR").bold()
                     LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.bottoms, id: \.self) { bottom in
-                            NavigationLink(destination: WardrobeArticleView(article: bottom, viewModel: viewModel)) {
-                                Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                        ForEach(self.outerwear, id: \.self) { out in
+                            NavigationLink(destination: WardrobeArticleView(article: out, viewModel: viewModel)) {
+                                Image(uiImage: UIImage(data: out.image_data!)!)//UNSAFE
                                     .renderingMode(.original)
                                     .resizable()
                                     .scaledToFit()

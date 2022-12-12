@@ -28,6 +28,7 @@ struct OutfitTutorialView: View {
         ZStack {
             VStack {
                 Text("All your generated outfits go here")
+                  .frame(width: 250, alignment: .center)
                   .padding()
                 
                 HStack {
@@ -61,6 +62,11 @@ struct OutfitTutorialView: View {
     var body: some View {
         NavigationView {
             ScrollView{
+                Spacer()
+                Text("WARDROBE")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding()
                 if (self.tops.count > 0){
                     VStack (alignment: .leading) {
                         Text("TOPS").bold()
@@ -162,7 +168,6 @@ struct OutfitTutorialView: View {
             .scrollDisabled(true)
             .brightness(-0.5)
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
             .overlay(tutorialOverlay, alignment: .bottom)

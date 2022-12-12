@@ -56,6 +56,11 @@ struct OutfitView: View {
         NavigationView {
             ScrollView{
 //                Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray()))
+//                Text(self.outfit.name!)
+//                    .fontWeight(.bold)
+//                    .font(.title)
+//                    .padding()
+            
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
                         NavigationLink(destination: ArticleView(article: article, viewModel: viewModel)){
@@ -74,7 +79,9 @@ struct OutfitView: View {
                 }
             }
             
-        }
+
+        }.navigationTitle(self.outfit.name!)
+
         //NavigationLink(destination: OutfitsView(viewModel: viewModel), label: Label("Back", systemImage:  "arrow.backward")))
         .navigationTitle(outfit.name!)
 //        .onAppear(perform: {

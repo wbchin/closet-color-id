@@ -27,7 +27,8 @@ struct CameraTutorialView: View {
     private var tutorialOverlay: some View {
         ZStack {
             VStack {
-                Text("Take pictures of your clothes here")
+                Text("Take pictures of your clothes here. Make sure that you are taking the photo with good lighting and centering your camera on the clothing article you are photographing!")
+                  .frame(width: 250, alignment: .center)
                   .padding()
                 
                 HStack {
@@ -45,7 +46,7 @@ struct CameraTutorialView: View {
                 CircleShape()
                     //.trim(from: 0.5, to: 1)
                     .aspectRatio(1.5, contentMode: .fit)
-                    .frame(width: 300, height: 300)
+                    .frame(width: 400, height: 400)
                     .foregroundColor(.white)
               )
             ArrowShape()
@@ -63,6 +64,11 @@ struct CameraTutorialView: View {
     var body: some View {
         NavigationView {
             ScrollView{
+                Spacer()
+                Text("WARDROBE")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding()
                 if (self.tops.count > 0){
                     VStack (alignment: .leading) {
                         Text("TOPS").bold()
@@ -164,7 +170,6 @@ struct CameraTutorialView: View {
             .scrollDisabled(true)
             .brightness(-0.5)
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
             .overlay(tutorialOverlay, alignment: .bottom)
