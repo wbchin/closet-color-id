@@ -72,7 +72,7 @@ struct GenerateOutfitView: View {
                 if self.outfitGenerated {
                     if self.viewModel.outfit != nil {
                         NavigationLink (
-                            destination: OutfitView(outfit: viewModel.outfit!, viewModel: viewModel),
+                            destination: NameNewOutfitView(viewModel: viewModel, outfit: viewModel.outfit!),
                             label:{
                                 Text("Done").frame(maxHeight: 50, alignment: .bottom).font(.system(size: 30))
                             })
