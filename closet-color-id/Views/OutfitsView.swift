@@ -39,11 +39,6 @@ struct OutfitsView: View {
     }
     
     var body: some View {
-        ZStack{
-            Color(red: 0.96, green: 0.94, blue: 0.91).ignoresSafeArea()
-            
-        }
-        
       NavigationView {
           ScrollView{
               NavigationLink {
@@ -54,6 +49,7 @@ struct OutfitsView: View {
 
               if(self.outfits.count > 0){
                   VStack{
+                      
                       LazyVGrid(columns: columns, spacing: 10){
                       ForEach(self.outfits, id: \.self) { outfit in
                           NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
@@ -146,7 +142,6 @@ struct OutfitsView: View {
         })
     }
 //    let exampleColor : Color = Color(red: 0.5, green: 0.8, blue: 0.5)
-
 //  var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
 //  @State private var outfits = ["pink tee", "green tee", "black tee"]
   // must be internal or public.
@@ -200,7 +195,6 @@ struct OutfitsView: View {
 //
 //
 //  }
-
     
 
   }
