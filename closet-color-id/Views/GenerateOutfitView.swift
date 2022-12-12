@@ -70,12 +70,19 @@ struct GenerateOutfitView: View {
                 .clipShape(Capsule())
                 .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                 if self.outfitGenerated {
-                    NavigationLink (
-//                        destination: NameNewOutfitView(viewModel: viewModel, outfit: viewModel.outfit!),
-                        destination: OutfitView(outfit: viewModel.outfit!, viewModel: viewModel),
-                      label:{
-                          Text("Done").frame(maxHeight: 50, alignment: .bottom).font(.system(size: 30))
-                      })
+                    if self.viewModel.outfit != nil {
+                        NavigationLink (
+                            destination: OutfitView(outfit: viewModel.outfit!, viewModel: viewModel),
+                            label:{
+                                Text("Done").frame(maxHeight: 50, alignment: .bottom).font(.system(size: 30))
+                            })
+                    } else {
+                        NavigationLink (
+                            destination: OutfitErrorView(viewModel: viewModel),
+                            label:{
+                                Text("Done").frame(maxHeight: 50, alignment: .bottom).font(.system(size: 30))
+                            })
+                    }
                 }
             }
             
