@@ -70,6 +70,10 @@ struct ContentView: View {
                             Text("Wardrobe").background(.red)
                         }
                         .tag(1)
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(
+                            Color(red: 0.74, green: 0.64, blue: 0.55),
+                            for: .tabBar)
                     } else {
                         NavigationView {
                             WardrobeView(viewModel: viewModel)
@@ -87,6 +91,10 @@ struct ContentView: View {
                             Text("Wardrobe").background(.red)
                         }
                         .tag(1)
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(
+                            Color(red: 0.74, green: 0.64, blue: 0.55),
+                            for: .tabBar)
                     }
                     
                     NavigationView {
@@ -108,6 +116,10 @@ struct ContentView: View {
                         Text("Camera").background(.red)
                     }
                     .tag(2)
+                    .toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(
+                        Color(red: 0.74, green: 0.64, blue: 0.55),
+                        for: .tabBar)
                     
                     if (self.isTutorial) {
                         NavigationView {
@@ -126,6 +138,10 @@ struct ContentView: View {
                             Text("Wardrobe").background(.red)
                         }
                         .tag(1)
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(
+                            Color(red: 0.74, green: 0.64, blue: 0.55),
+                            for: .tabBar)
                     } else {
                         NavigationView {
                             OutfitsView(viewModel: viewModel)
@@ -135,13 +151,17 @@ struct ContentView: View {
                                     outfits = UUID()
                                     self.tappedTwice = false
                                 })
-                                .navigationBarTitle("OUTFITS")
+//                                .navigationBarTitle("OUTFITS")
                         }
                         .tabItem {
                             Image(systemName: "door.french.closed").background(.red)
                             Text("Outfits").background(.red)
                         }
                         .tag(3)
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(
+                            Color(red: 0.74, green: 0.64, blue: 0.55),
+                            for: .tabBar)
                     }
                 }
                 if (self.isTutorial) {
