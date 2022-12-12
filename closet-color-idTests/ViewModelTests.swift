@@ -236,6 +236,15 @@ final class ViewModelTests: XCTestCase {
         //self.viewModel.delet
     }
     
+    func testFetchStyleOutfits() {
+        self.viewModel.generateOutfit(style: "professional", name: "interview outfit")
+        let prof = self.viewModel.fetchStyle(name: "professional")
+        
+        let outfits = self.viewModel.fetchStyleOufits(style: prof!)
+        XCTAssertEqual(outfits!.count, 1)
+        XCTAssertEqual(outfits!.first!.outfitStyles, prof!.outfitStyles)
+    }
+    
 //    func testFetchOutfits() {
 //        let outfits = self.viewModel.fetchOutfits()
 //
@@ -365,17 +374,17 @@ final class ViewModelTests: XCTestCase {
         self.viewModel.deleteArticle(article_id: self.viewModel.article!.objectID)
     }
     
-    func testSaveStyleOutfit() {
-        self.viewModel.saveOutfit(name: "testOutfit", completion: {success in})
-        let testOutfit = self.viewModel.outfit
-        let casual = self.viewModel.fetchStyle(name: "casual")
-        self.viewModel.saveStyleOutfit(outfit_id: testOutfit!.objectID, style_id: casual!.objectID)
-        
-        for case let style as Style in testOutfit!.style!.allObjects {
-            XCTAssertEqual(style, style)
-        }
-        //XCTAssertEqual((testOutfit!.style as! [Style]).first, style)
-    }
+//    func testSaveStyleOutfit() {
+//        self.viewModel.saveOutfit(name: "testOutfit", completion: {success in})
+//        let testOutfit = self.viewModel.outfit
+//        let casual = self.viewModel.fetchStyle(name: "casual")
+//        self.viewModel.saveStyleOutfit(outfit_id: testOutfit!.objectID, style_id: casual!.objectID)
+//
+//        for case let style as Style in testOutfit!.style!.allObjects {
+//            XCTAssertEqual(style, style)
+//        }
+//        //XCTAssertEqual((testOutfit!.style as! [Style]).first, style)
+//    }
     
     func testFindComplimentaryArticle() {
         let article = self.viewModel.findComplimentaryArticle(article: self.viewModel.arts.first!)

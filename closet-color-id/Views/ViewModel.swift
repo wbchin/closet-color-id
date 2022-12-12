@@ -267,6 +267,16 @@ class ViewModel: ObservableObject {
         }
     }
     
+    func tagOutfitStyle(outfit: Outfit, style: Style) {
+        let context = appDelegate.persistentContainer.viewContext
+        context.object(with: outfit.objectID).setValue(style, forKey: "style")
+        do {
+            try context.save()
+        } catch {
+            NSLog("[Contacts] ERROR: Failed to tag outfit's style")
+        }
+    }
+    
     func saveOutfit(name: String, completion: @escaping((Outfit) -> ())) {
         let myGroup = DispatchGroup()
         myGroup.enter()
@@ -362,9 +372,11 @@ class ViewModel: ObservableObject {
             }
             
             self.saveOutfit(name: name, completion: {out in })
+//            self.tagOutfitStyle(outfit: self.outfit!, style: style)
             
             // save ArticleOutfits
             if self.outfit != nil {
+                self.saveOutfitStyle(outfit_id: self.outfit!.objectID, style_id: style.objectID)
                 self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: self.outfit!.objectID)
                 self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: self.outfit!.objectID)
                 self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: self.outfit!.objectID)
@@ -396,6 +408,17 @@ class ViewModel: ObservableObject {
     }
     
     // MARK: - Style Methods
+    func fetchStyleOufits(style: Style) -> [Outfit]? {
+        var out = [Outfit]()
+        let outfitStyles = style.outfitStyles
+        
+        for case let outfitStyle as OutfitStyle in outfitStyles!.allObjects {
+            out.append(outfitStyle.outfit!)
+        }
+        
+        return out
+    }
+    
     func fetchStyles() {
         let fetchRequest: NSFetchRequest<Style>
         fetchRequest = Style.fetchRequest()
@@ -718,16 +741,16 @@ class ViewModel: ObservableObject {
             return (Int(hue), saturation, brightness)
         }
         
-        func saveStyleOutfit(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
+        func saveOutfitStyle(outfit_id: NSManagedObjectID, style_id: NSManagedObjectID) {
             let context = appDelegate.persistentContainer.viewContext
-            if let entity = NSEntityDescription.entity(forEntityName: "StyleOutfit", in: context) {
+            if let entity = NSEntityDescription.entity(forEntityName: "OutfitStyle", in: context) {
                 let newVal = NSManagedObject(entity: entity, insertInto: context)
                 newVal.setValue(context.object(with: outfit_id), forKey: "outfit")
                 newVal.setValue(context.object(with: style_id), forKey: "style")
                 do {
                     try context.save()
                 } catch {
-                    NSLog("[Contacts] ERROR: Failed to save StyleOutfit to CoreData")
+                    NSLog("[Contacts] ERROR: Failed to save OutfitStyle to CoreData")
                 }
             }
         }
