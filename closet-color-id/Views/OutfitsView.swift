@@ -35,114 +35,65 @@ struct OutfitsView: View {
     }
     
     var body: some View {
-      NavigationView {
-          ScrollView{
-              Spacer()
-              Text("OUTFITS")
-                  .fontWeight(.bold)
-                  .font(.title)
-                  .padding()
-              
-              NavigationLink {
-                  GenerateOutfitView(viewModel: viewModel)
-              } label: {
-                  Text("Generate Outfit")
-              }
+        ZStack{
+            Color(red: 0.96, green: 0.94, blue: 0.91).ignoresSafeArea()
+            NavigationView {
+                ScrollView{
+                    NavigationLink {
+                        GenerateOutfitView(viewModel: viewModel)
+                    } label: {
+                        Text("Generate Outfit")
+                    }
 
-              if(self.outfits.count > 0){
-                  VStack{
-                      
-                      LazyVGrid(columns: columns, spacing: 10){
-                      ForEach(self.outfits, id: \.self) { outfit in
-                          NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
-                              LazyVGrid(columns: columns){
-                                  ForEach(self.viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
-                                      Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
-                                          .renderingMode(.original)
-                                          .resizable()
-                                          .scaledToFit()
-                                          .font(.system(size: 30))
-                                          .frame(width: 80, height: 80)
-                                          .cornerRadius(10)
-                                          .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                          .padding(5)
-                                      
-                                  }
-                              }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
-//                                  .frame(width: 300, height: 300)
-                                  .cornerRadius(15)
-                                  .padding(5)
-                              
-                              
-                              
-                          }
-                      }
-                      }
-                  }
-              } else {
-                  VStack (alignment: .leading) {
-                      Text("No outfits.")
-                      LazyVGrid(columns: columns, spacing: 10){}
-                  }
-              }
-//              if(self.casual.count > 0){
-//                  VStack{
-//                      Text("CASUAL").bold()
-//                  }
-//              } else {
-//                  VStack (alignment: .leading) {
-//                      Text("CASUAL").bold()
-//                      Text("No casual in outfits.")
-//                      LazyVGrid(columns: columns, spacing: 10){}
-//                  }
-//              }
-//              if(self.night_out.count > 0){
-//                  VStack{
-//                      Text("NIGHT OUT").bold()
-//                  }
-//              } else {
-//                  VStack (alignment: .leading) {
-//                      Text("NIGHT OUT").bold()
-//                      Text("No night out in outfits.")
-//                      LazyVGrid(columns: columns, spacing: 10){}
-//                  }
-//              }
-//              if(self.athletic.count > 0){
-//                  VStack{
-//                      Text("ATHLETIC").bold()
-//                  }
-//              } else {
-//                  VStack (alignment: .leading) {
-//                      Text("ATHLETIC").bold()
-//                      Text("No athletic in wardrobe.")
-//                      LazyVGrid(columns: columns, spacing: 10){}
-//                  }
-//              }
-          }
-//        List {
-//          ForEach(outfits!, id: \.self) { outfit in
-//            Text(outfit.name!)
-//          }.background(Color(red: 0.96, green: 0.94, blue: 0.91))
-//        }
-        
-        
-      }
-      .onAppear(perform: {
-//          self.viewModel.generateOutfit(style: "professional", name: "Interview")
-          self.popStyles()
-          self.outfits = viewModel.fetchOutfits()!
-          self.viewModel.outfit = nil
-//        self.viewModel.deleteUnstyledArticles()
-//        self.viewModel.updateArticles()
-//        self.viewModel.deleteUntaggedArticles()
-//        self.viewModel.updateArticles()
-      })
-      .navigationBarBackButtonHidden(true)
-      .navigationBarItems(trailing: Button(action: {
-          GenerateOutfitView(viewModel: viewModel)
-        }) {
-          Image(systemName: "plus")
-        })
+                    if(self.outfits.count > 0){
+                        VStack{
+                            
+                            LazyVGrid(columns: columns, spacing: 10){
+                            ForEach(self.outfits, id: \.self) { outfit in
+                                NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
+                                    LazyVGrid(columns: columns){
+                                        ForEach(self.viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
+                                            Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
+                                                .renderingMode(.original)
+                                                .resizable()
+                                                .scaledToFit()
+                                                .font(.system(size: 30))
+                                                .frame(width: 80, height: 80)
+                                                .cornerRadius(10)
+                                                .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                                .padding(5)
+                                            
+                                        }
+                                    }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
+      //                                  .frame(width: 300, height: 300)
+                                        .cornerRadius(15)
+                                        .padding(5)
+                                    
+                                    
+                                    
+                                }
+                            }
+                            }
+                        }
+                    } else {
+                        VStack (alignment: .leading) {
+                            Text("No outfits.")
+                            LazyVGrid(columns: columns, spacing: 10){}
+                        }
+                    }
+
+                }
+              
+            }
+            .navigationTitle("OUTFITS")
+            .onAppear(perform: {
+                self.popStyles()
+                self.outfits = viewModel.fetchOutfits()!
+                self.viewModel.outfit = nil
+            })
+            .navigationBarBackButtonHidden(true)
+        }
+      
     }
 //    let exampleColor : Color = Color(red: 0.5, green: 0.8, blue: 0.5)
 //  var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
