@@ -21,16 +21,17 @@ struct TutorialStartView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let viewModel: ViewModel
     let appDelegate: AppDelegate = AppDelegate()
-    @State var tops: [Article] = [Article]()
-    @State var bottoms: [Article] = [Article]()
-    @State var footwear: [Article] = [Article]()
-    @State var outerwear: [Article] = [Article]()
+    @State var tops: [UIImage] = [UIImage]()
+    @State var bottoms: [UIImage] = [UIImage]()
+    @State var footwear: [UIImage] = [UIImage]()
+    @State var outerwear: [UIImage] = [UIImage]()
     @Binding var isTutorial: Bool
     func populateCats() {
-        self.tops = self.viewModel.fetchCatArts(category: "top")
-        self.bottoms = self.viewModel.fetchCatArts(category: "bottom")
-        self.footwear = self.viewModel.fetchCatArts(category: "footwear")
-        self.outerwear = self.viewModel.fetchCatArts(category: "outerwear")
+        self.tops.append(UIImage(named: "shirt 3")!)
+        self.tops.append(UIImage(named: "shirt")!)
+        self.bottoms.append(UIImage(named: "jeans")!)
+        self.footwear.append(UIImage(named: "converse")!)
+        self.outerwear.append(UIImage(named: "swag_jacket")!)
     }
     let columns = [
         GridItem(.flexible()),
@@ -93,7 +94,7 @@ struct TutorialStartView: View {
                     Text("TOPS").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.tops, id: \.self) { top in
-                            Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
+                            Image(uiImage: top)
                                 .renderingMode(.original)
                                 .resizable()
                                 .scaledToFit()
@@ -116,7 +117,7 @@ struct TutorialStartView: View {
                     Text("BOTTOMS").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.bottoms, id: \.self) { bottom in
-                            Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                            Image(uiImage: bottom)//UNSAFE
                                 .renderingMode(.original)
                                 .resizable()
                                 .scaledToFit()
@@ -139,7 +140,7 @@ struct TutorialStartView: View {
                     Text("FOOTWEAR").bold()
                     LazyVGrid(columns: columns, spacing: 10){
                         ForEach(self.footwear, id: \.self) { foot in
-                            Image(uiImage: UIImage(data: foot.image_data!)!)//UNSAFE
+                            Image(uiImage: foot)
                                 .renderingMode(.original)
                                 .resizable()
                                 .scaledToFit()
@@ -162,8 +163,8 @@ struct TutorialStartView: View {
                 VStack (alignment: .leading){
                     Text("OUTERWEAR").bold()
                     LazyVGrid(columns: columns, spacing: 10){
-                        ForEach(self.bottoms, id: \.self) { bottom in
-                            Image(uiImage: UIImage(data: bottom.image_data!)!)//UNSAFE
+                        ForEach(self.outerwear, id: \.self) { out in
+                            Image(uiImage: out)
                                 .renderingMode(.original)
                                 .resizable()
                                 .scaledToFit()
@@ -183,14 +184,12 @@ struct TutorialStartView: View {
             }
             
         }.onAppear(perform: {
-            self.viewModel.deleteUntaggedArticles(completion: {out in})
-            self.viewModel.deleteUnstyledArticles(completion: {out in})
             self.populateCats()
         })
         .scrollDisabled(true)
         .brightness(-0.5)
         .padding(.horizontal)
-//            .navigationBarTitle("WARDROBE")
+        .navigationBarTitle("WARDROBE")
         .frame(alignment: .leading)
         .background(backgroundColor)
         .overlay(tutorialOverlay, alignment: .center)
