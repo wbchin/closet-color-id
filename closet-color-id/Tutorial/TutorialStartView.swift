@@ -59,17 +59,21 @@ struct TutorialStartView: View {
     
     private var tutorialOverlay: some View {
         VStack {
-            Text("Begin Tutorial?")
+            Text("Welcome to MCLOSET, your mobile closet. Let’s start out with a tour.")
+                .frame(width: 250, alignment: .center)
               .padding()
-            NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                Text("OK!")
+            
+            HStack {
+                NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
+                    Text("BEGIN").bold()
+                }
+                NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                    Text("SKIP")
+                }.simultaneousGesture(TapGesture().onEnded{
+                    //isTutorial = false
+                    self.isTutorial.toggle()
+                })
             }
-            NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
-                Text("Skip")
-            }.simultaneousGesture(TapGesture().onEnded{
-                //isTutorial = false
-                self.isTutorial.toggle()
-            })
 //            Button(action: {
 //                self.isTutorial.toggle()
 //            }, label: {
@@ -89,6 +93,11 @@ struct TutorialStartView: View {
     
     var body: some View {
         ScrollView{
+            Spacer()
+            Text("WARDROBE")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding()
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()
@@ -189,7 +198,6 @@ struct TutorialStartView: View {
         .scrollDisabled(true)
         .brightness(-0.5)
         .padding(.horizontal)
-        .navigationBarTitle("WARDROBE")
         .frame(alignment: .leading)
         .background(backgroundColor)
         .overlay(tutorialOverlay, alignment: .center)

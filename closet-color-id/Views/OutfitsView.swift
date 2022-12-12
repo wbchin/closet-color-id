@@ -37,6 +37,12 @@ struct OutfitsView: View {
     var body: some View {
       NavigationView {
           ScrollView{
+              Spacer()
+              Text("OUTFITS")
+                  .fontWeight(.bold)
+                  .font(.title)
+                  .padding()
+              
               NavigationLink {
                   GenerateOutfitView(viewModel: viewModel)
               } label: {
