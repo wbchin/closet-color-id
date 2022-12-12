@@ -20,10 +20,7 @@ struct ContentView: View {
         }
     }
     init() {
-        UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
-        UITabBar.appearance().tintColor = UIColor.green
-        UITabBar.appearance().selectedItem?.badgeColor = UIColor.green
-        UITabBar.appearance().barTintColor = UIColor.green
+        UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)n
     }
     @State private var tabSelection = 1
     @State private var tappedTwice: Bool = false
