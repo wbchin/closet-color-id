@@ -256,15 +256,13 @@ class ViewModel: ObservableObject {
     
     func renameOutfit(outfit: Outfit, name: String) {
         let context = appDelegate.persistentContainer.viewContext
-        if let entity = NSEntityDescription.entity(forEntityName: "Outfit", in: context) {
-            let newVal = NSManagedObject(entity: entity, insertInto: context)
-            newVal.setValue(name, forKey: "name")
-            do {
-                try context.save()
-                self.outfit = newVal as! Outfit
-            } catch {
-                NSLog("[Contacts] ERROR: Failed to save ArticleStyle to CoreData")
-            }
+        context.object(with: outfit.objectID).setValue(name, forKey: "name")
+        do {
+            try context.save()
+            self.outfit = outfit
+            NSLog("outfit renamed")
+        } catch {
+            NSLog("[Contacts] ERROR: Failed to save Article to CoreData")
         }
     }
     
