@@ -93,6 +93,11 @@ struct TutorialStartView: View {
     
     var body: some View {
         ScrollView{
+            Spacer()
+            Text("WARDROBE")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding()
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()
@@ -193,7 +198,6 @@ struct TutorialStartView: View {
         .scrollDisabled(true)
         .brightness(-0.5)
         .padding(.horizontal)
-        .navigationBarTitle("WARDROBE")
         .frame(alignment: .leading)
         .background(backgroundColor)
         .overlay(tutorialOverlay, alignment: .center)

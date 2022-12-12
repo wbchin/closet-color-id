@@ -64,6 +64,11 @@ struct CameraTutorialView: View {
     var body: some View {
         NavigationView {
             ScrollView{
+                Spacer()
+                Text("WARDROBE")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding()
                 if (self.tops.count > 0){
                     VStack (alignment: .leading) {
                         Text("TOPS").bold()
@@ -165,7 +170,6 @@ struct CameraTutorialView: View {
             .scrollDisabled(true)
             .brightness(-0.5)
             .padding(.horizontal)
-            .navigationBarTitle("WARDROBE")
             .frame(alignment: .leading)
             .background(backgroundColor)
             .overlay(tutorialOverlay, alignment: .bottom)

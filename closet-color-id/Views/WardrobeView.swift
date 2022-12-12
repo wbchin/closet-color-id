@@ -22,7 +22,13 @@ struct WardrobeView: View {
     ]
     let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
     var body: some View {
+        
         ScrollView{
+            Spacer()
+            Text("WARDROBE")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding()
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()
