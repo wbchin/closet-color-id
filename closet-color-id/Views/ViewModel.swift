@@ -26,6 +26,7 @@ class ViewModel: ObservableObject {
     @Published var styles = [Style]()
     @Published var article: Article?
     @Published var outfit: Outfit?
+    @Published var generateOutfitMsg: String?
     @Published var image: UIImage?
     
     // MARK: - Article Methods
@@ -332,6 +333,7 @@ class ViewModel: ObservableObject {
             // randomly select which top to match with
             let res_top = tops.randomElement()
             if res_top == nil {
+                self.generateOutfitMsg = "Sorry! You don't have enough items to create a new outfit, try adding more \(style.name!) articles, or or creating an outfit of a different style."
                 print("not enough items to create outfit")
                 return
             }
@@ -355,6 +357,7 @@ class ViewModel: ObservableObject {
             }
             
             if (res_bottom == nil || res_footwear == nil) {
+                self.generateOutfitMsg = "Sorry! You don't have enough items to create a new outfit, try adding more \(style.name!) articles, or or creating an outfit of a different style."
                 print("cannot find articles to generate outfit")
                 continue
             }
@@ -367,6 +370,7 @@ class ViewModel: ObservableObject {
             let top_bottom = res_top_outfits!.filter{ res_bottom_outfits!.contains($0) }
             let top_bottom_footwear = top_bottom.filter{ res_footwear_outfits!.contains($0) }
             if top_bottom_footwear.count != 0 {
+                self.generateOutfitMsg =  "Sorry! We can't create a new outfit based on your current wardrobe, try adding more \(style.name!) articles, or creating an outfit of a different style."
                 print("this outfit is a duplicate")
                 continue
             }

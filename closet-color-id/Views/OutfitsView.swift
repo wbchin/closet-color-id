@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct OutfitsView: View {
-  //    let viewController: ViewController
   var viewModel: ViewModel
-//  var dataPopulation: DataPopulation
   let columns = [
-//    GridItem(.flexible()),
-//    GridItem(.flexible()),
     GridItem(.flexible()),
     GridItem(.flexible())
   ]
@@ -129,6 +125,7 @@ struct OutfitsView: View {
 //          self.viewModel.generateOutfit(style: "professional", name: "Interview")
           self.popStyles()
           self.outfits = viewModel.fetchOutfits()!
+          self.viewModel.outfit = nil
 //        self.viewModel.deleteUnstyledArticles()
 //        self.viewModel.updateArticles()
 //        self.viewModel.deleteUntaggedArticles()

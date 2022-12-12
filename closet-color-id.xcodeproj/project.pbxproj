@@ -47,6 +47,7 @@
 		E6A25C41291B33A30080834B /* TagSubcategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C40291B33A30080834B /* TagSubcategoryView.swift */; };
 		E6A25C43291B34870080834B /* TagStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C42291B34870080834B /* TagStyleView.swift */; };
 		E6A25C45291C90500080834B /* TheColorApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A25C44291C90500080834B /* TheColorApiCalls.swift */; };
+		E6B11B8B2947D2DF0099E01F /* OutfitErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B11B8A2947D2DF0099E01F /* OutfitErrorView.swift */; };
 		E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5ECF52918147A00AB7C39 /* ViewModel.swift */; };
 		E6C9A4682920490D0018D137 /* jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A4672920490D0018D137 /* jeans.png */; };
 		E6C9A46A292049860018D137 /* converse.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A469292049860018D137 /* converse.png */; };
@@ -117,6 +118,7 @@
 		E6A25C40291B33A30080834B /* TagSubcategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSubcategoryView.swift; sourceTree = "<group>"; };
 		E6A25C42291B34870080834B /* TagStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagStyleView.swift; sourceTree = "<group>"; };
 		E6A25C44291C90500080834B /* TheColorApiCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheColorApiCalls.swift; sourceTree = "<group>"; };
+		E6B11B8A2947D2DF0099E01F /* OutfitErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitErrorView.swift; sourceTree = "<group>"; };
 		E6B5ECF52918147A00AB7C39 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E6C9A4672920490D0018D137 /* jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jeans.png; sourceTree = "<group>"; };
 		E6C9A469292049860018D137 /* converse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = converse.png; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				E6A25C40291B33A30080834B /* TagSubcategoryView.swift */,
 				E6A25C42291B34870080834B /* TagStyleView.swift */,
 				6358900B29428BC5005D3A88 /* GenerateOutfitView.swift */,
+				E6B11B8A2947D2DF0099E01F /* OutfitErrorView.swift */,
 				6358900D29428DDD005D3A88 /* NameNewOutfitView.swift */,
 			);
 			path = Views;
@@ -447,6 +450,7 @@
 				E6D7FFE7291411D000BF24CA /* AnyGestureRecognizer.swift in Sources */,
 				E6DA787C293FDCCB00200AAA /* CameraTutorialView.swift in Sources */,
 				638AF4F729158762007EC47D /* ActionSheet+Modifier.swift in Sources */,
+				E6B11B8B2947D2DF0099E01F /* OutfitErrorView.swift in Sources */,
 				E6DA787E293FDCDC00200AAA /* TutorialEndView.swift in Sources */,
 				E6D7FFE12913304300BF24CA /* SceneDelegate.swift in Sources */,
 				E6DA7878293FDC9900200AAA /* WardrobeTutorialView.swift in Sources */,
