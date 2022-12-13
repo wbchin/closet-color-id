@@ -91,10 +91,13 @@ struct ImageCaptureView: View {
             ZStack {
                 GeometryReader { geometry in
                     VStack (spacing: 20){
-                        VStack{
-                            Text("Want to save another article?")
-                            Text("Tap the camera to take another photo.")
+                        if self.image == nil {
+                            VStack{
+                                Text("Want to save another article?")
+                                Text("Tap the camera to take another photo.")
+                            }
                         }
+                        
                         if self.image != nil && self.calledImagga != true {
                             Text("").onAppear{
                                 self.calledImagga = true
@@ -138,7 +141,9 @@ struct ImageCaptureView: View {
                                 }
                         }
                     }
-                    if viewModel.image == nil{
+                    if viewModel.image == nil || isCustomCameraViewPresented {
+//                        let _ = print("IS CCV PRESENTED")
+//                        let _ = print(isCustomCameraViewPresented)
                         Spacer()
                             .sheet(isPresented: $isCustomCameraViewPresented, content: {
                                 CustomCameraView(capturedImage: $image)
@@ -157,8 +162,7 @@ struct ImageCaptureView: View {
             self.calledImagga = false
         })
         .onAppear(perform: {
-            let _ = print("appear")
-//            self.isCustomCameraViewPresented = true
+            self.isCustomCameraViewPresented = true
             self.viewModel.deleteUntaggedArticles(completion: {out in })
             self.viewModel.updateArticles()
             self.viewModel.article = nil
