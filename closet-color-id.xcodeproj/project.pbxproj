@@ -129,13 +129,10 @@
 		E6B11B8C2947E3D90099E01F /* sweater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sweater.png; path = "closet-color-id/sweater.png"; sourceTree = SOURCE_ROOT; };
 		E6B11B8E2947E3F40099E01F /* hypebeast_shoes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hypebeast_shoes.png; path = "closet-color-id/hypebeast_shoes.png"; sourceTree = SOURCE_ROOT; };
 		E6B11B9E2947EB060099E01F /* jacket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jacket.png; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		E6B11BA02947EB1D0099E01F /* slacks3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slacks3.png; sourceTree = "<group>"; };
 		E6B11BB02947FD360099E01F /* pants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pants.png; path = ../../../../../../Downloads/pants.png; sourceTree = "<group>"; };
 		E6B11BB22947FD670099E01F /* pants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pants.png; sourceTree = "<group>"; };
-=======
 		E6B11BA12947F7650099E01F /* leather_jacket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather_jacket.png; sourceTree = "<group>"; };
->>>>>>> main
 		E6B5ECF52918147A00AB7C39 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E6C9A4672920490D0018D137 /* jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jeans.png; sourceTree = "<group>"; };
 		E6C9A469292049860018D137 /* converse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = converse.png; sourceTree = "<group>"; };
@@ -248,12 +245,8 @@
 				E6C9A4672920490D0018D137 /* jeans.png */,
 				E662F0E72946B0A400EEC0DD /* swag_jacket.png */,
 				E6B11B8E2947E3F40099E01F /* hypebeast_shoes.png */,
-<<<<<<< HEAD
-				E6B11BA02947EB1D0099E01F /* slacks3.png */,
 				E6B11BB02947FD360099E01F /* pants.png */,
-=======
 				E6B11BA12947F7650099E01F /* leather_jacket.png */,
->>>>>>> main
 				E6B11B8C2947E3D90099E01F /* sweater.png */,
 				E6B11BB22947FD670099E01F /* pants.png */,
 				E6C9A469292049860018D137 /* converse.png */,
