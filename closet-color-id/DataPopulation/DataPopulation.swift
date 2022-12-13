@@ -22,7 +22,7 @@ class DataPopulation: ObservableObject {
   let appDelegate: AppDelegate = AppDelegate()
   let viewModel: ViewModel = ViewModel()
     var shirt: UIImage? = UIImage(named: "sweater.png") ?? nil
-    var pants: UIImage? = UIImage(named: "slacks3.png") ?? nil
+    var pants: UIImage? = UIImage(named: "pants.png") ?? nil
     var shoes: UIImage? = UIImage(named: "hypebeast_shoes.png") ?? nil
     var jacket: UIImage? = UIImage(named: "jacket.png") ?? nil
 
