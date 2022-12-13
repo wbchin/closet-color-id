@@ -37,7 +37,7 @@ struct CameraTutorialView: View {
                             Text("Continue")
                                 .bold()
                         }
-                        NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                        NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
                             Text("Skip")
                         }.simultaneousGesture(TapGesture().onEnded{
                             //isTutorial = false

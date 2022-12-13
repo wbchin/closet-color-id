@@ -30,7 +30,7 @@ struct TutorialEndView: View {
                 .frame(width: 250, alignment: .center)
               .padding()
             HStack {
-                NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
                     Text("Begin")
                         .bold()
                 }.simultaneousGesture(TapGesture().onEnded{
