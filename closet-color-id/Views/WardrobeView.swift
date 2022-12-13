@@ -8,7 +8,8 @@ struct WardrobeView: View {
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()
     @State var outerwear: [Article] = [Article]()
-    @State var isTutorial: Bool = false
+//    @State var isTutorial: Bool = false
+//    @State var tutorialCalled: Bool = false
     func populateCats() {
         //self.viewModel.updateArticles()
         self.tops = self.viewModel.fetchCatArts(category: "top")
@@ -30,19 +31,20 @@ struct WardrobeView: View {
                 .fontWeight(.bold)
                 .font(.title)
                 .padding()
-            HStack{
-                Spacer()
-
-//                NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: $true),
+//            HStack{
+//                Spacer()
+//
+//                
+//                NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial),
 //                               label: {
 //                    Image(systemName: "info.circle")
 //                })
-//                Button(action: {
-//                    Navigation
-//                }) {
-//                    Image(systemName: "info.circle")
-//                }
-            }
+////                Button(action: {
+////                    self.isTutorial = true
+////                }) {
+////                    Image(systemName: "info.circle")
+////                }
+//            }
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()

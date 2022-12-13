@@ -63,6 +63,7 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
+                                
 //                                .navigationBarTitle("WARDROBE")
                         }
                         .tabItem {
@@ -85,6 +86,13 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
+                                .toolbar {
+                                    Button(action: {
+                                        self.isTutorial = true
+                                    }) {
+                                        Image(systemName: "info.circle")
+                                    }
+                                }
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "tshirt").background(.red)
