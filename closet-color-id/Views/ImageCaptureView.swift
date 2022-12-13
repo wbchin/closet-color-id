@@ -92,30 +92,31 @@ struct ImageCaptureView: View {
                 GeometryReader { geometry in
                     VStack (spacing: 20){
                         if self.image == nil {
-                            VStack{
+                            Spacer()
+                            VStack (alignment: .center){
                                 Text("Want to save another article?")
                                 Text("Tap the camera to take another photo.")
                             }
+                            .frame(width: geometry.size.width * 0.97)
+                            .padding(5)
+                            .background(.white)
+                            .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            .clipShape(Capsule())
+                            .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                         }
-                        
                         if self.image != nil && self.calledImagga != true {
                             Text("").onAppear{
                                 self.calledImagga = true
                                 self.imaggaCall.image = self.rotate(radians: 2*(.pi), image: self.image!)
                                 self.runImagga()
-                            }
+                            }.frame(width: geometry.size.width * 0.01)
                         }
                         if self.viewModel.article != nil && self.viewModel.article!.image_data != nil {
-                            Text("").onAppear{
-                                self.viewModel.updateArticles()
-                                print(self.viewModel.article.debugDescription)
-                            }
-                            
                             Image(uiImage: UIImage(data: (self.viewModel.article!.image_data)!)!).resizable().scaledToFit().cornerRadius(10).frame(width: geometry.size.width)
                             NavigationLink (
                                 destination: TagCategoryView(viewModel: viewModel, article: self.viewModel.article!),
                                 label:{
-                                    Text("Done")
+                                    Text("Done").textCase(.uppercase)
                                 }
                             )
                             .frame(width: geometry.size.width * 0.4)
@@ -125,6 +126,7 @@ struct ImageCaptureView: View {
                             .clipShape(Capsule())
                             .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                             Text("Retake picture")
+                                .textCase(.uppercase)
                                 .frame(width: geometry.size.width * 0.4)
                                 .padding(5)
                                 .background(.white)
@@ -139,8 +141,13 @@ struct ImageCaptureView: View {
                                     self.calledImagga = false
                                     self.isCustomCameraViewPresented = true
                                 }
+                            Text("").onAppear{
+                                self.viewModel.updateArticles()
+                                print(self.viewModel.article.debugDescription)
+                            }.frame(width: geometry.size.width * 0.01)
                         }
                     }
+                    Spacer()
                     if viewModel.image == nil || isCustomCameraViewPresented {
 //                        let _ = print("IS CCV PRESENTED")
 //                        let _ = print(isCustomCameraViewPresented)
@@ -153,7 +160,6 @@ struct ImageCaptureView: View {
             }
             .padding()
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-            .textCase(.uppercase)
         }
         .onDisappear(perform: {
             self.image = nil
