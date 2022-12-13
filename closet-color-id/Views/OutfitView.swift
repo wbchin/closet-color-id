@@ -63,7 +63,10 @@ struct OutfitView: View {
             
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
-                        Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
+                        NavigationLink(destination: ArticleView(article: article, viewModel: viewModel)){
+                            Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
+                        }
+                        
                             //.accessibilityLabel("Image of article. See below for article information.")
 
                     }
@@ -76,15 +79,13 @@ struct OutfitView: View {
                 }
             }
             
+
         }.navigationTitle(self.outfit.name!)
-        .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: NavigationLink(destination: OutfitsView(viewModel: viewModel), label: {
-                Label("Back", systemImage:  "arrow.backward")
-            }))
+
         //NavigationLink(destination: OutfitsView(viewModel: viewModel), label: Label("Back", systemImage:  "arrow.backward")))
-        //.navigationTitle(outfit.name!)
+        .navigationTitle(outfit.name!)
 //        .onAppear(perform: {
-//            self.images = self.imageArray()
+//            UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
 //        })
     }
     
