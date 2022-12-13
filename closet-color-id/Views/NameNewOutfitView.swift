@@ -27,7 +27,7 @@ struct NameNewOutfitView: View {
 
                     }
                 }
-                .background(Color.red)
+                .background(Color(red: 0.30, green: 0.11, blue: 0.00))
                 .cornerRadius(15)
                 TextField("Name outfit", text: $name)
                     .onSubmit {
