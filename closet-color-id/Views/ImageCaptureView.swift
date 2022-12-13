@@ -142,8 +142,8 @@ struct ImageCaptureView: View {
                         }
                     }
                     if viewModel.image == nil || isCustomCameraViewPresented {
-                        let _ = print("IS CCV PRESENTED")
-                        let _ = print(isCustomCameraViewPresented)
+//                        let _ = print("IS CCV PRESENTED")
+//                        let _ = print(isCustomCameraViewPresented)
                         Spacer()
                             .sheet(isPresented: $isCustomCameraViewPresented, content: {
                                 CustomCameraView(capturedImage: $image)

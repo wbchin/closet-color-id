@@ -41,7 +41,7 @@ struct TagStyleView: View {
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                VStack {
+                VStack (spacing: 10) {
                     Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
                     Spacer()
                     Text("What style is this article?")
@@ -61,7 +61,7 @@ struct TagStyleView: View {
                             viewModel.setComplimentaryColor(article: article, complimentary_color_family: family, complimentary_color_name: self.colorApiCall.name!, complimentary_r: self.comp_r, complimentary_g: self.comp_g, complimentary_b: self.comp_b)
                         }
                     }
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: columns, spacing: 20) {
                         if (self.comp_name != nil){
                             ForEach(self.viewModel.styles) { style in
                                 Button(style.name!.uppercased()) {
