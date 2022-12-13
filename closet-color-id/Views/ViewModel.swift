@@ -314,6 +314,41 @@ class ViewModel: ObservableObject {
         return out
     }
     
+    func organizeOutfit(outfit: Outfit) -> [Article]? {
+        var out = [Article]()
+        let articles = self.retrieveArticlesForOutfit(outfit: outfit)
+        
+        // first append the outerwear
+        for art in articles! {
+            if art.category! == "outerwear" {
+                out.append(art)
+            }
+        }
+        
+        // then append the top
+        for art in articles! {
+            if art.category! == "top" {
+                out.append(art)
+            }
+        }
+        
+        // then append the bottom
+        for art in articles! {
+            if art.category! == "bottom" {
+                out.append(art)
+            }
+        }
+        
+        // then append the footwear
+        for art in articles! {
+            if art.category! == "footwear" {
+                out.append(art)
+            }
+        }
+        
+        return out
+    }
+    
     @objc func generateOutfit(style: String, name: String) {
         //let context = appDelegate.persistentContainer.viewContext
         var outfitCreated = false
@@ -326,17 +361,27 @@ class ViewModel: ObservableObject {
             
             let tops = fetchStyleCats(style: style, category: "top")!
             let bottoms = fetchStyleCats(style: style, category: "bottom")!
+            let outerwear = fetchStyleCats(style: style, category: "outerwear")!
             let footwear = fetchStyleCats(style: style, category: "footwear")!
             
             // randomly select which top to match with
             let res_top = tops.randomElement()
             if res_top == nil {
-                self.generateOutfitMsg = "Sorry! You don't have enough items to create a new outfit, try adding more \(style.name!) articles, or or creating an outfit of a different style."
+                self.generateOutfitMsg = "Oops! You don't have enough clothes to create a unique outfit, try adding more \(style.name!) articles, or creating an outfit of a different style."
                 print("not enough items to create outfit")
                 return
             }
+            var res_outerwear: Article? = nil
             var res_bottom: Article? = nil
             var res_footwear: Article? = nil
+            
+            for out in outerwear {
+                if (out.complimentary_color_family == res_top!.primary_color_family || out.primary_color_family == res_top!.complimentary_color_family ||
+                    out.secondary_color_family == res_top!.complimentary_color_family ||
+                    out.complimentary_color_family == res_top!.secondary_color_family) {
+                    res_outerwear = out
+                }
+            }
             
             for bottom in bottoms {
                 if (bottom.complimentary_color_family == res_top!.primary_color_family || bottom.primary_color_family == res_top!.complimentary_color_family ||
@@ -355,10 +400,11 @@ class ViewModel: ObservableObject {
             }
             
             if (res_bottom == nil || res_footwear == nil) {
-                self.generateOutfitMsg = "Sorry! You don't have enough items to create a new outfit, try adding more \(style.name!) articles, or or creating an outfit of a different style."
+                self.generateOutfitMsg = "Oops! You don't have enough clothes to create a unique outfit, try adding more \(style.name!) articles, or creating an outfit of a different style."
                 print("cannot find articles to generate outfit")
                 continue
             }
+            
             
             // check for duplication
             let res_top_outfits = retrieveOutfitsForArticle(article: res_top!)
@@ -368,13 +414,12 @@ class ViewModel: ObservableObject {
             let top_bottom = res_top_outfits!.filter{ res_bottom_outfits!.contains($0) }
             let top_bottom_footwear = top_bottom.filter{ res_footwear_outfits!.contains($0) }
             if top_bottom_footwear.count != 0 {
-                self.generateOutfitMsg =  "Sorry! We can't create a new outfit based on your current wardrobe, try adding more \(style.name!) articles, or creating an outfit of a different style."
+                self.generateOutfitMsg =  "Oops! You don't have enough clothes to create a unique outfit, try adding more \(style.name!) articles, or creating an outfit of a different style."
                 print("this outfit is a duplicate")
                 continue
             }
             
             self.saveOutfit(name: name, completion: {out in })
-//            self.tagOutfitStyle(outfit: self.outfit!, style: style)
             
             // save ArticleOutfits
             if self.outfit != nil {
@@ -382,6 +427,9 @@ class ViewModel: ObservableObject {
                 self.saveArticleOutfit(article_id: res_top!.objectID, outfit_id: self.outfit!.objectID)
                 self.saveArticleOutfit(article_id: res_bottom!.objectID, outfit_id: self.outfit!.objectID)
                 self.saveArticleOutfit(article_id: res_footwear!.objectID, outfit_id: self.outfit!.objectID)
+                if res_outerwear != nil {
+                    self.saveArticleOutfit(article_id: res_outerwear!.objectID, outfit_id: self.outfit!.objectID)
+                }
                 print("done generating outfit")
                 outfitCreated = true
             }

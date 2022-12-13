@@ -45,6 +45,7 @@ struct WardrobeTutorialView: View {
                 HStack {
                     NavigationLink(destination: OutfitTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
                         Text("Continue")
+                            .bold()
                     }
                     NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
                         Text("Skip")

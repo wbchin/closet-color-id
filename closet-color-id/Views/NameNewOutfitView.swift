@@ -26,7 +26,7 @@ struct NameNewOutfitView: View {
                         showOutfitView = true
                     }
                 LazyVGrid(columns: [GridItem(.flexible())]){
-                    ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
+                    ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                         Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                             //.accessibilityLabel("Image of article. See below for article information.")
 

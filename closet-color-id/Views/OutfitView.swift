@@ -62,7 +62,7 @@ struct OutfitView: View {
 //                    .padding()
             
                 LazyVGrid(columns: [GridItem(.flexible())]){
-                    ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
+                    ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                         NavigationLink(destination: ArticleView(article: article, viewModel: viewModel)){
                             Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                         }

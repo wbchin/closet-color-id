@@ -39,61 +39,69 @@ struct OutfitsView: View {
             Color(red: 0.96, green: 0.94, blue: 0.91).ignoresSafeArea()
             NavigationView {
                 ScrollView{
-                    NavigationLink {
-                        GenerateOutfitView(viewModel: viewModel)
-                    } label: {
-                        Text("Generate Outfit")
-                    }
-
-                    if(self.outfits.count > 0){
-                        VStack{
-                            
-                            LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.outfits, id: \.self) { outfit in
-                                NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
-                                    LazyVGrid(columns: columns){
-                                        ForEach(self.viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
-                                            Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
-                                                .renderingMode(.original)
-                                                .resizable()
-                                                .scaledToFit()
-                                                .font(.system(size: 30))
-                                                .frame(width: 80, height: 80)
-                                                .cornerRadius(10)
-                                                .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                                .padding(5)
-                                            
+                    GeometryReader { geometry in
+                        VStack (alignment: .leading, spacing: 20) {
+                            Text("OUTFITS")
+                                .bold()
+                                .font(.title)
+                            NavigationLink {
+                                GenerateOutfitView(viewModel: viewModel)
+                            } label: {
+                                Text("Generate Outfit")
+                            }
+                            .frame(width: geometry.size.width * 0.35)
+                            .padding(5)
+                            .background(.white)
+                            .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            .clipShape(Capsule())
+                            .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                            if(self.outfits.count > 0){
+                                VStack{
+                                    LazyVGrid(columns: columns, spacing: 20){
+                                        ForEach(self.outfits, id: \.self) { outfit in
+                                            NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
+                                                LazyVGrid(columns: columns){
+                                                    ForEach(self.viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
+                                                        Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
+                                                            .renderingMode(.original)
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .font(.system(size: 30))
+                                                            .frame(width: 80, height: 80)
+                                                            .cornerRadius(10)
+                                                            .shadow(color: .white, radius: 5, x: 0, y: 0)
+                                                            .padding(10)
+                                                        
+                                                    }
+                                                }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
+                                                //                                  .frame(width: 300, height: 300)
+                                                    .cornerRadius(15)
+                                                    .padding(5)
+                                            }
                                         }
-                                    }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
-      //                                  .frame(width: 300, height: 300)
-                                        .cornerRadius(15)
-                                        .padding(5)
-                                    
-                                    
-                                    
+                                    }
+                                }
+                            } else {
+                                VStack (alignment: .leading) {
+                                    Text("No outfits.")
+                                    LazyVGrid(columns: columns, spacing: 10){}
                                 }
                             }
-                            }
-                        }
-                    } else {
-                        VStack (alignment: .leading) {
-                            Text("No outfits.")
-                            LazyVGrid(columns: columns, spacing: 10){}
-                        }
+                        }.padding()
                     }
-
                 }
-              
+//                .navigationTitle("OUTFITS")
+                .frame(alignment: .leading)
+                .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+                .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                .onAppear(perform: {
+                    self.popStyles()
+                    self.outfits = viewModel.fetchOutfits()!
+                    self.viewModel.outfit = nil
+                })
+                .navigationBarBackButtonHidden(true)
             }
-            .navigationTitle("OUTFITS")
-            .onAppear(perform: {
-                self.popStyles()
-                self.outfits = viewModel.fetchOutfits()!
-                self.viewModel.outfit = nil
-            })
-            .navigationBarBackButtonHidden(true)
         }
-      
     }
 //    let exampleColor : Color = Color(red: 0.5, green: 0.8, blue: 0.5)
 //  var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
