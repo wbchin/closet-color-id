@@ -16,6 +16,7 @@
 		6344FF05291B572300C75BE5 /* ImaggaCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6344FF04291B572300C75BE5 /* ImaggaCalls.swift */; };
 		6358900C29428BC5005D3A88 /* GenerateOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6358900B29428BC5005D3A88 /* GenerateOutfitView.swift */; };
 		6358900E29428DDD005D3A88 /* NameNewOutfitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6358900D29428DDD005D3A88 /* NameNewOutfitView.swift */; };
+		635890112947FA8E005D3A88 /* slacks3.png in Resources */ = {isa = PBXBuildFile; fileRef = 635890102947FA8E005D3A88 /* slacks3.png */; };
 		637C859B291B5E10001075B9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 637C859A291B5E10001075B9 /* Alamofire */; };
 		638038372912DFCA008F2157 /* CategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638038362912DFCA008F2157 /* CategoryName.swift */; };
 		6380383B2912FD59008F2157 /* SubcategoryName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380383A2912FD58008F2157 /* SubcategoryName.swift */; };
@@ -50,9 +51,7 @@
 		E6B11B8B2947D2DF0099E01F /* OutfitErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B11B8A2947D2DF0099E01F /* OutfitErrorView.swift */; };
 		E6B11B8D2947E3D90099E01F /* sweater.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B11B8C2947E3D90099E01F /* sweater.png */; };
 		E6B11B902947E3F40099E01F /* hypebeast_shoes.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B11B8E2947E3F40099E01F /* hypebeast_shoes.png */; };
-		E6B11B982947E7130099E01F /* leather_jacket.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B11B972947E7130099E01F /* leather_jacket.png */; };
 		E6B11B9F2947EB060099E01F /* jacket.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B11B9E2947EB060099E01F /* jacket.png */; };
-		E6B11BA92947F8710099E01F /* slacks3.png in Resources */ = {isa = PBXBuildFile; fileRef = E6B11BA82947F8710099E01F /* slacks3.png */; };
 		E6B5ECF62918147A00AB7C39 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B5ECF52918147A00AB7C39 /* ViewModel.swift */; };
 		E6C9A4682920490D0018D137 /* jeans.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A4672920490D0018D137 /* jeans.png */; };
 		E6C9A46A292049860018D137 /* converse.png in Resources */ = {isa = PBXBuildFile; fileRef = E6C9A469292049860018D137 /* converse.png */; };
@@ -90,6 +89,7 @@
 		6344FF04291B572300C75BE5 /* ImaggaCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaggaCalls.swift; sourceTree = "<group>"; };
 		6358900B29428BC5005D3A88 /* GenerateOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateOutfitView.swift; sourceTree = "<group>"; };
 		6358900D29428DDD005D3A88 /* NameNewOutfitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameNewOutfitView.swift; sourceTree = "<group>"; };
+		635890102947FA8E005D3A88 /* slacks3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slacks3.png; path = ../../../../Downloads/slacks3.png; sourceTree = "<group>"; };
 		638038362912DFCA008F2157 /* CategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryName.swift; sourceTree = "<group>"; };
 		6380383A2912FD58008F2157 /* SubcategoryName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryName.swift; sourceTree = "<group>"; };
 		6380384A29133831008F2157 /* WardrobeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WardrobeCardView.swift; sourceTree = "<group>"; };
@@ -126,10 +126,8 @@
 		E6B11B8A2947D2DF0099E01F /* OutfitErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutfitErrorView.swift; sourceTree = "<group>"; };
 		E6B11B8C2947E3D90099E01F /* sweater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sweater.png; path = "closet-color-id/sweater.png"; sourceTree = SOURCE_ROOT; };
 		E6B11B8E2947E3F40099E01F /* hypebeast_shoes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hypebeast_shoes.png; path = "closet-color-id/hypebeast_shoes.png"; sourceTree = SOURCE_ROOT; };
-		E6B11B972947E7130099E01F /* leather_jacket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leather_jacket.png; path = ../../../../../../../Downloads/leather_jacket.png; sourceTree = "<group>"; };
 		E6B11B9E2947EB060099E01F /* jacket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jacket.png; sourceTree = "<group>"; };
 		E6B11BA12947F7650099E01F /* leather_jacket.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather_jacket.png; sourceTree = "<group>"; };
-		E6B11BA82947F8710099E01F /* slacks3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = slacks3.png; path = ../../../../../../.Trash/slacks3.png; sourceTree = "<group>"; };
 		E6B5ECF52918147A00AB7C39 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E6C9A4672920490D0018D137 /* jeans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jeans.png; sourceTree = "<group>"; };
 		E6C9A469292049860018D137 /* converse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = converse.png; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				63108EAB2912A03100808888 /* ArticleView.swift */,
 				C58C20862943B6EA0012888D /* WardrobeArticleView.swift */,
 				63108EAD2912A04000808888 /* WardrobeView.swift */,
-				E6B11B972947E7130099E01F /* leather_jacket.png */,
 				63108EAF2912A04F00808888 /* OutfitsView.swift */,
 				63108EB12912A06100808888 /* OutfitView.swift */,
 				63108EB32912A07400808888 /* ImageCaptureView.swift */,
@@ -238,9 +235,9 @@
 		63C8C87028F25954009D30B1 /* closet-color-id */ = {
 			isa = PBXGroup;
 			children = (
+				635890102947FA8E005D3A88 /* slacks3.png */,
 				E6B11B9E2947EB060099E01F /* jacket.png */,
 				E6C9A4672920490D0018D137 /* jeans.png */,
-				E6B11BA82947F8710099E01F /* slacks3.png */,
 				E662F0E72946B0A400EEC0DD /* swag_jacket.png */,
 				E6B11B8E2947E3F40099E01F /* hypebeast_shoes.png */,
 				E6B11BA12947F7650099E01F /* leather_jacket.png */,
@@ -413,9 +410,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6B11B982947E7130099E01F /* leather_jacket.png in Resources */,
 				E64D62DD29195D9F009A1FA7 /* pusheen.png in Resources */,
 				63C8C87928F25958009D30B1 /* Preview Assets.xcassets in Resources */,
+				635890112947FA8E005D3A88 /* slacks3.png in Resources */,
 				E662F0E82946B0A400EEC0DD /* swag_jacket.png in Resources */,
 				E6B11B902947E3F40099E01F /* hypebeast_shoes.png in Resources */,
 				E6B11B8D2947E3D90099E01F /* sweater.png in Resources */,
@@ -423,7 +420,6 @@
 				E644808B291CA71000293BDE /* shirt 2.png in Resources */,
 				E6C9A46A292049860018D137 /* converse.png in Resources */,
 				E6B11B9F2947EB060099E01F /* jacket.png in Resources */,
-				E6B11BA92947F8710099E01F /* slacks3.png in Resources */,
 				E6C9A4682920490D0018D137 /* jeans.png in Resources */,
 				E644808D291CA71000293BDE /* shirt.png in Resources */,
 				63C8C87628F25958009D30B1 /* Assets.xcassets in Resources */,
