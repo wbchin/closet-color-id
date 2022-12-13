@@ -20,8 +20,13 @@ struct NameNewOutfitView: View {
         NavigationView {
             ScrollView{
 //                Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray()))
+                TextField("Name outfit", text: $name)
+                    .onSubmit {
+                        viewModel.renameOutfit(outfit: self.outfit, name: name)
+                        showOutfitView = true
+                    }
                 LazyVGrid(columns: [GridItem(.flexible())]){
-                    ForEach(viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
+                    ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                         Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
                             //.accessibilityLabel("Image of article. See below for article information.")
 
@@ -29,11 +34,7 @@ struct NameNewOutfitView: View {
                 }
                 .background(Color.red)
                 .cornerRadius(15)
-                TextField("Name outfit", text: $name)
-                    .onSubmit {
-                        viewModel.renameOutfit(outfit: self.outfit, name: name)
-                        showOutfitView = true
-                    }
+                
             }
             if showOutfitView {
                 NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel), label: {

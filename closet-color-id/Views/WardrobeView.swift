@@ -8,7 +8,8 @@ struct WardrobeView: View {
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()
     @State var outerwear: [Article] = [Article]()
-    @State var isTutorial: Bool = false
+//    @State var isTutorial: Bool = false
+//    @State var tutorialCalled: Bool = false
     func populateCats() {
         //self.viewModel.updateArticles()
         self.tops = self.viewModel.fetchCatArts(category: "top")
@@ -25,39 +26,24 @@ struct WardrobeView: View {
     var body: some View {
         ScrollView{
             Spacer()
-            Spacer()
-            VStack (alignment: .leading, spacing: 10) {
-                Text("WARDROBE")
-                    .bold()
-                    .font(.title)
-                HStack{
-//                    Spacer()
-                    
-                    //                NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: $true),
-                    //                               label: {
-                    //                    Image(systemName: "info.circle")
-                    //                })
-                    //                Button(action: {
-                    //                    Navigation
-                    //                }) {
-                    //                    Image(systemName: "info.circle")
-                    //                }
-                }
-                if (self.tops.count > 0){
-                    VStack (alignment: .leading) {
-                        Text("TOPS").bold()
-                        LazyVGrid(columns: columns, spacing: 10){
-                            ForEach(self.tops, id: \.self) { top in
-                                NavigationLink(destination: WardrobeArticleView(article: top, viewModel: viewModel)) {
-                                    Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
-                                        .renderingMode(.original)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
-                                        .cornerRadius(10)
-                                        .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                }
+            Text("WARDROBE")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding()
+            if (self.tops.count > 0){
+                VStack (alignment: .leading) {
+                    Text("TOPS").bold()
+                    LazyVGrid(columns: columns, spacing: 10){
+                        ForEach(self.tops, id: \.self) { top in
+                            NavigationLink(destination: WardrobeArticleView(article: top, viewModel: viewModel)) {
+                                Image(uiImage: UIImage(data: top.image_data!)!)//UNSAFE
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .font(.system(size: 30))
+                                    .frame(width: 80, height: 80)
+                                    .cornerRadius(10)
+                                    .shadow(color: .white, radius: 5, x: 0, y: 0)
                             }
                         }
                     }

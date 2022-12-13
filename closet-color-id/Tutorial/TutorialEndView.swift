@@ -29,14 +29,17 @@ struct TutorialEndView: View {
             Text("That’s all! Go and make some amazing outfit pairings.")
                 .frame(width: 250, alignment: .center)
               .padding()
-            NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
-                Text("Begin")
-            }.simultaneousGesture(TapGesture().onEnded{
-                //isTutorial = false
-                self.isTutorial.toggle()
-            })
-            NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                Text("Watch Again")
+            HStack {
+                NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                    Text("Begin")
+                        .bold()
+                }.simultaneousGesture(TapGesture().onEnded{
+                    //isTutorial = false
+                    self.isTutorial.toggle()
+                })
+                NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: $isTutorial)) {
+                    Text("Replay")
+                }
             }
               
         }.background(

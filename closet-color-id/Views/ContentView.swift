@@ -64,6 +64,7 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
+                                
 //                                .navigationBarTitle("WARDROBE")
                         }
                         .tabItem {
@@ -86,6 +87,13 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
+                                .toolbar {
+                                    Button(action: {
+                                        self.isTutorial = true
+                                    }) {
+                                        Image(systemName: "info.circle")
+                                    }
+                                }
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "tshirt").background(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -136,7 +144,7 @@ struct ContentView: View {
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "door.french.closed").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                            Text("Wardrobe").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            Text("Outfits").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                         }
                         .tag(1)
                         .toolbar(.visible, for: .tabBar)

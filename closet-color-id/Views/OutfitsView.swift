@@ -61,7 +61,7 @@ struct OutfitsView: View {
                                         ForEach(self.outfits, id: \.self) { outfit in
                                             NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
                                                 LazyVGrid(columns: columns){
-                                                    ForEach(self.viewModel.retrieveArticlesForOutfit(outfit: outfit)!, id: \.self){ article in
+                                                    ForEach(self.viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                                                         Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
                                                             .renderingMode(.original)
                                                             .resizable()
