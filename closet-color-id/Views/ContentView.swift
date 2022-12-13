@@ -21,6 +21,7 @@ struct ContentView: View {
     }
     init() {
         UITabBar.appearance().backgroundColor = UIColor(red: 0.74, green: 0.64, blue: 0.55, alpha: 1.00)
+        UITabBar.appearance().unselectedItemTintColor = UIColor.green
     }
     @State private var tabSelection = 1
     @State private var tappedTwice: Bool = false
@@ -66,8 +67,8 @@ struct ContentView: View {
 //                                .navigationBarTitle("WARDROBE")
                         }
                         .tabItem {
-                            Image(systemName: "tshirt").background(.red)
-                            Text("Wardrobe").background(.red)
+                            Image(systemName: "tshirt").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            Text("Wardrobe").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                         }
                         .tag(1)
                         .toolbar(.visible, for: .tabBar)
@@ -87,8 +88,8 @@ struct ContentView: View {
                                 })
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
-                            Image(systemName: "tshirt").background(.red)
-                            Text("Wardrobe").background(.red)
+                            Image(systemName: "tshirt").background(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            Text("Wardrobe").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                         }
                         .tag(1)
                         .toolbar(.visible, for: .tabBar)
@@ -112,8 +113,8 @@ struct ContentView: View {
                             })
                     }
                     .tabItem {
-                        Image(systemName: "camera").background(.red)
-                        Text("Camera").background(.red)
+                        Image(systemName: "camera").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                        Text("Camera").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                     }
                     .tag(2)
                     .toolbar(.visible, for: .tabBar)
@@ -134,8 +135,8 @@ struct ContentView: View {
                                 })
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
-                            Image(systemName: "door.french.closed").background(.red)
-                            Text("Wardrobe").background(.red)
+                            Image(systemName: "door.french.closed").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            Text("Wardrobe").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                         }
                         .tag(1)
                         .toolbar(.visible, for: .tabBar)
@@ -154,8 +155,8 @@ struct ContentView: View {
 //                                .navigationBarTitle("OUTFITS")
                         }
                         .tabItem {
-                            Image(systemName: "door.french.closed").background(.red)
-                            Text("Outfits").background(.red)
+                            Image(systemName: "door.french.closed").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            Text("Outfits").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                         }
                         .tag(3)
                         .toolbar(.visible, for: .tabBar)
@@ -163,7 +164,7 @@ struct ContentView: View {
                             Color(red: 0.74, green: 0.64, blue: 0.55),
                             for: .tabBar)
                     }
-                }
+                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                 if (self.isTutorial) {
                     VStack {
                         Spacer()
@@ -189,6 +190,7 @@ struct ContentView: View {
                 
             })
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
+            .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
         }
     }
 }

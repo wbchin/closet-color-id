@@ -8,7 +8,10 @@ struct TagCategoryView: View {
     @State private var subcats = [""]
   @State var isShowingCat = true
     
-
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
   var body: some View {
       NavigationView{
           GeometryReader { geometry in
@@ -20,7 +23,7 @@ struct TagCategoryView: View {
                       .font(.system(size: 20))
                       .bold()
                       .textCase(.uppercase)
-                  HStack(spacing: 20) {
+                  LazyVGrid(columns: columns, spacing: 20) {
                       Button("OUTERWEAR") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesOuterwear
@@ -32,6 +35,7 @@ struct TagCategoryView: View {
                       .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                       .clipShape(Capsule())
                       .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                      
                       Button("TOP") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesShirts
@@ -43,9 +47,7 @@ struct TagCategoryView: View {
                       .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                       .clipShape(Capsule())
                       .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
-                  }
-                  .padding()
-                  HStack(spacing: 20) {
+
                       Button("BOTTOM") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesBottoms
@@ -57,6 +59,7 @@ struct TagCategoryView: View {
                       .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                       .clipShape(Capsule())
                       .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                      
                       Button("FOOTWEAR") {
                           isShowingCat = false
                           subcats = SubcategoryName.subcategoryNamesFootwear
@@ -68,7 +71,9 @@ struct TagCategoryView: View {
                       .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                       .clipShape(Capsule())
                       .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                      
                   }
+                  
                   if !isShowingCat {
                       Spacer(minLength: 5)
                       NavigationLink (

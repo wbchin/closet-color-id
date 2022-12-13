@@ -68,7 +68,7 @@ struct TagStyleView: View {
                                     viewModel.tagArticleStyle(article_id: article.objectID, style_id: style.objectID)
                                     isShowingStyle = false
                                 }
-                                .frame(width: geometry.size.width * 0.4)
+                                .frame(width: geometry.size.width * 0.35)
                                 .padding(5)
                                 .background(.white)
                                 .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
