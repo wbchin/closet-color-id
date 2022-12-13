@@ -67,7 +67,7 @@ struct TutorialStartView: View {
                 NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
                     Text("BEGIN").bold()
                 }
-                NavigationLink(destination: WardrobeView(viewModel: viewModel)) {
+                NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
                     Text("SKIP")
                 }.simultaneousGesture(TapGesture().onEnded{
                     //isTutorial = false

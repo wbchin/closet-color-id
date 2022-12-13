@@ -8,6 +8,7 @@ struct WardrobeView: View {
     @State var bottoms: [Article] = [Article]()
     @State var footwear: [Article] = [Article]()
     @State var outerwear: [Article] = [Article]()
+    @Binding var isTutorial: Bool
 //    @State var isTutorial: Bool = false
 //    @State var tutorialCalled: Bool = false
     func populateCats() {
@@ -30,6 +31,22 @@ struct WardrobeView: View {
                 .fontWeight(.bold)
                 .font(.title)
                 .padding()
+            HStack{
+                Spacer()
+                
+                Button(action: {
+                    self.isTutorial = true
+                }) {
+                    Image(systemName: "info.circle")
+                }
+            }
+            if (self.isTutorial) {
+                NavigationView {
+                    TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
+                    
+                    //                                .navigationBarTitle("WARDROBE")
+                }
+            }
             if (self.tops.count > 0){
                 VStack (alignment: .leading) {
                     Text("TOPS").bold()

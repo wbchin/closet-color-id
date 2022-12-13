@@ -78,7 +78,7 @@ struct ContentView: View {
                             for: .tabBar)
                     } else {
                         NavigationView {
-                            WardrobeView(viewModel: viewModel)
+                            WardrobeView(viewModel: viewModel, isTutorial: self.$isTutorial)
                                 .id(wardrobe)
                                 .onChange(of: tappedTwice, perform: { tappedTwice in
                                     self.viewModel.deleteUntaggedArticles(completion: {out in })
@@ -87,13 +87,13 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-                                .toolbar {
-                                    Button(action: {
-                                        self.isTutorial = true
-                                    }) {
-                                        Image(systemName: "info.circle")
-                                    }
-                                }
+//                                .toolbar {
+//                                    Button(action: {
+//                                        self.isTutorial = true
+//                                    }) {
+//                                        Image(systemName: "info.circle")
+//                                    }
+//                                }
 //                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "tshirt").background(Color(red: 0.30, green: 0.11, blue: 0.00))
