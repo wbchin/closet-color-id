@@ -40,21 +40,25 @@ struct OutfitsView: View {
             NavigationView {
                 ScrollView{
                     GeometryReader { geometry in
-                        VStack (alignment: .leading, spacing: 20) {
-                            Text("OUTFITS")
-                                .bold()
-                                .font(.title)
-                            NavigationLink {
-                                GenerateOutfitView(viewModel: viewModel)
-                            } label: {
-                                Text("Generate Outfit")
+                        VStack {
+                            VStack{
+                                Text("OUTFITS")
+                                    .bold()
+                                    .font(.title)
+                                HStack{
+                                    NavigationLink {
+                                        GenerateOutfitView(viewModel: viewModel)
+                                    } label: {
+                                        Text("Generate Outfit")
+                                    }
+                                    .frame(width: geometry.size.width * 0.35)
+                                    .padding(5)
+                                    .background(.white)
+                                    .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                                    .clipShape(Capsule())
+                                    .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                                }
                             }
-                            .frame(width: geometry.size.width * 0.35)
-                            .padding(5)
-                            .background(.white)
-                            .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                            .clipShape(Capsule())
-                            .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                             if(self.outfits.count > 0){
                                 VStack{
                                     LazyVGrid(columns: columns, spacing: 20){
