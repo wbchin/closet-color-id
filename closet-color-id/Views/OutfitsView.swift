@@ -36,7 +36,7 @@ struct OutfitsView: View {
     var body: some View {
         ZStack{
             Color(red: 0.96, green: 0.94, blue: 0.91).ignoresSafeArea()
-            NavigationView {
+//            NavigationView {
                 ScrollView{
                     Spacer()
                     VStack {
@@ -86,7 +86,7 @@ struct OutfitsView: View {
                             }
                         }
                     }
-                }
+                
                 .padding()
 //                .navigationTitle("OUTFITS")
                 .frame(alignment: .leading)
@@ -97,7 +97,7 @@ struct OutfitsView: View {
                     self.outfits = viewModel.fetchOutfits()!
                     self.viewModel.outfit = nil
                 })
-                .navigationBarBackButtonHidden(true)
+//                .navigationBarBackButtonHidden(true)
             }
         }
     }

@@ -98,6 +98,7 @@ struct ArticleView: View {
                             }
                         }
                         VStack {
+                            Text("colors from your clothing")
                             LazyVGrid (columns: columns, spacing: 20) {
                                 VStack {
                                     Text(article.primary_color_name!)

@@ -95,7 +95,7 @@ struct ImageCaptureView: View {
                             Spacer()
                             VStack (alignment: .center){
                                 Text("Want to save an article?")
-                                Text("Tap the camera to take another photo.")
+                                Text("Tap the camera to take a photo.")
                             }
                             .frame(width: geometry.size.width * 0.97)
                             .padding(5)
