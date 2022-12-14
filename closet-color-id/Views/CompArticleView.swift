@@ -1,14 +1,13 @@
 //
-//  ArticleView.swift
+//  CompArticleView.swift
 //  closet-color-id
 //
-//  Created by Waverly Chin on 11/2/22.
+//  Created by Waverly Chin on 12/14/22.
 //
 
 import SwiftUI
-import CoreData
 
-struct WardrobeArticleView: View {
+struct CompArticleView: View {
     var article: Article
     let viewModel: ViewModel
     let backgroundColor : Color = Color(red: 141, green: 223, blue: 144)
@@ -17,44 +16,10 @@ struct WardrobeArticleView: View {
             return self.viewModel.findComplimentaryArticle(article: self.article)
         }
     }
-    //KEEP FOR TESTING PURPOSES
-    func centerCrop() -> CGImage {
-        let sourceImage = UIImage(data:article.image_data!)
-        
-        // The shortest side
-        let sideLength = min(
-            sourceImage!.size.width,
-            sourceImage!.size.height
-        )
-        
-        // Determines the x,y coordinate of a centered
-        // sideLength by sideLength square
-        let sourceSize = sourceImage!.size
-        let xOffset = (sourceSize.width - sideLength/2) / 2.0
-        let yOffset = (sourceSize.height - sideLength/2) / 2.0
-        print(yOffset)
-        print(xOffset)
-        print(sideLength/2)
-        // The cropRect is the rect of the image to keep,
-        // in this case centered
-        let cropRect = CGRect(
-            x: xOffset,
-            y: yOffset,
-            width: sideLength/2,
-            height: sideLength/2
-        ).integral
-        
-        // Center crop the image
-        let sourceCGImage = sourceImage?.cgImage!
-        let croppedCGImage = sourceCGImage!.cropping(
-            to: cropRect
-        )!
-        return croppedCGImage
-    }
-    
     var body: some View {
         ZStack{
             GeometryReader { geometry in
+//                NavigationView {
                     ScrollView{
                         VStack{
                             Spacer()
@@ -82,17 +47,6 @@ struct WardrobeArticleView: View {
                                     .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                                     .background(.white)
                             }.font(.system(size: 15))
-                            VStack {
-                                Text("pair with your closet")
-                                if comp_article == nil {
-                                    Text("No complimentary articles found for this article!")
-                                } else {
-                                    NavigationLink(destination: CompArticleView(article: comp_article!, viewModel: viewModel)){
-                                        Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().cornerRadius(10)
-                                            .accessibilityLabel("Image of complimentary article.").frame(width: geometry.size.width * 0.75)
-                                    }
-                                }
-                            }
                             VStack {
                                 HStack {
                                     VStack {
@@ -154,8 +108,14 @@ struct WardrobeArticleView: View {
                         .textCase(.uppercase)
                         .background(Color(red: 0.96, green: 0.94, blue: 0.91))
                     }
+//                }
             }
         }
     }
 }
 
+//struct CompArticleView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CompArticleView()
+//    }
+//}

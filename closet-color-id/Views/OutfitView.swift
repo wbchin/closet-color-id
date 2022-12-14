@@ -53,11 +53,14 @@ struct OutfitView: View {
         }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ScrollView{
+                HStack{
+                    Text(self.outfit.name!)
+                }.font(.title)
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
-                        NavigationLink(destination: ArticleView(article: article, viewModel: viewModel)){
+                        NavigationLink(destination: CompArticleView(article: article, viewModel: viewModel)){
                             Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10).padding()
                         }
                     }
@@ -72,8 +75,8 @@ struct OutfitView: View {
             }
             
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-        }.navigationTitle(self.outfit.name!)
-        .navigationTitle(outfit.name!)
+//        }.navigationTitle(self.outfit.name!)
+//        .navigationTitle(outfit.name!)
     }
     
 }

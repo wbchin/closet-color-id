@@ -91,8 +91,10 @@ struct ArticleView: View {
                             if comp_article == nil {
                                 Text("No complimentary articles found for this article!")
                             } else {
-                                Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().cornerRadius(10)
-                                    .accessibilityLabel("Image of complimentary article.").frame(width: geometry.size.width * 0.75)
+                                NavigationLink(destination: CompArticleView(article: comp_article!, viewModel: viewModel)){
+                                    Image(uiImage: UIImage(data: comp_article!.image_data!)!).resizable().scaledToFit().cornerRadius(10)
+                                        .accessibilityLabel("Image of complimentary article.").frame(width: geometry.size.width * 0.75)
+                                }
                             }
                         }
                         VStack {
@@ -104,6 +106,7 @@ struct ArticleView: View {
                                                     green: Double(article.primary_g)/255,
                                                     blue: Double(article.primary_b)/255))
                                         .frame(width: 100, height: 100)
+                                        .accessibilityLabel("Primary color")
                                 }
                                 .padding()
                                 .border(.white, width: 4)
@@ -113,6 +116,7 @@ struct ArticleView: View {
                                     Rectangle()
                                         .fill(Color(red: r1, green: g1, blue: b1))
                                         .frame(width: 100, height: 100)
+                                        .accessibilityLabel("Color family of primary color")
                                 }
                                 .padding()
                                 .border(.white, width: 4)
@@ -124,6 +128,7 @@ struct ArticleView: View {
                                                         green: Double(article.secondary_g)/255,
                                                         blue: Double(article.secondary_b)/255))
                                             .frame(width: 100, height: 100)
+                                            .accessibilityLabel("Secondary color")
                                     }
                                     .padding()
                                     .border(.white, width: 4)
@@ -133,6 +138,7 @@ struct ArticleView: View {
                                         Rectangle()
                                             .fill(Color(red: r2, green: g2, blue: b2))
                                             .frame(width: 100, height: 100)
+                                            .accessibilityLabel("Color family of secondary color")
                                     }
 //                                    .frame(width: geometry.size.width * 0.3)
                                     .padding()
