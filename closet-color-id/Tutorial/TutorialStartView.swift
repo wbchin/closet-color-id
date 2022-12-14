@@ -59,13 +59,13 @@ struct TutorialStartView: View {
     
     private var tutorialOverlay: some View {
         VStack {
-            Text("Welcome to MCLOSET, your mobile closet. Let’s start out with a tour.")
+            Text("Welcome to MY CLOSET, your mobile closet. Let’s start out with a tour.")
                 .frame(width: 250, alignment: .center)
               .padding()
             
             HStack {
                 NavigationLink(destination: WardrobeTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                    Text("BEGIN").bold()
+                    Text("START").bold()
                 }
                 NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
                     Text("SKIP")

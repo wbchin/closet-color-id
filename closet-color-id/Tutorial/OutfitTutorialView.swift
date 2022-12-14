@@ -25,19 +25,18 @@ struct OutfitTutorialView: View {
     let backgroundColor : Color = Color(red: 162/255, green: 159/255, blue: 149/255)
     
     private var tutorialOverlay: some View {
-        ZStack {
+        VStack {
             VStack {
-                Text("All your generated outfits go here")
+                Text("All your generated outfits are in the Outfits tab.")
                   .frame(width: 250, alignment: .center)
                   .padding()
-                
                 HStack {
                     NavigationLink(destination: CameraTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                        Text("Continue")
+                        Text("CONTINUE")
                             .bold()
                     }
                     NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                        Text("Skip")
+                        Text("SKIP")
                     }.simultaneousGesture(TapGesture().onEnded{
                         //isTutorial = false
                         self.isTutorial.toggle()
@@ -49,15 +48,15 @@ struct OutfitTutorialView: View {
                     .aspectRatio(1.5, contentMode: .fit)
                     .frame(width: 300, height: 300)
                     .foregroundColor(.white)
-              )
-            ArrowShape()
-                .stroke(lineWidth: 2)
-                .rotationEffect(Angle(degrees: 90))
-                .position(
-                    x: CGFloat(170),
-                    y:  CGFloat(0)
-                )
-                .frame(width: 80, height: 15)
+            )
+//            ArrowShape()
+//                .stroke(lineWidth: 2)
+//                .rotationEffect(Angle(degrees: 90))
+//                .position(
+//                    x: CGFloat(170),
+//                    y:  CGFloat(0)
+//                )
+//                .frame(width: 28, height: 15)
         }
     }
     var body: some View {

@@ -36,25 +36,28 @@ struct WardrobeTutorialView: View {
     let backgroundColor : Color = Color(red: 162/255, green: 159/255, blue: 149/255)
     
     private var tutorialOverlay: some View {
-        ZStack {
+        VStack {
             VStack {
-                Text("All your individual clothes go here")
+                Text("All your individual clothes go in the Wardrobe tab.")
                     .frame(width: 250, alignment: .center)
                     .padding()
-                
+//                Image(systemName: "tshirt").resizable().foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+//                    .frame(width: 30, height: 30)
+            }.padding()
                 HStack {
                     NavigationLink(destination: OutfitTutorialView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                        Text("Continue")
+                        Text("CONTINUE")
                             .bold()
                     }
                     NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                        Text("Skip")
+                        Text("SKIP")
                     }.simultaneousGesture(TapGesture().onEnded{
                         //isTutorial = false
                         self.isTutorial.toggle()
                     })
                     
                 }
+                
                 
             }.background(
                 CircleShape()
@@ -63,15 +66,15 @@ struct WardrobeTutorialView: View {
                     .frame(width: 300, height: 300)
                     .foregroundColor(.white)
             )
-            ArrowShape()
-                .stroke(lineWidth: 2)
-                .rotationEffect(Angle(degrees: 90))
-                .position(
-                    x: CGFloat(-90),
-                    y:  CGFloat(0)
-                )
-                .frame(width: 80, height: 15)
-        }
+//            ArrowShape()
+//                .stroke(lineWidth: 2)
+//                .rotationEffect(Angle(degrees: 90))
+//                .position(
+//                    x: CGFloat(-90),
+//                    y:  CGFloat(0)
+//                )
+//                .frame(width: 28, height: 15)
+//        }
         
     }
     
