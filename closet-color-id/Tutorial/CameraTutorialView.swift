@@ -28,17 +28,17 @@ struct CameraTutorialView: View {
         //ZStack {
             VStack{
                 VStack {
-                    Text("Take pictures of your clothes here. Make sure that you are taking the photo with good lighting and centering your camera on the clothing article you are photographing!")
+                    Text("Take pictures of your clothes in the Camera tab. Make sure that you are taking the photo with good lighting and centering your camera on the clothing article you are photographing!")
                         .frame(width: 250, alignment: .center)
                         .padding()
                     
                     HStack {
                         NavigationLink(destination: TutorialEndView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                            Text("Continue")
+                            Text("CONTINUE")
                                 .bold()
                         }
                         NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                            Text("Skip")
+                            Text("SKIP")
                         }.simultaneousGesture(TapGesture().onEnded{
                             //isTutorial = false
                             self.isTutorial.toggle()
@@ -53,14 +53,14 @@ struct CameraTutorialView: View {
                         .foregroundColor(.white)
                 ).padding()
                 //Spacer()
-                ArrowShape()
-                    .stroke(lineWidth: 2)
-                    .rotationEffect(Angle(degrees: 90))
-                    .position(
-                        x: CGFloat(15),
-                        y:  CGFloat(0)
-                    )
-                    .frame(width: 28, height: 15)
+//                ArrowShape()
+//                    .stroke(lineWidth: 2)
+//                    .rotationEffect(Angle(degrees: 90))
+//                    .position(
+//                        x: CGFloat(15),
+//                        y:  CGFloat(0)
+//                    )
+//                    .frame(width: 28, height: 15)
             }
        // }
     }

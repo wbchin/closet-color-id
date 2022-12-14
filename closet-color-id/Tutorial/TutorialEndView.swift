@@ -31,14 +31,14 @@ struct TutorialEndView: View {
               .padding()
             HStack {
                 NavigationLink(destination: WardrobeView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                    Text("Begin")
+                    Text("BEGIN")
                         .bold()
                 }.simultaneousGesture(TapGesture().onEnded{
                     //isTutorial = false
                     self.isTutorial.toggle()
                 })
                 NavigationLink(destination: TutorialStartView(viewModel: viewModel, isTutorial: $isTutorial)) {
-                    Text("Replay")
+                    Text("REPLAY")
                 }
             }
               

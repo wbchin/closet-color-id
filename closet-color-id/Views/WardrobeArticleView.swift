@@ -58,6 +58,7 @@ struct WardrobeArticleView: View {
                 NavigationView {
                     ScrollView{
                         VStack{
+                            Spacer()
                             let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
                             Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
                                 .accessibilityLabel("Image of article. See below for article information.").frame(width: geometry.size.width * 0.75)
