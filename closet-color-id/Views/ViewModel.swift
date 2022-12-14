@@ -730,8 +730,14 @@ class ViewModel: ObservableObject {
             if (90 <= hue && hue < 180) {
                 family = "green"
             }
-            if (180 <= hue && hue < 270) {
+            if (150 <= hue && hue < 210) {
+                family = "cyan"
+            }
+            if (210 <= hue && hue < 250) {
                 family = "blue"
+            }
+            if (250 <= hue && hue < 270) {
+                family = "indigo"
             }
             if (270 <= hue && hue < 300) {
                 family = "violet"
