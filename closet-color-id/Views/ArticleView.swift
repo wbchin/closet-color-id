@@ -51,7 +51,10 @@ struct ArticleView: View {
         )!
         return croppedCGImage
     }
-
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -90,7 +93,7 @@ struct ArticleView: View {
                             }
                         }
                         VStack {
-                            HStack {
+                            LazyVGrid (columns: columns, spacing: 20) {
                                 VStack {
                                     Text(article.primary_color_name!)
                                     Rectangle()
@@ -99,7 +102,7 @@ struct ArticleView: View {
                                                     blue: Double(article.primary_b)/255))
                                         .frame(width: 100, height: 100)
                                 }
-                                .frame(width: geometry.size.width * 0.3)
+//                                .frame(width: geometry.size.width * 0.3)
                                 .padding()
                                 .border(.white, width: 4)
                                 let (r1, g1,b1) = viewModel.rgbColorFamily(color: article.primary_color_family!)
@@ -109,11 +112,9 @@ struct ArticleView: View {
                                         .fill(Color(red: r1, green: g1, blue: b1))
                                         .frame(width: 100, height: 100)
                                 }
-                                .frame(width: geometry.size.width * 0.3)
+//                                .frame(width: geometry.size.width * 0.3)
                                 .padding()
                                 .border(.white, width: 4)
-                            }
-                            HStack {
                                 if (article.secondary_color_name != nil) {
                                     VStack {
                                         Text(article.secondary_color_name!)
@@ -123,7 +124,7 @@ struct ArticleView: View {
                                                         blue: Double(article.secondary_b)/255))
                                             .frame(width: 100, height: 100)
                                     }
-                                    .frame(width: geometry.size.width * 0.3)
+//                                    .frame(width: geometry.size.width * 0.3)
                                     .padding()
                                     .border(.white, width: 4)
                                     let (r2, g2, b2) = viewModel.rgbColorFamily(color: article.secondary_color_family!)
@@ -133,7 +134,7 @@ struct ArticleView: View {
                                             .fill(Color(red: r2, green: g2, blue: b2))
                                             .frame(width: 100, height: 100)
                                     }
-                                    .frame(width: geometry.size.width * 0.3)
+//                                    .frame(width: geometry.size.width * 0.3)
                                     .padding()
                                     .border(.white, width: 4)
                                 }

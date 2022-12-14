@@ -13,7 +13,7 @@ struct OutfitErrorView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 246/255, green: 239/255, blue: 232/255)
+            Color(red: 246/255, green: 239/255, blue: 232/255).ignoresSafeArea()
             VStack {
                 Text(self.viewModel.generateOutfitMsg!)
                     .padding()
@@ -24,12 +24,8 @@ struct OutfitErrorView: View {
                     .foregroundColor(.white)
                     .padding(6)
             )
-            //.background(backgroundColor)
-            .navigationBarBackButtonHidden(true)
-            
-        }
+        }.navigationBarBackButtonHidden(true)
     }
-    
 }
 
 
