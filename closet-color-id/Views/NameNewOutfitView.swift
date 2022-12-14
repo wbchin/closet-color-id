@@ -24,11 +24,15 @@ struct NameNewOutfitView: View {
                         viewModel.renameOutfit(outfit: self.outfit, name: name)
                         showOutfitView = true
                     }
+                if showOutfitView {
+                    NavigationLink(destination: NewOutfitView(outfit: outfit, viewModel: viewModel), label: {
+                        Text("View outfit")
+                    })
+                }
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                         Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10).padding()
-//                            .frame(width: geometry.size.width * 0.75)
-                        //.accessibilityLabel("Image of article. See below for article information.")
+                        .accessibilityLabel("Image of article. See below for article information.")
                         
                     }
                 }
@@ -36,21 +40,9 @@ struct NameNewOutfitView: View {
                 .cornerRadius(15)
                 .padding(25)
                 
-                if showOutfitView {
-                    NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel), label: {
-                        Text("View outfit")
-                    })
-                }
-                
             }
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
         }
         .navigationBarBackButtonHidden(true)
     }
 }
-
-//struct nameNewOutfitView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        nameNewOutfitView()
-//    }
-//}

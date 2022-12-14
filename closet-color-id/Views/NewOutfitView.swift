@@ -1,13 +1,13 @@
 //
-//  OutfitView.swift
+//  NewOutfitView.swift
 //  closet-color-id
 //
-//  Created by Waverly Chin on 11/2/22.
+//  Created by Waverly Chin on 12/13/22.
 //
 
 import SwiftUI
 
-struct OutfitView: View {
+struct NewOutfitView: View {
     var outfit: Outfit
     let viewModel: ViewModel
     var images = [UIImage]()
@@ -51,7 +51,6 @@ struct OutfitView: View {
             UIGraphicsEndImageContext();
             return outputImage!
         }
-    
     var body: some View {
         NavigationView {
             ScrollView{
@@ -74,6 +73,7 @@ struct OutfitView: View {
             .background(Color(red: 0.96, green: 0.94, blue: 0.91))
         }.navigationTitle(self.outfit.name!)
         .navigationTitle(outfit.name!)
+        .navigationBarBackButtonHidden(true)
     }
-    
 }
+
