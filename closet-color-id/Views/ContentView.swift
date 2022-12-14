@@ -160,7 +160,8 @@ struct ContentView: View {
                             Color(red: 0.74, green: 0.64, blue: 0.55),
                             for: .tabBar)
                     }
-                }.accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                }
+                .accentColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                 if (self.isTutorial) {
                     VStack {
                         Spacer()
