@@ -28,6 +28,12 @@ struct NameNewOutfitView: View {
                     NavigationLink(destination: NewOutfitView(outfit: outfit, viewModel: viewModel), label: {
                         Text("View outfit")
                     })
+                    .font(.system(size: 20))
+                    .padding(5)
+                    .background(.white)
+                    .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                    .clipShape(Capsule())
+                    .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                 }
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
