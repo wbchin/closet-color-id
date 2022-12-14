@@ -116,6 +116,6 @@ struct GenerateOutfitView: View {
                             .textCase(.uppercase)
                     )
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
