@@ -94,7 +94,7 @@ struct ImageCaptureView: View {
                         if self.image == nil {
                             Spacer()
                             VStack (alignment: .center){
-                                Text("Want to save another article?")
+                                Text("Want to save an article?")
                                 Text("Tap the camera to take another photo.")
                             }
                             .frame(width: geometry.size.width * 0.97)
@@ -116,18 +116,19 @@ struct ImageCaptureView: View {
                             NavigationLink (
                                 destination: TagCategoryView(viewModel: viewModel, article: self.viewModel.article!),
                                 label:{
-                                    Text("Done").textCase(.uppercase)
+                                    Text("Save to wardrobe").textCase(.uppercase)
                                 }
                             )
-                            .frame(width: geometry.size.width * 0.4)
+                            .bold()
+                            .font(.system(size: 20))
+                            .frame(width: geometry.size.width * 0.7)
                             .padding(5)
                             .background(.white)
                             .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                             .clipShape(Capsule())
                             .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
                             Text("Retake picture")
-                                .textCase(.uppercase)
-                                .frame(width: geometry.size.width * 0.4)
+                                .frame(width: geometry.size.width * 0.7)
                                 .padding(5)
                                 .background(.white)
                                 .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))

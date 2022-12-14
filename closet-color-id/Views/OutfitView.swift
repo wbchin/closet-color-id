@@ -55,20 +55,11 @@ struct OutfitView: View {
     var body: some View {
         NavigationView {
             ScrollView{
-//                Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray()))
-//                Text(self.outfit.name!)
-//                    .fontWeight(.bold)
-//                    .font(.title)
-//                    .padding()
-            
                 LazyVGrid(columns: [GridItem(.flexible())]){
                     ForEach(viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
                         NavigationLink(destination: ArticleView(article: article, viewModel: viewModel)){
-                            Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().padding()
+                            Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10).padding()
                         }
-                        
-                            //.accessibilityLabel("Image of article. See below for article information.")
-
                     }
                 }
                 .background(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -77,9 +68,10 @@ struct OutfitView: View {
                 ShareLink(item: Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray())), preview: SharePreview("Outfit", image: Image(uiImage: collageImage(rect: CGRect(x: 0, y: 0, width: 200, height: 200), images: imageArray())))){
                     Label("Share outfit", systemImage:  "square.and.arrow.up")
                 }
+                Spacer()
             }
             
-
+            .background(Color(red: 0.96, green: 0.94, blue: 0.91))
         }.navigationTitle(self.outfit.name!)
 
         //NavigationLink(destination: OutfitsView(viewModel: viewModel), label: Label("Back", systemImage:  "arrow.backward")))

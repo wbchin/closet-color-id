@@ -39,61 +39,56 @@ struct OutfitsView: View {
             Color(red: 0.96, green: 0.94, blue: 0.91).ignoresSafeArea()
             NavigationView {
                 ScrollView{
-                    GeometryReader { geometry in
-                        VStack {
-                            VStack{
-                                Text("OUTFITS")
-                                    .bold()
-                                    .font(.title)
-                                HStack{
-                                    NavigationLink {
-                                        GenerateOutfitView(viewModel: viewModel)
-                                    } label: {
-                                        Text("Generate Outfit")
-                                    }
-                                    .frame(width: geometry.size.width * 0.35)
-                                    .padding(5)
-                                    .background(.white)
-                                    .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                                    .clipShape(Capsule())
-                                    .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
-                                }
+                    Spacer()
+                    VStack {
+                        VStack{
+                            Text("OUTFITS")
+                                .bold()
+                                .font(.title)
+                            NavigationLink {
+                                GenerateOutfitView(viewModel: viewModel)
+                            } label: {
+                                Text("Generate Outfit")
                             }
-                            if(self.outfits.count > 0){
-                                VStack{
-                                    LazyVGrid(columns: columns, spacing: 20){
-                                        ForEach(self.outfits, id: \.self) { outfit in
-                                            NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
-                                                LazyVGrid(columns: columns){
-                                                    ForEach(self.viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
-                                                        Image(uiImage: UIImage(data: article.image_data!)!)//UNSAFE
-                                                            .renderingMode(.original)
-                                                            .resizable()
-                                                            .scaledToFit()
-                                                            .font(.system(size: 30))
-                                                            .frame(width: 80, height: 80)
-                                                            .cornerRadius(10)
-                                                            .shadow(color: .white, radius: 5, x: 0, y: 0)
-                                                            .padding(10)
-                                                        
-                                                    }
-                                                }.background(Color(red: 0.30, green: 0.11, blue: 0.00))
-                                                //                                  .frame(width: 300, height: 300)
-                                                    .cornerRadius(15)
-                                                    .padding(5)
+                            .textCase(.uppercase)
+                            .padding(5)
+                            .background(.white)
+                            .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                            .clipShape(Capsule())
+                            .shadow(color: Color(red: 0.30, green: 0.11, blue: 0.00), radius: 5, x: 0, y: 0)
+                        }
+                        Spacer()
+                        if(self.outfits.count > 0){
+                            VStack{
+                                LazyVGrid(columns: columns){
+                                    ForEach(self.outfits, id: \.self) { outfit in
+                                        NavigationLink(destination: OutfitView(outfit: outfit, viewModel: viewModel)) {
+                                            LazyVGrid(columns: columns){
+                                                ForEach(self.viewModel.organizeOutfit(outfit: outfit)!, id: \.self){ article in
+                                                    Image(uiImage: UIImage(data: article.image_data!)!)
+                                                        .renderingMode(.original)
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(height: 70)
+                                                        .cornerRadius(10)
+                                                        .padding(10)
+                                                }
                                             }
+                                            .background(Color(red: 0.30, green: 0.11, blue: 0.00))
+                                            .cornerRadius(15)
                                         }
                                     }
                                 }
-                            } else {
-                                VStack (alignment: .leading) {
-                                    Text("No outfits.")
-                                    LazyVGrid(columns: columns, spacing: 10){}
-                                }
                             }
-                        }.padding()
+                        } else {
+                            VStack (alignment: .leading) {
+                                Text("No outfits.")
+                                LazyVGrid(columns: columns, spacing: 10){}
+                            }
+                        }
                     }
                 }
+                .padding()
 //                .navigationTitle("OUTFITS")
                 .frame(alignment: .leading)
                 .background(Color(red: 0.96, green: 0.94, blue: 0.91))

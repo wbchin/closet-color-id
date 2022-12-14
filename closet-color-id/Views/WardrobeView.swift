@@ -43,8 +43,6 @@ struct WardrobeView: View {
             if (self.isTutorial) {
                 NavigationView {
                     TutorialStartView(viewModel: viewModel, isTutorial: self.$isTutorial)
-                    
-                    //                                .navigationBarTitle("WARDROBE")
                 }
             }
             if (self.tops.count > 0){
@@ -58,7 +56,7 @@ struct WardrobeView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .font(.system(size: 30))
-                                    .frame(width: 80, height: 80)
+                                    .frame(height: 80)
                                     .cornerRadius(10)
                                     .shadow(color: .white, radius: 5, x: 0, y: 0)
                             }
@@ -76,7 +74,7 @@ struct WardrobeView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
+                                        .frame(height: 80)
                                         .cornerRadius(10)
                                         .shadow(color: .white, radius: 5, x: 0, y: 0)
                                 }
@@ -95,7 +93,7 @@ struct WardrobeView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
+                                        .frame(height: 80)
                                         .cornerRadius(10)
                                         .shadow(color: .white, radius: 5, x: 0, y: 0)
                                 }
@@ -121,7 +119,7 @@ struct WardrobeView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .font(.system(size: 30))
-                                        .frame(width: 80, height: 80)
+                                        .frame(height: 80)
                                         .cornerRadius(10)
                                         .shadow(color: .white, radius: 5, x: 0, y: 0)
                                 }
