@@ -58,6 +58,7 @@ struct WardrobeArticleView: View {
                 NavigationView {
                     ScrollView{
                         VStack{
+                            Spacer()
                             let articleStyle = article.articleStyles?.allObjects.first as! ArticleStyle
                             //                        Spacer(minLength: 10)
                             Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
