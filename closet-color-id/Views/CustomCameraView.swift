@@ -47,9 +47,3 @@ struct CustomCameraView: View {
     }
 }
 
-
-//struct CustomCameraView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CustomCameraView()
-//    }
-//}

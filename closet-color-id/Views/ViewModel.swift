@@ -100,7 +100,6 @@ class ViewModel: ObservableObject {
                 try context.save()
                 let returnVal = context.object(with:newVal.objectID) as? Article
                 arts.append(returnVal!)
-                //        arts.append(fetchArticle(article_id: newVal.value(forKey: "article_id") as! UUID)!)
                 self.article = returnVal
                 return returnVal
                 
@@ -133,7 +132,6 @@ class ViewModel: ObservableObject {
     
     func retrieveOutfitsForArticle(article: Article) -> [Outfit]? {
         var out = [Outfit]()
-        //let context = appDelegate.persistentContainer.viewContext
         let articleOutfits = article.articleOufits
         
         for case let articleOutfit as ArticleOutfit in articleOutfits!.allObjects {
@@ -304,7 +302,6 @@ class ViewModel: ObservableObject {
     
     func retrieveArticlesForOutfit(outfit: Outfit) -> [Article]? {
         var out = [Article]()
-        //let context = appDelegate.persistentContainer.viewContext
         let articleOutfits = outfit.articleOutfits
         
         for case let articleOutfit as ArticleOutfit in articleOutfits!.allObjects {

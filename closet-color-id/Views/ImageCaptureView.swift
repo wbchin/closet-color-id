@@ -186,9 +186,4 @@ private enum Localization {
     static let addPhotoTitle = NSLocalizedString("Add Photo", comment: "Button title for Add Photo")
 }
   
-  
-  //struct ImageCaptureView_Previews: PgitreviewProvider {
-  //    static var previews: some View {
-  //        ImageCaptureView()
-  //    }
-  //}
+

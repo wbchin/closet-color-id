@@ -10,7 +10,6 @@ struct ContentView: View {
     @State private var isTutorial: Bool = UserDefaults.standard.bool(forKey: "didLaunchBefore")
     @State private var tappedOnce: Bool = false
     @State private var camera = UUID()
-//    @State var capturedImage: UIImage? =  UIImage(named: "pusheen.png")
     @ObservedObject var dataPopulation = DataPopulation()
     @ObservedObject var viewModel = ViewModel()
     
@@ -65,7 +64,6 @@ struct ContentView: View {
                                     self.tappedTwice = false
                                 })
                                 
-//                                .navigationBarTitle("WARDROBE")
                         }
                         .tabItem {
                             Image(systemName: "tshirt").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -87,14 +85,6 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-//                                .toolbar {
-//                                    Button(action: {
-//                                        self.isTutorial = true
-//                                    }) {
-//                                        Image(systemName: "info.circle")
-//                                    }
-//                                }
-//                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "tshirt").background(Color(red: 0.30, green: 0.11, blue: 0.00))
                             Text("Wardrobe").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -141,7 +131,6 @@ struct ContentView: View {
                                     wardrobe = UUID()
                                     self.tappedTwice = false
                                 })
-//                                .navigationBarTitle("WARDROBE")
                         }.tabItem {
                             Image(systemName: "door.french.closed").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                             Text("Outfits").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
@@ -160,7 +149,6 @@ struct ContentView: View {
                                     outfits = UUID()
                                     self.tappedTwice = false
                                 })
-//                                .navigationBarTitle("OUTFITS")
                         }
                         .tabItem {
                             Image(systemName: "door.french.closed").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))

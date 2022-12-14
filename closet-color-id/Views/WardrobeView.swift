@@ -9,10 +9,7 @@ struct WardrobeView: View {
     @State var footwear: [Article] = [Article]()
     @State var outerwear: [Article] = [Article]()
     @Binding var isTutorial: Bool
-//    @State var isTutorial: Bool = false
-//    @State var tutorialCalled: Bool = false
     func populateCats() {
-        //self.viewModel.updateArticles()
         self.tops = self.viewModel.fetchCatArts(category: "top")
         self.bottoms = self.viewModel.fetchCatArts(category: "bottom")
         self.footwear = self.viewModel.fetchCatArts(category: "footwear")
@@ -23,7 +20,6 @@ struct WardrobeView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-//    let backgroundColor : Color = Color(red: 246/255, green: 239/255, blue: 232/255)
     var body: some View {
         ScrollView{
             Spacer()
@@ -140,13 +136,11 @@ struct WardrobeView: View {
             self.populateCats()
           })
           .padding(.horizontal)
-      //            .navigationBarTitle("WARDROBE")
           .frame(alignment: .leading)
           .background(Color(red: 0.96, green: 0.94, blue: 0.91))
     }
-        
-//            .toolbarBackground(Color(red: 0.74, green: 0.64, blue: 0.55), for: .navigationBar)
-}//.navigationBarBackButtonHidden(true)
+
+}
 
 
 

@@ -25,7 +25,6 @@ struct OutfitsView: View {
         self.athletic = self.viewModel.fetchStyleArts(style: self.viewModel.fetchStyle(name: "athletic")!)!
     }
     func addRow() {
-        //    self.outfits.append("New Outfit")
         let viewModel: ViewModel
         var outfits : [Outfit]? {
             get {
@@ -102,66 +101,5 @@ struct OutfitsView: View {
             }
         }
     }
-//    let exampleColor : Color = Color(red: 0.5, green: 0.8, blue: 0.5)
-//  var sym = [["pusheen", "shirt 2", "pusheen", "shirt 3"]]
-//  @State private var outfits = ["pink tee", "green tee", "black tee"]
-  // must be internal or public.
-  
-//  var body: some View {
-//    NavigationView{
-//      Button(action: {
-//        // wait 5 seconds to generate outfit
-//
-//        //self.viewModel.generateOutfitStyle = self.dataPopulation.fetchStyle(name: "professional")!
-//        //self.viewModel.genrateOutfitName = "Professional"
-////        _ = Timer.scheduledTimer(timeInterval: 4, target: self.viewModel, selector: #selector(self.viewModel.generateOutfit(sender:)), userInfo: ["professional", "interview"], repeats: true)
-//
-//        self.viewModel.generateOutfit(style: "professional", name: "Interview")
-//      }, label: {
-//          Text("Generate Professional Outfit")
-//      })
-//      Text("").onAppear(perform: {
-//        let _ = print("outfits: ")
-////        let _ = print((self.viewModel.fetchOutfits()!.first!.articleOutfits!.first as! ArticleOutfit).article?.primary_color_family)
-////        let _ = print(self.viewModel.retrieveArticlesForOutfit(outfit: self.viewModel.outfit!))
-//      })
-//      ScrollView{
-//        Text("Tops")
-//        LazyVGrid(columns: columns, spacing: 5){
-////          ForEach(sym, id: \.self) { array in
-////            ForEach(array, id: \.self) {top in
-////              Image(uiImage: UIImage(named: top)!)
-////                .renderingMode(.original)
-////                .resizable()
-////                .scaledToFit()
-////                .font(.system(size: 30))
-////                .frame(width: 80, height: 80)
-////                .cornerRadius(10)
-////            }
-////
-////
-////          }
-//        }
-//
-//      }
-//      .navigationBarTitle("OUTFITS")
-//      .frame(alignment: .leading)
-//      .background(Color(red: 0.96, green: 0.94, blue: 0.91))
-//      .navigationBarItems(trailing: Button(action: {
-//        self.addRow()
-//      }) {
-//        Image(systemName: "shirt")
-//      })
-//    }
-//
-//
-//  }
-    
-
   }
   
-  //struct OutfitsView_Previews: PreviewProvider {
-  //    static var previews: some View {
-  //        OutfitsView()
-  //    }
-  //}

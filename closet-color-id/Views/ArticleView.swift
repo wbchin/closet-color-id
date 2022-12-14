@@ -65,24 +65,27 @@ struct ArticleView: View {
                         Image(uiImage: UIImage(data: article.image_data!)!).resizable().scaledToFit().cornerRadius(10)
                             .accessibilityLabel("Image of article. See below for article information.").frame(width: geometry.size.width * 0.75)
                         Text("clothing tags").foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                        HStack {
-                            Text(article.category!)
-                                .padding()
-                                .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                                .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
-                                .background(.white)
-                            Text(article.subcategory!)
-                                .padding()
-                                .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
-                                .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
-                                .background(.white)
+                        VStack{
+                            HStack {
+                                Text(article.category!)
+                                    .padding()
+                                    .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                                    .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                                    .background(.white)
+                                Text(article.subcategory!)
+                                    .padding()
+                                    .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
+                                    .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
+                                    .background(.white)
+                                
+                            }
                             Text((articleStyle.style?.name!)!)
                                 .padding()
                                 .foregroundColor(Color(red: 0.30, green: 0.11, blue: 0.00))
                                 .border(Color(red: 0.30, green: 0.11, blue: 0.00), width: 2)
                                 .background(.white)
-                        }
-                        .font(.system(size: 15))
+                        }.font(.system(size: 15))
+                        
                         VStack {
                             Text("pair with your closet")
                             if comp_article == nil {
@@ -102,7 +105,6 @@ struct ArticleView: View {
                                                     blue: Double(article.primary_b)/255))
                                         .frame(width: 100, height: 100)
                                 }
-//                                .frame(width: geometry.size.width * 0.3)
                                 .padding()
                                 .border(.white, width: 4)
                                 let (r1, g1,b1) = viewModel.rgbColorFamily(color: article.primary_color_family!)
@@ -112,7 +114,6 @@ struct ArticleView: View {
                                         .fill(Color(red: r1, green: g1, blue: b1))
                                         .frame(width: 100, height: 100)
                                 }
-//                                .frame(width: geometry.size.width * 0.3)
                                 .padding()
                                 .border(.white, width: 4)
                                 if (article.secondary_color_name != nil) {
@@ -124,7 +125,6 @@ struct ArticleView: View {
                                                         blue: Double(article.secondary_b)/255))
                                             .frame(width: 100, height: 100)
                                     }
-//                                    .frame(width: geometry.size.width * 0.3)
                                     .padding()
                                     .border(.white, width: 4)
                                     let (r2, g2, b2) = viewModel.rgbColorFamily(color: article.secondary_color_family!)
