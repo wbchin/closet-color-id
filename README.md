@@ -31,6 +31,7 @@ Collect more accurate colors because currently, the primary colors are selected 
 
 Continue to work on sharing outfits
 Users can share their outfits through messages (the application will generate a photo, and then users can message these photos to each other)
+
 ###B Level
 Continue to work on letting users click on the suggested pairing
 The second type of view page for seeing an article that pairs with an article already being viewed. 
