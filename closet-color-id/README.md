@@ -15,3 +15,26 @@ The only file we test in this application is the ViewModel. Using CoreData, all 
 
 
 
+## Use cases
+### A Level
+Create set-up tutorial
+Tutorial to explain the app for first time users
+
+
+Get the SV from HSV to refine
+Utilize the saturation and vibrance levels of a given color to better extract the color family for a more accurate description of the article of clothing
+
+
+Only take a square from the center of the pic to ID the colors
+Collect more accurate colors because currently, the primary colors are selected based off of the most common hex, which is often the background.
+
+
+Continue to work on sharing outfits
+Users can share their outfits through messages (the application will generate a photo, and then users can message these photos to each other)
+###B Level
+Continue to work on letting users click on the suggested pairing
+The second type of view page for seeing an article that pairs with an article already being viewed. 
+
+
+Explain it in tutorial
+Users will read in the tutorial that if the image of their article of clothing is too badly lit or blurry/out of focus
